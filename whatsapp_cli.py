@@ -71,7 +71,8 @@ def process_queue():
                     exp_c.staleness_of(contact_header)
                 )
             except TimeoutException:
-                exit(0)
+                session.restart_connection()
+                continue
             finally:
                 print('Page refreshed')
 
@@ -82,7 +83,8 @@ def process_queue():
             content.send_keys(message)
             print('Sending message to ' + number)
         except TimeoutException:
-            exit(0)
+            session.restart_connection()
+            continue
         finally:
             pass
 
@@ -93,7 +95,8 @@ def process_queue():
             send_button.click()
             print('Message sent to ' + number)
         except TimeoutException:
-            exit(0)
+            session.restart_connection()
+            continue
         finally:
             pass
 
@@ -104,7 +107,8 @@ def process_queue():
             attach.click()
             print('Attaching file for ' + number)
         except TimeoutException:
-            exit(0)
+            session.restart_connection()
+            continue
         finally:
             pass
 
@@ -117,7 +121,8 @@ def process_queue():
             file.send_keys("/home/bscholtz/Music/Scottish_Motivation_2_Promise_Yourself.mp3")
             print('File attached for ' + number)
         except TimeoutException:
-            exit(0)
+            session.restart_connection()
+            continue
         finally:
             pass
 
@@ -136,7 +141,8 @@ def process_queue():
             )
             print('Attachment sent to ' + number)
         except TimeoutException:
-            exit(0)
+            session.restart_connection()
+            continue
         finally:
             pass
 

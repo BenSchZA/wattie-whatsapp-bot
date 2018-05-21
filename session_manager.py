@@ -117,7 +117,7 @@ class SessionManager:
         except (WebDriverException, NoSuchWindowException):
             return False
 
-    def _restart_connection(self):
+    def restart_connection(self):
         self.driver.quit()
         self.__init__()
 
@@ -129,7 +129,7 @@ class SessionManager:
 
             if not active_connection:
                 print("Restarting connection")
-                self._restart_connection()
+                self.restart_connection()
 
             threading.Timer(10, self.monitor_connection).start()
 
