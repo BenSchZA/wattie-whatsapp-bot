@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 
 import json
+import time
+import threading
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.common.exceptions import SessionNotCreatedException
+from selenium.common.exceptions import NoSuchWindowException
+from selenium.common.exceptions import WebDriverException
 from urllib.error import URLError
 
 TIMEOUT = 30
@@ -107,10 +111,34 @@ class SessionManager:
 
         return new_driver
 
+    def connection_okay(self):
+        try:
+            return 'whatsapp' in self.driver.current_url
+        except (WebDriverException, NoSuchWindowException):
+            return False
+
+    def _restart_connection(self):
+        self.driver.quit()
+        self.__init__()
+
+    def monitor_connection(self):
+            print("\nChecking connection @ " + time.ctime())
+
+            active_connection = self.connection_okay()
+            print("Active connection: " + str(active_connection))
+
+            if not active_connection:
+                print("Restarting connection")
+                self._restart_connection()
+
+            threading.Timer(10, self.monitor_connection).start()
+
 
 if __name__ == "__main__":
     # If you call this script from the command line (the shell) it will
     # run the 'main' function
     print("Starting Firefox session manager")
     session = SessionManager()
-    input("Press enter to exit - keep running for session to stay active")
+    print("Starting session monitor")
+    session.monitor_connection()
+    input("Press enter to exit - keep running for session to stay active\n")
