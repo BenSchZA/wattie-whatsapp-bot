@@ -71,12 +71,12 @@ class SessionManager:
             'session_id': session_id
         }}
 
-        with open('session.txt', 'w+') as outfile:
+        with open('session.data', 'w+') as outfile:
             json.dump(self.previous_session, outfile)
 
     def _fetch_session(self):
         try:
-            with open('session.txt') as json_file:
+            with open('session.data') as json_file:
                 self.previous_session = json.load(json_file)
         except FileNotFoundError:
             pass
