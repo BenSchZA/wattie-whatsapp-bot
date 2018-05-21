@@ -3,6 +3,7 @@
 import session_manager as session
 
 import argparse
+import time
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as exp_c
@@ -25,6 +26,15 @@ message = args.message
 phone_numbers = args.numbers
 
 
+def wait_until(some_predicate, timeout, period=0.5, *args, **kwargs):
+    must_end = time.time() + timeout
+    while time.time() < must_end:
+        if some_predicate(*args, **kwargs):
+            return True
+        time.sleep(period)
+    return False
+
+
 def handle_alert():
     print("Processing alert")
     try:
@@ -38,6 +48,9 @@ def handle_alert():
 def process_queue():
     print("Processing queue...")
     for number in phone_numbers:
+        print('Ensuring connection okay')
+        wait_until(session.connection_okay(), TIMEOUT)
+
         print('Processing number ' + number)
 
         contact_header = None
