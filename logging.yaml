@@ -1,0 +1,82 @@
+# https://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/
+
+---
+version: 1
+disable_existing_loggers: False
+formatters:
+    simple:
+        format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: simple
+        stream: ext://sys.stdout
+
+    email_reporting:
+        class: smtps_handler.SMTPSHandler
+        formatter: simple
+        level: CRITICAL
+        mailhost:
+          - smtp.gmail.com
+          - 465
+        fromaddr: ***REMOVED***
+        toaddrs: ***REMOVED***
+        subject: Wattie Critical Error
+        credentials:
+          - ***REMOVED***
+          - letsgetstarted!@#
+        secure: True
+
+    session_info_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: DEBUG
+        formatter: simple
+        filename: logs/session_info.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
+    session_error_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: ERROR
+        formatter: simple
+        filename: logs/session_errors.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
+    cli_info_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: DEBUG
+        formatter: simple
+        filename: logs/cli_info.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
+    cli_error_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: ERROR
+        formatter: simple
+        filename: logs/cli_errors.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
+loggers:
+    session_manager:
+        level: DEBUG
+        handlers: [console, email_reporting, session_info_file_handler, session_error_file_handler]
+        propagate: no
+    whatsapp_cli:
+        level: DEBUG
+        handlers: [console, email_reporting, cli_info_file_handler, cli_error_file_handler]
+        propagate: no
+
+root:
+    level: INFO
+    handlers: [console, email_reporting, session_info_file_handler, cli_info_file_handler,
+    session_error_file_handler, cli_error_file_handler]
+...

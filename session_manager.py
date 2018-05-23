@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import json
-import time
 import threading
+import log_manager
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -21,8 +21,10 @@ class SessionManager:
 
     def __init__(self) -> None:
         super().__init__()
+        log_manager.setup_logging()
+        self.logger = log_manager.get_logger('session_manager')
 
-        print('Fetching Firefox session...')
+        self.logger.info('Fetching Firefox session...')
 
         self.previous_session = {}
 
@@ -34,21 +36,21 @@ class SessionManager:
             self.session_id = self.session['session_id']
             self.executor_url = self.session['executor_url']
 
-            print('Session exists')
-            print('Session ID: ' + self.session_id)
+            self.logger.info('Session exists')
+            self.logger.debug('Session ID: ' + self.session_id)
 
             self.driver = self._create_driver_session(self.session_id, self.executor_url)
 
         try:
             # If previous session does exist, reuse session
             self.driver.get('https://web.whatsapp.com/')
-        except (SessionNotCreatedException, ConnectionRefusedError, URLError) as e:
+        except (SessionNotCreatedException, ConnectionRefusedError, URLError):
             # If previous session does not exist, create a new session
-            print('Connection refused: ' + str(e))
+            self.logger.exception('Connection refused')
             self._create_new_driver_session()
 
     def _create_new_driver_session(self):
-        print('Creating new session...')
+        self.logger.info('Creating new session...')
         driver = webdriver.Firefox(firefox_binary=binary)
 
         driver.get('https://web.whatsapp.com/')
@@ -57,8 +59,8 @@ class SessionManager:
         self.executor_url = driver.command_executor._url
         self._save_session(self.session_id, self.executor_url)
 
-        print('New session created')
-        print('Session ID: ' + self.session_id)
+        self.logger.info('New session created')
+        self.logger.debug('Session ID: ' + self.session_id)
 
         self.driver = driver
 
@@ -115,6 +117,8 @@ class SessionManager:
         try:
             return 'whatsapp' in self.driver.current_url
         except (WebDriverException, NoSuchWindowException):
+            self.logger.exception("Connection okay exception")
+            self.logger.critical("Connection down")
             return False
 
     def restart_connection(self):
@@ -122,13 +126,13 @@ class SessionManager:
         self.__init__()
 
     def monitor_connection(self):
-            print("\nChecking connection @ " + time.ctime())
+            self.logger.info('Checking connection')
 
             active_connection = self.connection_okay()
-            print("Active connection: " + str(active_connection))
+            self.logger.debug("Active connection: " + str(active_connection))
 
             if not active_connection:
-                print("Restarting connection")
+                self.logger.info("Restarting connection")
                 self.restart_connection()
 
             threading.Timer(10, self.monitor_connection).start()
