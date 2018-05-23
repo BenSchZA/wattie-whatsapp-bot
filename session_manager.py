@@ -3,6 +3,7 @@
 import json
 import threading
 import log_manager
+import uptime_manager
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -21,13 +22,13 @@ class SessionManager:
 
     def __init__(self) -> None:
         super().__init__()
+
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
 
         self.logger.info('Fetching Firefox session...')
 
         self.previous_session = {}
-
         self._fetch_session()
 
         self.driver = None
@@ -48,6 +49,8 @@ class SessionManager:
             # If previous session does not exist, create a new session
             self.logger.exception('Connection refused')
             self._create_new_driver_session()
+        finally:
+            uptime_manager.process_up(self)
 
     def _create_new_driver_session(self):
         self.logger.info('Creating new session...')
@@ -122,18 +125,26 @@ class SessionManager:
             return False
 
     def restart_connection(self):
-        self.driver.quit()
+        self.logger.info("Restarting connection")
+        try:
+            self.driver.quit()
+        except SessionNotCreatedException:
+            pass
         self.__init__()
 
     def monitor_connection(self):
             self.logger.info('Checking connection')
 
+            self.logger.info('Uptime: ' + str(uptime_manager.get_uptime_percent(self)) + '%')
+
             active_connection = self.connection_okay()
             self.logger.debug("Active connection: " + str(active_connection))
 
             if not active_connection:
-                self.logger.info("Restarting connection")
                 self.restart_connection()
+                uptime_manager.process_down(self)
+            else:
+                uptime_manager.process_up(self)
 
             threading.Timer(10, self.monitor_connection).start()
 
