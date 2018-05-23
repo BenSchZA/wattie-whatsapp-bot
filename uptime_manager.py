@@ -29,7 +29,7 @@ def get_uptime(context):
                 if status == 'up':
                     interval = millis - last_millis
                     if last_millis == 0:
-                        interval = 10
+                        interval = 10000
                     uptime += interval
                     last_millis = millis
                 else:
@@ -50,7 +50,7 @@ def get_downtime(context):
                 if status == 'down':
                     interval = millis - last_millis
                     if last_millis == 0:
-                        interval = 10
+                        interval = 10000
                     downtime += interval
                     last_millis = millis
                 else:
