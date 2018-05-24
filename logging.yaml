@@ -47,6 +47,24 @@ handlers:
         backupCount: 20
         encoding: utf8
 
+    file_info_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: DEBUG
+        formatter: simple
+        filename: logs/file_info.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
+    file_error_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: ERROR
+        formatter: simple
+        filename: logs/file_errors.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
     cli_info_file_handler:
         class: logging.handlers.RotatingFileHandler
         level: DEBUG
@@ -70,6 +88,10 @@ loggers:
         level: DEBUG
         handlers: [console, email_reporting, session_info_file_handler, session_error_file_handler]
         propagate: no
+    file_manager:
+        level: DEBUG
+        handlers: [console, email_reporting, file_info_file_handler, file_error_file_handler]
+        propagate: no
     whatsapp_cli:
         level: DEBUG
         handlers: [console, email_reporting, cli_info_file_handler, cli_error_file_handler]
@@ -77,6 +99,13 @@ loggers:
 
 root:
     level: INFO
-    handlers: [console, email_reporting, session_info_file_handler, cli_info_file_handler,
-    session_error_file_handler, cli_error_file_handler]
+    handlers: [
+    console,
+    email_reporting,
+    session_info_file_handler,
+    session_error_file_handler,
+    file_info_file_handler,
+    file_error_file_handler,
+    cli_info_file_handler,
+    cli_error_file_handler]
 ...
