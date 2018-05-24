@@ -21,18 +21,10 @@ TIMEOUT = 30
 
 session = session.SessionManager()
 driver = session.get_driver()
+# session.save_cookies()
 
 message = args.message
 phone_numbers = args.numbers
-
-
-def wait_until(some_predicate, timeout, period=0.5, *args, **kwargs):
-    must_end = time.time() + timeout
-    while time.time() < must_end:
-        if some_predicate(*args, **kwargs):
-            return True
-        time.sleep(period)
-    return False
 
 
 def handle_alert():
@@ -49,7 +41,7 @@ def process_queue():
     print("Processing queue...")
     for number in phone_numbers:
         print('Ensuring connection okay')
-        wait_until(session.connection_okay(), TIMEOUT)
+        session.wait_until_connection_okay()
 
         print('Processing number ' + number)
 

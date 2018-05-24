@@ -1,4 +1,9 @@
+import session_manager
+
 import logging.handlers
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
 
 
 class SMTPSHandler(logging.handlers.SMTPHandler):
@@ -18,8 +23,20 @@ class SMTPSHandler(logging.handlers.SMTPHandler):
             if not port:
                 port = smtplib.SMTP_SSL_PORT
             smtp = smtplib.SMTP_SSL(self.mailhost, port, timeout=5)
-            msg = self.format(record)
-            msg = "From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\n\r\n%s" % (self.fromaddr, ", ".join(self.toaddrs), self.getSubject(record), formatdate(), msg)
+
+            msg = MIMEMultipart()
+            msg['Subject'] = self.getSubject(record)
+            msg['From'] = self.fromaddr
+            msg['To'] = self.toaddrs
+            msg['Date'] = formatdate()
+
+            session = session_manager.SessionManager()
+            image_data = session.get_screenshot()
+            text = MIMEText('Screenshot attached')
+            msg.attach(text)
+            image = MIMEImage(image_data, 'screenshot.png')
+            msg.attach(image)
+
             if self.username:
                 # smtp.ehlo()
                 # smtp.starttls()  # for tls add this line context=context

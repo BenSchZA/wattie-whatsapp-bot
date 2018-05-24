@@ -4715,3 +4715,193 @@ JavaScript error: chrome://marionette/content/listener.js, line 464: TypeError: 
 1527106159647	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.eH32aEde2mrb"
 1527106161017	Marionette	INFO	Listening on port 43529
 1527106161065	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527163641447	geckodriver	INFO	geckodriver 0.20.0
+1527163641455	geckodriver	INFO	Listening on 127.0.0.1:34845
+1527163642570	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.dEALUBFJvXa6"
+1527163644556	Marionette	INFO	Listening on port 43963
+1527163644602	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 4471, Gecko_IOThread] WARNING: pipe error (153): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1527165121225	geckodriver	INFO	geckodriver 0.20.0
+1527165121228	geckodriver	INFO	Listening on 127.0.0.1:51849
+1527165122270	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.rFrUFuRORhhL"
+1527165123836	Marionette	INFO	Listening on port 40071
+1527165123882	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/devtools.js, line 690: TypeError: inspector.selection is undefined
+1527165753696	geckodriver	INFO	geckodriver 0.20.0
+1527165753700	geckodriver	INFO	Listening on 127.0.0.1:40205
+1527165754734	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.WV2dEiimnYHt"
+1527165756254	Marionette	INFO	Listening on port 35971
+1527165756357	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/devtools.js, line 690: TypeError: inspector.selection is undefined
+1527165966793	geckodriver	INFO	geckodriver 0.20.0
+1527165966797	geckodriver	INFO	Listening on 127.0.0.1:46029
+1527165967838	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.f9vujbmQr6TM"
+1527165969310	Marionette	INFO	Listening on port 39601
+1527165969357	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527166072154	geckodriver	INFO	geckodriver 0.20.0
+1527166072157	geckodriver	INFO	Listening on 127.0.0.1:53277
+1527166073199	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.Ordf3zzLkVBW"
+1527166074798	Marionette	INFO	Listening on port 39111
+1527166074809	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/devtools.js, line 690: TypeError: inspector.selection is undefined
+[Parent 9542, Gecko_IOThread] WARNING: pipe error (130): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1527166164351	geckodriver::marionette	ERROR	Failed to stop browser process
+1527166171972	geckodriver	INFO	geckodriver 0.20.0
+1527166171976	geckodriver	INFO	Listening on 127.0.0.1:34845
+1527166173015	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.6ZvWM8ii9xL7"
+1527166174505	Marionette	INFO	Listening on port 35157
+1527166174534	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527166320124	geckodriver	INFO	geckodriver 0.20.0
+1527166320128	geckodriver	INFO	Listening on 127.0.0.1:49775
+1527166321169	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.93aA0onRIfZ5"
+1527166322680	Marionette	INFO	Listening on port 33727
+1527166322779	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/stylesheets.js, line 164: TypeError: content.text is undefined
+console.error: (new TypeError("content.text is undefined", "resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/stylesheets.js", 164))
+fetchStylesheetFromNetworkMonitor@resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/stylesheets.js:164:1
+fetchStylesheet@resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/stylesheets.js:217:16
+getSheetText@resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/stylesheets.js:140:10
+_getText@resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/stylesheets.js:506:12
+getText@resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/stylesheets.js:489:12
+getAuthoredCssText@resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/styles.js:1262:12
+getApplied@resource://devtools/shared/base-loader.js -> resource://devtools/server/actors/styles.js:472:13
+console.error: "Protocol error (unknownError): content.text is undefined"
+console.error: "Protocol error (unknownError): content.text is undefined"
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1527166471612	geckodriver::marionette	ERROR	Failed to stop browser process
+1527166474555	geckodriver	INFO	geckodriver 0.20.0
+1527166474559	geckodriver	INFO	Listening on 127.0.0.1:59263
+1527166475599	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.HGYu12UL2Lqz"
+1527166477101	Marionette	INFO	Listening on port 40049
+1527166477109	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://web.whatsapp.com/progress.28f0b7cfe7488ea5869dcf4bbc53c13d.js, line 2: NS_ERROR_NOT_INITIALIZED: 
+[Parent 8344, Gecko_IOThread] WARNING: pipe error (127): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8344, Gecko_IOThread] WARNING: pipe error (108): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1527166590025	geckodriver	INFO	geckodriver 0.20.0
+1527166590029	geckodriver	INFO	Listening on 127.0.0.1:40087
+1527166591069	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.vQLnmArNR6SN"
+1527166592595	Marionette	INFO	Listening on port 38189
+1527166592696	Marionette	WARN	TLS certificate errors will be ignored for this session
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1527166730626	geckodriver	INFO	geckodriver 0.20.0
+1527166730630	geckodriver	INFO	Listening on 127.0.0.1:52339
+1527166731671	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.49bAfJBpQHzB"
+1527166733179	Marionette	INFO	Listening on port 34449
+1527166733188	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 25419, Gecko_IOThread] WARNING: pipe error (88): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 25419, Gecko_IOThread] WARNING: pipe error (131): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1527167004087	geckodriver::marionette	ERROR	Failed to stop browser process
+1527167004165	geckodriver	INFO	geckodriver 0.20.0
+1527167004169	geckodriver	INFO	Listening on 127.0.0.1:44493
+1527167005207	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.j1OlkVeJaMtu"
+1527167006670	Marionette	INFO	Listening on port 34715
+1527167006725	Marionette	WARN	TLS certificate errors will be ignored for this session
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Parent 13365, Gecko_IOThread] WARNING: pipe error (129): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1527167266376	geckodriver::marionette	ERROR	Failed to stop browser process
+1527167269245	geckodriver	INFO	geckodriver 0.20.0
+1527167269249	geckodriver	INFO	Listening on 127.0.0.1:47863
+1527167270291	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.0fEWNatMhASE"
+1527167271696	Marionette	INFO	Listening on port 35487
+1527167271703	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527167683297	geckodriver::marionette	ERROR	Failed to stop browser process
+1527167685905	geckodriver	INFO	geckodriver 0.20.0
+1527167685909	geckodriver	INFO	Listening on 127.0.0.1:44339
+1527167686949	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.ZdUREXhMNo6p"
+1527167688344	Marionette	INFO	Listening on port 45621
+1527167688364	Marionette	WARN	TLS certificate errors will be ignored for this session
