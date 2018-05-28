@@ -13,7 +13,8 @@ from selenium.common.exceptions import *
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--message', help='send message', type=str, required=True)
-parser.add_argument('--numbers', nargs='+', help='to numbers', required=True)
+parser.add_argument('--number', nargs='+', help='to number', required=True)
+parser.add_argument('--media', nargs='+', help='media attachment', required=True)
 
 args = parser.parse_args()
 
@@ -23,11 +24,12 @@ session = session.SessionManager()
 driver = session.get_driver()
 # session.save_cookies()
 
+phone_numbers = args.number
 message = args.message
-phone_numbers = args.numbers
+media = args.media
 
 
-def handle_alert():
+def _handle_alert():
     print("Processing alert")
     try:
         alert = driver.switch_to.alert
@@ -37,7 +39,7 @@ def handle_alert():
         pass
 
 
-def process_queue():
+def _process_queue():
     print("Processing queue...")
     for number in phone_numbers:
         print('Ensuring connection okay')
@@ -110,7 +112,7 @@ def process_queue():
             WebDriverWait(driver, TIMEOUT).until(
                 exp_c.visibility_of(file)
             )
-            file.send_keys("/home/bscholtz/Music/Scottish_Motivation_2_Promise_Yourself.mp3")
+            file.send_keys(media)
             print('File attached for ' + number)
         except TimeoutException:
             session.restart_connection()
@@ -140,7 +142,7 @@ def process_queue():
 
 
 try:
-    process_queue()
+    _process_queue()
 except UnexpectedAlertPresentException as e:
     print("UnexpectedAlertPresentException: " + str(e))
-    handle_alert()
+    _handle_alert()
