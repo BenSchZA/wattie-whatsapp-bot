@@ -4,6 +4,7 @@ import logging.handlers
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
+from email.message import Message
 
 
 class SMTPSHandler(logging.handlers.SMTPHandler):
@@ -27,7 +28,7 @@ class SMTPSHandler(logging.handlers.SMTPHandler):
             msg = MIMEMultipart()
             msg['Subject'] = self.getSubject(record)
             msg['From'] = self.fromaddr
-            msg['To'] = self.toaddrs
+            msg['To'] = self.toaddrs[0]
             msg['Date'] = formatdate()
 
             session = session_manager.SessionManager()
@@ -42,7 +43,8 @@ class SMTPSHandler(logging.handlers.SMTPHandler):
                 # smtp.starttls()  # for tls add this line context=context
                 smtp.ehlo()
                 smtp.login(self.username, self.password)
-            smtp.sendmail(self.fromaddr, self.toaddrs, msg)
+            smtp.sendmail(self.fromaddr, [self.toaddrs], msg.as_string())
+
             smtp.quit()
         except (KeyboardInterrupt, SystemExit):
             raise

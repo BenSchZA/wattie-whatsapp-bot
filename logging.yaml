@@ -19,14 +19,14 @@ handlers:
         formatter: simple
         level: CRITICAL
         mailhost:
-          - smtp.gmail.com
+          - smtp.sendgrid.net
           - 465
         fromaddr: ***REMOVED***
         toaddrs: ***REMOVED***
         subject: Wattie Critical Error
         credentials:
+          - apikey
           - ***REMOVED***
-          - letsgetstarted!@#
         secure: True
 
     session_info_file_handler:
