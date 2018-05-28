@@ -4,6 +4,7 @@ import json
 import threading
 import log_manager
 import uptime_manager
+from schedule_manager import ScheduleManager
 import time
 
 from selenium import webdriver
@@ -26,6 +27,8 @@ class SessionManager:
 
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
+
+        self.schedule_manager = ScheduleManager()
 
         self.logger.info('Fetching Firefox session...')
 
@@ -177,13 +180,17 @@ class SessionManager:
             self.logger.info('Uptime: ' + str(uptime_manager.get_uptime_percent(self)) + '%')
 
             active_connection = self.connection_okay()
-            self.logger.debug("Active connection: " + str(active_connection))
+            self.logger.debug("Active connection: %r" % active_connection)
+            self.logger.debug("Handler running: %r" % self.schedule_manager.handler_running)
 
             if not active_connection:
                 self.restart_connection()
                 uptime_manager.process_down(self)
             else:
                 uptime_manager.process_up(self)
+                # Process scheduled deliveries
+                if not self.schedule_manager.handler_running:
+                    self.schedule_manager.handle_schedules()
 
             threading.Timer(10, self.monitor_connection).start()
 
