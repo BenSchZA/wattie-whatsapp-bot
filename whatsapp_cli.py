@@ -130,15 +130,17 @@ def _process_queue():
             WebDriverWait(driver, TIMEOUT).until(
                 exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
             )
-            WebDriverWait(driver, TIMEOUT).until(
+            WebDriverWait(driver, TIMEOUT*10).until(
                 exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
             )
             print('Attachment sent to ' + number)
+            exit(0)
         except TimeoutException:
             session.restart_connection()
             continue
         finally:
             pass
+    exit(1)
 
 
 try:
