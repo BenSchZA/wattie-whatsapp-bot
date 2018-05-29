@@ -48,16 +48,17 @@ class FileManager:
                 raise
 
     def download_and_schedule(self):
-        firebase_scheduled = self.firebase.get_scheduled_deliveries_hour()
+        firebase_scheduled = self.firebase.get_scheduled_***REMOVED***s()
 
         for user in firebase_scheduled:
             # Parse url and create path for download
-            url = user.***REMOVED***_url
+            url = user.***REMOVED***.audio_url
 
             parsed = urlparse(url)
-            filename = os.path.basename(parsed.path)
+            # filename = os.path.basename(parsed.path)
+            filename = user.***REMOVED***.id + '.mp3'
             pwd = os.getcwd()
-            directory = pwd + DOWNLOADS + '/' + user.uid
+            directory = pwd + '/' + DOWNLOADS + '/' + user.uid
             path = os.path.join(directory, filename)
 
             # Create directory structure and download file
@@ -71,10 +72,11 @@ class FileManager:
         # Create download_collection object for insertion into database
         delivered = False
         download = {
+            'id': user.***REMOVED***.id,
             'uid': user.uid,
-            'name': user.name,
+            'name': user.username,
             'number': user.number,
-            'url': user.***REMOVED***_url,
+            'url': user.***REMOVED***.audio_url,
             'path': path,
             'scheduled_millis': user.get_user_scheduled_time_millis_utc(),
             'delivered': delivered,
@@ -88,7 +90,7 @@ class FileManager:
             self.logger.info('File downloaded & stored in database with ID ' + str(download_id))
             return download_id
         except WriteError as e:
-            self.logger.info('Entry exists for user %s & url %s' % (user.uid, user.***REMOVED***_url))
+            self.logger.info('Entry exists for user %s & url %s' % (user.uid, user.***REMOVED***.audio_url))
             return None
 
     def _get_download_entry_for_uid(self, uid):
@@ -111,6 +113,7 @@ class FileManager:
             }})
 
     def mark_delivered(self, uid):
+        self.firebase.mark_***REMOVED***_delivered_now(uid)
         self.downloads_collection.update_one(
             {"uid": uid},
             {"$set": {

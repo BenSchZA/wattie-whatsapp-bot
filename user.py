@@ -4,20 +4,28 @@ from datetime import timezone
 
 class User:
 
-    def __init__(self, user_dict) -> None:
+    def __init__(self, user_dict, ***REMOVED***_dict, ***REMOVED***_id='') -> None:
         super().__init__()
         self.uid = user_dict['uid']
-        self.name = user_dict['name']
-        self.cell_cc = user_dict['cell_cc']
-        self.cell_number = user_dict['cell_number']
-        self.number = self.cell_cc + self.cell_number
-        self.***REMOVED***_delivered_time_utc = user_dict['***REMOVED***_delivered_time_utc']
-        self.***REMOVED***_scheduled_time_utc = user_dict['***REMOVED***_scheduled_time_utc']
-        self.***REMOVED***_url = user_dict['***REMOVED***_url']
+        self.username = user_dict['username']
+        self._mobile_num_prefix = user_dict['mobileNumPrefix']
+        self._mobile_num = user_dict['mobileNum']
+        self.number = self._mobile_num_prefix + self._mobile_num
+        self.active_subscription = user_dict['activeSubscription']
+        self.***REMOVED*** = self.***REMOVED***(***REMOVED***_id=***REMOVED***_id, ***REMOVED***_dict=***REMOVED***_dict) if ***REMOVED***_dict else None
+
+    class ***REMOVED***:
+
+        def __init__(self, ***REMOVED***_dict, ***REMOVED***_id='') -> None:
+            super().__init__()
+            self.id = ***REMOVED***_id
+            self.delivered = ***REMOVED***_dict['delivered']
+            self.scheduled_time_utc = ***REMOVED***_dict['scheduledTime']
+            self.audio_url = ***REMOVED***_dict['audioURL']
 
     def get_user_scheduled_time_millis_utc(self):
         now = datetime.utcnow()
-        scheduled_time = datetime.strptime(self.***REMOVED***_scheduled_time_utc, '%H:%M')
+        scheduled_time = datetime.strptime(self.***REMOVED***.scheduled_time_utc, '%H:%M')
         scheduled_time_utc = now.replace(hour=scheduled_time.hour, minute=scheduled_time.minute)
         scheduled_time_millis_utc = scheduled_time_utc.replace(tzinfo=timezone.utc).timestamp() * 1000
         return scheduled_time_millis_utc

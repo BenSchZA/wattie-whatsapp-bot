@@ -117,7 +117,7 @@ class SessionManager:
                     for key, value in self.cookies['cookies'].items():
                         self.driver.add_cookie({'name': key, 'value': value, 'path': '/pp',
                                                 'domain': '.web.whatsapp.com', 'secure': True})
-        except FileNotFoundError:
+        except (FileNotFoundError, NoSuchWindowException):
             pass
 
     @staticmethod
