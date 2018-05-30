@@ -77,7 +77,7 @@ def _process_queue():
             content.send_keys(message)
             print('Sending message to ' + number)
         except TimeoutException:
-            session.restart_connection()
+            session.refresh_connection()
             continue
         finally:
             pass
@@ -89,7 +89,7 @@ def _process_queue():
             send_button.click()
             print('Message sent to ' + number)
         except TimeoutException:
-            session.restart_connection()
+            session.refresh_connection()
             continue
         finally:
             pass
@@ -101,7 +101,7 @@ def _process_queue():
             attach.click()
             print('Attaching file for ' + number)
         except TimeoutException:
-            session.restart_connection()
+            session.refresh_connection()
             continue
         finally:
             pass
@@ -115,7 +115,7 @@ def _process_queue():
             file.send_keys(media)
             print('File attached for ' + number)
         except TimeoutException:
-            session.restart_connection()
+            session.refresh_connection()
             continue
         finally:
             pass
@@ -136,7 +136,7 @@ def _process_queue():
             print('Attachment sent to ' + number)
             exit(0)
         except TimeoutException:
-            session.restart_connection()
+            session.refresh_connection()
             continue
         finally:
             pass

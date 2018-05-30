@@ -185,10 +185,17 @@ class SessionManager:
             pass
         self.__init__()
 
+    def refresh_connection(self):
+        self.logger.info("Refreshing connection")
+        try:
+            self.driver.refresh()
+        except SessionNotCreatedException:
+            pass
+
     def monitor_connection(self):
             self.logger.info('Checking connection')
 
-            self.logger.info('Uptime: ' + str(uptime_manager.get_uptime_percent(self)) + '%')
+            self.logger.info('Uptime: ' + str(int(round(uptime_manager.get_uptime_percent(self)))) + '%')
 
             active_connection = self.connection_okay()
             self.logger.debug("Active connection: %r" % active_connection)
