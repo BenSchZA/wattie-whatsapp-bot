@@ -10,6 +10,8 @@ from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.errors import WriteError
 
+from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
+
 import log_manager
 from firebase_manager import FirebaseManager
 from user import User
@@ -60,7 +62,13 @@ class FileManager:
 
         self.logger.info("Handling downloads")
 
-        firebase_scheduled = self.firebase.get_scheduled_***REMOVED***s()
+        try:
+            firebase_scheduled = self.firebase.get_scheduled_***REMOVED***s()
+        except (DeadlineExceeded, ServiceUnavailable):
+            self.logger.exception("Failed handling downloads")
+            return
+        finally:
+            self.downloader_running = False
 
         for user in firebase_scheduled:
             # Clear user downloads
@@ -130,7 +138,11 @@ class FileManager:
         return pwd + '/' + DOWNLOADS + '/'
 
     def _remove_user_downloads(self, uid):
-        shutil.rmtree(self._get_download_dir() + uid)
+        self.logger.info("Removing user %s downloads" % uid)
+        try:
+            shutil.rmtree(self._get_download_dir() + uid)
+        except FileNotFoundError:
+            pass
 
     def _get_download_entry_for_uid(self, uid):
         self.downloads_collection.find_one({"uid": uid})
