@@ -82,7 +82,7 @@ class FirebaseManager:
                         and not user.***REMOVED***.delivered:
                     scheduled.append(user)
 
-            except NotFound:
+            except (NotFound, StopIteration):
                 continue
 
         return scheduled
