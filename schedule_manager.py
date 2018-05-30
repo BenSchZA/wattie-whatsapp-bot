@@ -13,18 +13,18 @@ class ScheduleManager:
         self.scheduled_deliveries_hour = None
         self.handler_running = False
 
-        log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
 
     def handle_schedules(self):
         if self.handler_running:
             return
+        else:
+            self.handler_running = True
 
-        self.handler_running = True
         self.logger.info("Handling schedules")
 
         self.file_manager.download_and_schedule()
-        self.scheduled_deliveries_hour = self.file_manager.get_scheduled_deliveries()
+        self.scheduled_deliveries_hour = self.file_manager.get_schedule()
 
         for schedule in self.scheduled_deliveries_hour:
             self.logger.info("Delivering message to %s " % schedule['uid'])
