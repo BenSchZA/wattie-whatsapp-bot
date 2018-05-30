@@ -14,7 +14,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
 def run(server_class=http.server.HTTPServer, handler_class=Handler):
     server_address = ('', 8001)
-    httpd = server_class(server_address, handler_class)
-    httpd.serve_forever()
+    try:
+        httpd = server_class(server_address, handler_class)
+        httpd.serve_forever()
+    except OSError:
+        pass
 
 
