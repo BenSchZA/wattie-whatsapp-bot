@@ -6,6 +6,8 @@ import log_manager
 import uptime_manager
 from schedule_manager import ScheduleManager
 import time
+import http_server
+from multiprocessing import Process
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -24,6 +26,9 @@ class SessionManager:
 
     def __init__(self) -> None:
         super().__init__()
+
+        # Start HTTP server in another process for service monitoring
+        self.start_server()
 
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
@@ -59,6 +64,12 @@ class SessionManager:
             self._create_new_driver_session()
         finally:
             uptime_manager.process_up(self)
+
+    @staticmethod
+    def start_server():
+        # Start HTTP server in another process for service monitoring
+        server_process = Process(target=http_server.run)
+        server_process.start()
 
     def get_screenshot(self):
         self.wait_until_connection_okay()
