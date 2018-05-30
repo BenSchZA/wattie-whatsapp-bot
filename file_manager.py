@@ -1,18 +1,21 @@
 import os
+import shutil
 import errno
-import urllib.request
-from urllib.parse import urlparse
-import time
+
 from datetime import datetime
-from datetime import timezone
-from pymongo import MongoClient
+import urllib.request
+
 import pymongo
+from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.errors import WriteError
+
 import log_manager
-from user import User
 from firebase_manager import FirebaseManager
+from user import User
+
 import utils
+
 
 LOGS = 'logs'
 DOWNLOADS = 'downloads'
@@ -25,6 +28,8 @@ class FileManager:
         self._initialize_directories()
         self._initialize_database()
         self.logger = log_manager.get_logger('file_manager')
+
+        self.downloader_running = False
 
     def _initialize_database(self):
         self.client = MongoClient()
@@ -48,27 +53,36 @@ class FileManager:
                 raise
 
     def download_and_schedule(self):
+        if self.downloader_running:
+            return
+        else:
+            self.downloader_running = True
+
+        self.logger.info("Handling downloads")
+
         firebase_scheduled = self.firebase.get_scheduled_***REMOVED***s()
 
         for user in firebase_scheduled:
-            # Parse url and create path for download
-            url = user.***REMOVED***.audio_url
+            # Clear user downloads
+            self._remove_user_downloads(user.uid)
+            self.downloads_collection.delete_many({"uid": user.uid})
 
-            parsed = urlparse(url)
-            # filename = os.path.basename(parsed.path)
+            # Configure path
             filename = user.***REMOVED***.id + '.mp3'
-            pwd = os.getcwd()
-            directory = pwd + '/' + DOWNLOADS + '/' + user.uid
+            directory = self._get_download_dir() + user.uid
             path = os.path.join(directory, filename)
 
             # Create directory structure and download file
             self._create_directory(directory)
-            urllib.request.urlretrieve(url, path)
+            urllib.request.urlretrieve(user.***REMOVED***.audio_url, path)
 
             # Create database entry for logging and management
-            self._log_schedule(user, path)
+            self._schedule(user, path)
 
-    def _log_schedule(self, user: User, path):
+        self.downloader_running = False
+        self.logger.info("Finished handling downloads")
+
+    def _schedule(self, user: User, path):
         # Create download_collection object for insertion into database
         delivered = False
         download = {
@@ -93,17 +107,7 @@ class FileManager:
             self.logger.info('Entry exists for user %s & url %s' % (user.uid, user.***REMOVED***.audio_url))
             return None
 
-    def _get_download_entry_for_uid(self, uid):
-        self.downloads_collection.find_one({"uid": uid})
-
-    def _does_uid_have_downloads(self, uid):
-        return self.downloads_collection.find_one({"uid": uid}).count() > 0
-
-    def _get_undelivered_downloads(self):
-        return self.downloads_collection.find({"delivered": False,
-                                               "scheduled_millis": {"$lt": utils.time_in_millis_utc()}})
-
-    def get_scheduled_deliveries(self):
+    def get_schedule(self):
         one_hour_in_millis = 3600000
         return self.downloads_collection.find({
             "delivered": False,
@@ -119,3 +123,21 @@ class FileManager:
             {"$set": {
                 "delivered": True
             }})
+
+    @staticmethod
+    def _get_download_dir():
+        pwd = os.getcwd()
+        return pwd + '/' + DOWNLOADS + '/'
+
+    def _remove_user_downloads(self, uid):
+        shutil.rmtree(self._get_download_dir() + uid)
+
+    def _get_download_entry_for_uid(self, uid):
+        self.downloads_collection.find_one({"uid": uid})
+
+    def _does_uid_have_downloads(self, uid):
+        return self.downloads_collection.find_one({"uid": uid}).count() > 0
+
+    def _get_undelivered_downloads(self):
+        return self.downloads_collection.find({"delivered": False,
+                                               "scheduled_millis": {"$lt": utils.time_in_millis_utc()}})
