@@ -46,7 +46,7 @@ class FirebaseManager:
     def _get_user(self, uid):
         return self._get_users_ref().document(uid)
 
-    def _get_users_active_subscription(self):
+    def _get_active_subscriptions(self):
         return self._get_users_ref().where(u'activeSubscription', u'==', True).get()
 
     def _get_todays_***REMOVED***(self, uid):
@@ -61,7 +61,8 @@ class FirebaseManager:
         scheduled = []
         today = datetime.utcnow().strftime('%Y-%m-%d')
 
-        for doc in self._get_users_active_subscription():
+        active_subscriptions = self._get_active_subscriptions()
+        for doc in active_subscriptions:
             try:
                 user_uid = doc.id
                 user_dict = doc.to_dict()
@@ -82,8 +83,8 @@ class FirebaseManager:
                         and not user.***REMOVED***.delivered:
                     scheduled.append(user)
 
-            except (NotFound, StopIteration, GeneratorExit):
-                pass
+            except (NotFound, StopIteration) as e:
+                continue
 
         return scheduled
 

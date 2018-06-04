@@ -60,13 +60,12 @@ class SessionManager:
             self.driver.get('https://web.whatsapp.com/')
         except (SessionNotCreatedException, ConnectionRefusedError, URLError):
             # If previous session does not exist, create a new session
-            self.logger.exception('Connection refused')
+            self.logger.exception('Connection refused', exc_info=False)
             self._create_new_driver_session()
         finally:
             uptime_manager.process_up(self)
 
-    @staticmethod
-    def start_server():
+    def start_server(self):
         # Start HTTP server in another process for service monitoring
         server_process = Process(target=http_server.run)
         server_process.start()
@@ -202,6 +201,7 @@ class SessionManager:
             self.logger.debug("Handler running: %r" % self.schedule_manager.handler_running)
 
             if not active_connection:
+                # self.server.set_response(self.server(), 500)
                 self.restart_connection()
                 uptime_manager.process_down(self)
             else:

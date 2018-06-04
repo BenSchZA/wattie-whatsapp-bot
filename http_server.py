@@ -12,12 +12,11 @@ class Handler(http.server.BaseHTTPRequestHandler):
         return
 
 
-def run(server_class=http.server.HTTPServer, handler_class=Handler):
+def run(server_class=http.server.HTTPServer):
     server_address = ('', 8001)
     try:
-        httpd = server_class(server_address, handler_class)
+        httpd = server_class(server_address, Handler)
         httpd.serve_forever()
+        return httpd
     except OSError:
         pass
-
-

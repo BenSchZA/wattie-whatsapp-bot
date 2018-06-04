@@ -14,6 +14,13 @@ handlers:
         formatter: simple
         stream: ext://sys.stdout
 
+    socket:
+        class: logging.handlers.SocketHandler
+        level: DEBUG
+        formatter: simple
+        host: 0.0.0.0
+        port: 8080
+
     email_reporting:
         class: smtps_handler.SMTPSHandler
         formatter: simple
@@ -86,21 +93,22 @@ handlers:
 loggers:
     session_manager:
         level: DEBUG
-        handlers: [console, email_reporting, session_info_file_handler, session_error_file_handler]
+        handlers: [console, socket, email_reporting, session_info_file_handler, session_error_file_handler]
         propagate: no
     file_manager:
         level: DEBUG
-        handlers: [console, email_reporting, file_info_file_handler, file_error_file_handler]
+        handlers: [console, socket, email_reporting, file_info_file_handler, file_error_file_handler]
         propagate: no
     whatsapp_cli:
         level: DEBUG
-        handlers: [console, email_reporting, cli_info_file_handler, cli_error_file_handler]
+        handlers: [console, socket, email_reporting, cli_info_file_handler, cli_error_file_handler]
         propagate: no
 
 root:
     level: INFO
     handlers: [
     console,
+    socket,
     email_reporting,
     session_info_file_handler,
     session_error_file_handler,

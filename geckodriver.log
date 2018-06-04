@@ -5072,3 +5072,997 @@ IPDL protocol error: Handler returned error code!
 
 ###!!! [Parent][DispatchAsyncMessage] Error: PMessagePort::Msg_PostMessages Processing error: message was deserialized, but the handler returned false (indicating failure)
 
+1527511255158	geckodriver	INFO	geckodriver 0.20.0
+1527511255173	geckodriver	INFO	Listening on 127.0.0.1:48979
+1527511256355	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.Tsohhc0sToHY"
+1527511258430	Marionette	INFO	Listening on port 39349
+1527511258467	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527511451549	geckodriver	INFO	geckodriver 0.20.0
+1527511451559	geckodriver	INFO	Listening on 127.0.0.1:41031
+1527511452680	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.XXKQiVRmkYa8"
+1527511455261	Marionette	INFO	Listening on port 35535
+1527511455447	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527511664579	geckodriver	INFO	geckodriver 0.20.0
+1527511664590	geckodriver	INFO	Listening on 127.0.0.1:54523
+1527511665678	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.jIPDYDQiOJBK"
+1527511667434	Marionette	INFO	Listening on port 46037
+1527511667511	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527511857070	geckodriver	INFO	geckodriver 0.20.0
+1527511857074	geckodriver	INFO	Listening on 127.0.0.1:43063
+1527511858173	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.OaBSPsmJZaOf"
+1527511859676	Marionette	INFO	Listening on port 43867
+1527511859687	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527512088766	geckodriver	INFO	geckodriver 0.20.0
+1527512088771	geckodriver	INFO	Listening on 127.0.0.1:40633
+1527512089867	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.CNTl4DH4LmCN"
+1527512091321	Marionette	INFO	Listening on port 32849
+1527512091383	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527514808467	geckodriver	INFO	geckodriver 0.20.0
+1527514808474	geckodriver	INFO	Listening on 127.0.0.1:57201
+1527514809560	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.2LtMR2bsQB6T"
+1527514811404	Marionette	INFO	Listening on port 43269
+1527514811472	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527515301439	geckodriver	INFO	geckodriver 0.20.0
+1527515301443	geckodriver	INFO	Listening on 127.0.0.1:53969
+1527515302569	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.yhLuWAiNSteG"
+1527515304064	Marionette	INFO	Listening on port 38161
+1527515304079	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527515538412	geckodriver	INFO	geckodriver 0.20.0
+1527515538420	geckodriver	INFO	Listening on 127.0.0.1:60443
+1527515539574	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.sNw7gqcw5R3C"
+1527515541307	Marionette	INFO	Listening on port 35557
+1527515541400	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (142): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (140): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (139): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (138): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (136): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (141): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (133): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (143): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (137): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 11906, Gecko_IOThread] WARNING: pipe error (134): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1527595060540	geckodriver	INFO	geckodriver 0.20.0
+1527595060548	geckodriver	INFO	Listening on 127.0.0.1:35121
+1527595061617	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.zbXIk4QlWKAb"
+1527595062995	Marionette	INFO	Listening on port 46053
+1527595063031	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527595136147	geckodriver	INFO	geckodriver 0.20.0
+1527595136150	geckodriver	INFO	Listening on 127.0.0.1:40913
+1527595137215	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.tNol7Da4IhkP"
+1527595138746	Marionette	INFO	Listening on port 42563
+1527595138825	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527595595619	geckodriver	INFO	geckodriver 0.20.0
+1527595595622	geckodriver	INFO	Listening on 127.0.0.1:38221
+1527595596688	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.1IldMkRoreEX"
+1527595598076	Marionette	INFO	Listening on port 45001
+1527595598106	Marionette	WARN	TLS certificate errors will be ignored for this session
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1527595823917	geckodriver	INFO	geckodriver 0.20.0
+1527595823920	geckodriver	INFO	Listening on 127.0.0.1:58283
+1527595824987	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.1hWyFGbdcKeI"
+1527595826372	Marionette	INFO	Listening on port 46585
+1527595826401	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527595968343	geckodriver	INFO	geckodriver 0.20.0
+1527595968347	geckodriver	INFO	Listening on 127.0.0.1:38223
+1527595969413	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.t8ZyfJcjGdJT"
+1527595970787	Marionette	INFO	Listening on port 34489
+1527595970822	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527596064150	geckodriver	INFO	geckodriver 0.20.0
+1527596064154	geckodriver	INFO	Listening on 127.0.0.1:43683
+1527596065222	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.UaySz8hJub7r"
+1527596066597	Marionette	INFO	Listening on port 39523
+1527596066630	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527596159423	geckodriver	INFO	geckodriver 0.20.0
+1527596159427	geckodriver	INFO	Listening on 127.0.0.1:55335
+1527596160496	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.lP0K2BrddV4Q"
+1527596161924	Marionette	INFO	Listening on port 41021
+1527596162019	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527596278467	geckodriver::marionette	ERROR	Failed to stop browser process
+1527596278557	geckodriver	INFO	geckodriver 0.20.0
+1527596278561	geckodriver	INFO	Listening on 127.0.0.1:53447
+1527596279625	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.A7k43WEORtl4"
+1527596280986	Marionette	INFO	Listening on port 42643
+1527596281034	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527596398973	geckodriver	INFO	geckodriver 0.20.0
+1527596398977	geckodriver	INFO	Listening on 127.0.0.1:49259
+1527596400044	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.TFluy4PpUA6V"
+1527596401397	Marionette	INFO	Listening on port 39303
+1527596401459	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527596790421	geckodriver	INFO	geckodriver 0.20.0
+1527596790424	geckodriver	INFO	Listening on 127.0.0.1:55743
+1527596791492	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.mAXSFecOhN06"
+1527596792859	Marionette	INFO	Listening on port 43021
+1527596792908	Marionette	WARN	TLS certificate errors will be ignored for this session
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1527596869101	geckodriver::marionette	ERROR	Failed to stop browser process
+1527596869188	geckodriver	INFO	geckodriver 0.20.0
+1527596869192	geckodriver	INFO	Listening on 127.0.0.1:54443
+1527596870255	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.wGFQtSqf2XEU"
+1527596871679	Marionette	INFO	Listening on port 38947
+1527596871774	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527597272347	geckodriver	INFO	geckodriver 0.20.0
+1527597272350	geckodriver	INFO	Listening on 127.0.0.1:37033
+1527597273416	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.qnlsRNToRCCC"
+1527597274826	Marionette	INFO	Listening on port 37737
+1527597274925	Marionette	WARN	TLS certificate errors will be ignored for this session
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+JavaScript error: https://web.whatsapp.com/vendor2.030d3590e07b379cf716.js, line 39: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://web.whatsapp.com/vendor2.030d3590e07b379cf716.js, line 49: NS_ERROR_NOT_INITIALIZED: 
+[Parent 28642, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 28642, Gecko_IOThread] WARNING: pipe error (74): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+JavaScript error: resource://gre/modules/osfile/osfile_async_front.jsm, line 408: Error: OS.File has been shut down. Rejecting post to remove
+JavaScript error: resource://gre/modules/osfile/osfile_async_front.jsm, line 408: Error: OS.File has been shut down. Rejecting post to remove
+1527597415659	geckodriver	INFO	geckodriver 0.20.0
+1527597415663	geckodriver	INFO	Listening on 127.0.0.1:37665
+1527597416711	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.lgjE50CLFrM4"
+1527597418562	Marionette	INFO	Listening on port 40995
+1527597418632	Marionette	WARN	TLS certificate errors will be ignored for this session
+starting deadbeef 0.7.2
+server_start
+searching for GUI plugins in /home/bscholtz/.local/lib64/deadbeef
+searching for GUI plugins in /home/bscholtz/.local/lib/deadbeef
+searching for GUI plugins in /usr/lib/deadbeef
+load_plugin_dir /usr/lib/deadbeef: scandir found 52 files
+found gui plugin ddb_gui_GTK2.so
+added GTK2 gui plugin
+found gui plugin ddb_gui_GTK3.so
+added GTK3 gui plugin
+load gui plugin
+checking GUI plugin: GTK2
+found selected GUI plugin: GTK2
+loading plugin /usr/lib/deadbeef/ddb_gui_GTK2.so
+loading plugins from /home/bscholtz/.local/lib64/deadbeef
+loading plugins from /home/bscholtz/.local/lib/deadbeef
+loading plugins from /usr/lib/deadbeef
+load_plugin_dir /usr/lib/deadbeef: scandir found 52 files
+loading plugin /usr/lib/deadbeef/aac.so
+loading plugin /usr/lib/deadbeef/adplug.so
+loading plugin /usr/lib/deadbeef/alac.so
+loading plugin /usr/lib/deadbeef/alsa.so
+loading plugin /usr/lib/deadbeef/artwork.so
+loading plugin /usr/lib/deadbeef/cdda.so
+loading plugin /usr/lib/deadbeef/converter.so
+loading plugin /usr/lib/deadbeef/converter_gtk2.so
+loading plugin /usr/lib/deadbeef/converter_gtk3.so
+loading plugin /usr/lib/deadbeef/dca.so
+loading plugin /usr/lib/deadbeef/ddb_ao.so
+loading plugin /usr/lib/deadbeef/ddb_dumb.so
+loading plugin /usr/lib/deadbeef/ddb_mono2stereo.so
+loading plugin /usr/lib/deadbeef/ddb_shn.so
+loading plugin /usr/lib/deadbeef/dsp_libsrc.so
+loading plugin /usr/lib/deadbeef/ffap.so
+loading plugin /usr/lib/deadbeef/ffmpeg.so
+loading plugin /usr/lib/deadbeef/flac.so
+loading plugin /usr/lib/deadbeef/gme.so
+loading plugin /usr/lib/deadbeef/hotkeys.so
+loading plugin /usr/lib/deadbeef/in_sc68.so
+loading plugin /usr/lib/deadbeef/lastfm.so
+loading plugin /usr/lib/deadbeef/m3u.so
+loading plugin /usr/lib/deadbeef/mms.so
+loading plugin /usr/lib/deadbeef/mp3.so
+loading plugin /usr/lib/deadbeef/musepack.so
+loading plugin /usr/lib/deadbeef/notify.so
+loading plugin /usr/lib/deadbeef/nullout.so
+loading plugin /usr/lib/deadbeef/oss.so
+loading plugin /usr/lib/deadbeef/pltbrowser_gtk2.so
+loading plugin /usr/lib/deadbeef/pltbrowser_gtk3.so
+loading plugin /usr/lib/deadbeef/pulse.so
+loading plugin /usr/lib/deadbeef/shellexec.so
+loading plugin /usr/lib/deadbeef/shellexecui_gtk2.so
+loading plugin /usr/lib/deadbeef/shellexecui_gtk3.so
+loading plugin /usr/lib/deadbeef/sid.so
+loading plugin /usr/lib/deadbeef/sndfile.so
+loading plugin /usr/lib/deadbeef/supereq.so
+loading plugin /usr/lib/deadbeef/tta.so
+loading plugin /usr/lib/deadbeef/vfs_curl.so
+loading plugin /usr/lib/deadbeef/vfs_zip.so
+loading plugin /usr/lib/deadbeef/vorbis.so
+loading plugin /usr/lib/deadbeef/vtx.so
+loading plugin /usr/lib/deadbeef/wavpack.so
+loading plugin /usr/lib/deadbeef/wildmidi.so
+loading plugin /usr/lib/deadbeef/wma.so
+selected output plugin: ALSA output plugin
+INFO: loading playlist Music
+INFO: from file /home/bscholtz/.config/deadbeef/playlists/0.dbpl
+INFO: loading playlist Default
+INFO: from file /home/bscholtz/.config/deadbeef/playlists/1.dbpl
+INFO: loading playlist New Playlist
+INFO: from file /home/bscholtz/.config/deadbeef/playlists/2.dbpl
+convgui: gtkui plugin not found
+plugin Converter GTK3 UI failed to connect to dependencies, deactivated.
+plugin Playlist browser GTK3 failed to connect to dependencies, deactivated.
+shellexecui: can't find gtkui plugin
+plugin Shellexec GTK3 UI failed to connect to dependencies, deactivated.
+gtkui plugin compiled for gtk version: 2.24.32
+quitting gtk
+gtkui_stop completed
+gui plugin has quit; waiting for mainloop thread to finish
+plug_disconnect_all
+plug_unload_all
+stopping GTK2 user interface...
+quitting gtk
+stopping Adplug player...
+stopping ALSA output plugin...
+stopping Album Artwork...
+stopping Converter...
+stopping dts decoder...
+stopping PSF player using Audio Overload SDK...
+stopping DUMB module player...
+stopping Game-Music-Emu player...
+stopping Hotkey manager...
+stopping SC68 player (Atari ST SNDH YM2149)...
+stopping last.fm scrobbler...
+stopping MusePack decoder...
+stopping OSD Notify...
+stopping Null output plugin...
+stopping OSS output plugin...
+stopping PulseAudio output plugin...
+stopping Shell commands...
+stopping SID player...
+stopping WAV/PCM player...
+stopping SuperEQ...
+stopping tta decoder...
+stopping cURL vfs...
+stopping OggVorbis decoder...
+stopping VTX player...
+stopping WildMidi player...
+stopping FFMPEG audio player...
+stopped all plugins
+all plugins had been unloaded
+messagepump_free
+plug_cleanup
+hej-hej!
+connecting button tray signals
+1527597773856	geckodriver::marionette	ERROR	Failed to stop browser process
+1527597773951	geckodriver	INFO	geckodriver 0.20.0
+1527597773955	geckodriver	INFO	Listening on 127.0.0.1:34783
+1527597775031	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.qZplFNb7kBc0"
+1527597776430	Marionette	INFO	Listening on port 35409
+1527597776450	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527598504888	geckodriver	INFO	geckodriver 0.20.0
+1527598504892	geckodriver	INFO	Listening on 127.0.0.1:43537
+1527598505927	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.z1VWFXhdW9dh"
+1527598507377	Marionette	INFO	Listening on port 36323
+1527598507435	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1527598635339	geckodriver::marionette	ERROR	Failed to stop browser process
+1527598671915	geckodriver	INFO	geckodriver 0.20.0
+1527598671919	geckodriver	INFO	Listening on 127.0.0.1:43111
+1527598672975	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.cM8hbYzW7UGC"
+1527598674392	Marionette	INFO	Listening on port 36803
+1527598674485	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527598795773	geckodriver	INFO	geckodriver 0.20.0
+1527598795777	geckodriver	INFO	Listening on 127.0.0.1:53481
+1527598796844	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.peuzTE18dieQ"
+1527598798250	Marionette	INFO	Listening on port 32897
+1527598798364	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527599296220	geckodriver	INFO	geckodriver 0.20.0
+1527599296224	geckodriver	INFO	Listening on 127.0.0.1:52569
+1527599297290	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.kJkukXF5ImpV"
+1527599298667	Marionette	INFO	Listening on port 40131
+1527599298699	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1527600141190	geckodriver	INFO	geckodriver 0.20.0
+1527600141194	geckodriver	INFO	Listening on 127.0.0.1:48603
+1527600142258	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.7Pl4sF0tv8tG"
+1527600143587	Marionette	INFO	Listening on port 38785
+1527600143673	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527600379638	geckodriver	INFO	geckodriver 0.20.0
+1527600379642	geckodriver	INFO	Listening on 127.0.0.1:59929
+1527600380725	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.LbWDQ2kU6nXb"
+1527600382302	Marionette	INFO	Listening on port 35497
+1527600382347	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 9987, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1527600429713	geckodriver::marionette	ERROR	Failed to stop browser process
+1527600429804	geckodriver	INFO	geckodriver 0.20.0
+1527600429809	geckodriver	INFO	Listening on 127.0.0.1:35627
+1527600430871	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.Cvux5OL7gxEI"
+1527600432473	Marionette	INFO	Listening on port 33351
+1527600432505	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527600839340	geckodriver::marionette	ERROR	Failed to stop browser process
+1527600859863	geckodriver	INFO	geckodriver 0.20.0
+1527600859866	geckodriver	INFO	Listening on 127.0.0.1:35833
+1527600860933	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.LqEQQSQHszeB"
+1527600862276	Marionette	INFO	Listening on port 36921
+1527600862341	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527601259796	geckodriver	INFO	geckodriver 0.20.0
+1527601259800	geckodriver	INFO	Listening on 127.0.0.1:34157
+1527601260876	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.WX16nM263AuZ"
+1527601262450	Marionette	INFO	Listening on port 40431
+1527601262494	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527601319379	geckodriver	INFO	geckodriver 0.20.0
+1527601319382	geckodriver	INFO	Listening on 127.0.0.1:44029
+1527601320425	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.Xz7tFGBUIpMg"
+1527601321955	Marionette	INFO	Listening on port 40339
+1527601322052	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527601393024	geckodriver	INFO	geckodriver 0.20.0
+1527601393030	geckodriver	INFO	Listening on 127.0.0.1:58999
+1527601394120	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.YV1wrMkmi3LB"
+1527601395533	Marionette	INFO	Listening on port 39953
+1527601395628	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+[Parent 18077, Gecko_IOThread] WARNING: pipe error (73): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1527602111010	geckodriver::marionette	ERROR	Failed to stop browser process
+1527602130007	geckodriver	INFO	geckodriver 0.20.0
+1527602130010	geckodriver	INFO	Listening on 127.0.0.1:38915
+1527602131077	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.XQfUE6UI76J5"
+1527602132475	Marionette	INFO	Listening on port 37505
+1527602132499	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527602355545	geckodriver	INFO	geckodriver 0.20.0
+1527602355550	geckodriver	INFO	Listening on 127.0.0.1:49239
+1527602356617	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.SYVQhBcCbJAy"
+1527602357968	Marionette	INFO	Listening on port 34343
+1527602358027	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527602626764	geckodriver	INFO	geckodriver 0.20.0
+1527602626770	geckodriver	INFO	Listening on 127.0.0.1:53101
+1527602627873	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.xfvTzvDhK8NX"
+1527602629251	Marionette	INFO	Listening on port 40061
+1527602629283	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527602745134	geckodriver	INFO	geckodriver 0.20.0
+1527602745138	geckodriver	INFO	Listening on 127.0.0.1:56743
+1527602746202	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.lGCADHdHXsHu"
+1527602747574	Marionette	INFO	Listening on port 45091
+1527602747611	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527603103788	geckodriver	INFO	geckodriver 0.20.0
+1527603103792	geckodriver	INFO	Listening on 127.0.0.1:58125
+1527603104855	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.4iK4Jzi1mpiF"
+1527603106368	Marionette	INFO	Listening on port 44431
+1527603106464	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 27363, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 27363, Gecko_IOThread] WARNING: pipe error (109): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1527603236083	geckodriver	INFO	geckodriver 0.20.0
+1527603236087	geckodriver	INFO	Listening on 127.0.0.1:48243
+1527603237156	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.tVqGsRwdwbeF"
+1527603238537	Marionette	INFO	Listening on port 41469
+1527603238568	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527603285848	geckodriver	INFO	geckodriver 0.20.0
+1527603285851	geckodriver	INFO	Listening on 127.0.0.1:60633
+1527603286917	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.LPyeNopzKKpu"
+1527603288300	Marionette	INFO	Listening on port 40039
+1527603288329	Marionette	WARN	TLS certificate errors will be ignored for this session
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1527603549120	geckodriver	INFO	geckodriver 0.20.0
+1527603549124	geckodriver	INFO	Listening on 127.0.0.1:53109
+1527603550193	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.wY3QYyKHzyqN"
+1527603551529	Marionette	INFO	Listening on port 43803
+1527603551603	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527603991098	geckodriver	INFO	geckodriver 0.20.0
+1527603991102	geckodriver	INFO	Listening on 127.0.0.1:53765
+1527603992175	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.etbVqA917jxQ"
+1527603993540	Marionette	INFO	Listening on port 38919
+1527603993584	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527604141586	geckodriver::marionette	ERROR	Failed to stop browser process
+1527604144199	geckodriver	INFO	geckodriver 0.20.0
+1527604144203	geckodriver	INFO	Listening on 127.0.0.1:58103
+1527604145307	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.BlyQuHPWTLaI"
+1527604146815	Marionette	INFO	Listening on port 45077
+1527604146916	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527669494225	geckodriver	INFO	geckodriver 0.20.0
+1527669494233	geckodriver	INFO	Listening on 127.0.0.1:54897
+1527669495335	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.Spl1VcOxqf1L"
+1527669496903	Marionette	INFO	Listening on port 37197
+1527669496953	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527669576416	geckodriver	INFO	geckodriver 0.20.0
+1527669576420	geckodriver	INFO	Listening on 127.0.0.1:35011
+1527669577500	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.ficFdK0QRiBJ"
+1527669578827	Marionette	INFO	Listening on port 42753
+1527669578912	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527670967898	geckodriver	INFO	geckodriver 0.20.0
+1527670967902	geckodriver	INFO	Listening on 127.0.0.1:56199
+1527670968950	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.5UFZ3LpUYdn2"
+1527670970301	Marionette	INFO	Listening on port 39975
+1527670970364	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527673215612	geckodriver	INFO	geckodriver 0.20.0
+1527673215617	geckodriver	INFO	Listening on 127.0.0.1:37117
+1527673216690	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.bvcTB2nlxSt2"
+1527673218124	Marionette	INFO	Listening on port 45585
+1527673218211	Marionette	WARN	TLS certificate errors will be ignored for this session
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PMessagePort::Msg_PostMessages Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1527673990295	geckodriver	INFO	geckodriver 0.20.0
+1527673990302	geckodriver	INFO	Listening on 127.0.0.1:33757
+1527673991519	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.Rt7i3TtH1yQi"
+1527673993392	Marionette	INFO	Listening on port 43745
+1527673993432	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527674035680	geckodriver	INFO	geckodriver 0.20.0
+1527674035684	geckodriver	INFO	Listening on 127.0.0.1:55951
+1527674036788	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.RKvQSuYEbkKO"
+1527674038311	Marionette	INFO	Listening on port 43403
+1527674038422	Marionette	WARN	TLS certificate errors will be ignored for this session
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+JavaScript error: https://web.whatsapp.com/app.c0a6fdf42070843bf63f.js, line 15: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://web.whatsapp.com/app.c0a6fdf42070843bf63f.js, line 15: NS_ERROR_NOT_INITIALIZED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x2D00B0,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x2D00B0,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x2D00B0,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x900006,name=PWebSocket::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+[Parent 1836, Gecko_IOThread] WARNING: pipe error (82): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1527677902229	geckodriver::marionette	ERROR	Failed to stop browser process
+1527677902312	geckodriver	INFO	geckodriver 0.20.0
+1527677902324	geckodriver	INFO	Listening on 127.0.0.1:51801
+1527677903462	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.NbXVCpbWb0gh"
+1527677905164	Marionette	INFO	Listening on port 44625
+1527677905171	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/toolbox.js, line 1263: TypeError: currentPanel is undefined
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (141): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (108): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (144): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (134): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (136): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (132): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (131): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (133): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (129): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (88): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (138): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (130): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (92): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (89): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (109): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 8907, Gecko_IOThread] WARNING: pipe error (86): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1527690781476	geckodriver::marionette	ERROR	Failed to stop browser process
+1527690781728	geckodriver	INFO	geckodriver 0.20.0
+1527690781733	geckodriver	INFO	Listening on 127.0.0.1:44139
+1527690782933	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.tgQpwWk134zN"
+1527690784791	Marionette	INFO	Listening on port 44629
+1527690784859	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527692228252	geckodriver	INFO	geckodriver 0.20.0
+1527692228256	geckodriver	INFO	Listening on 127.0.0.1:60453
+1527692229366	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.jXwKRrqoBDLq"
+1527692230897	Marionette	INFO	Listening on port 45787
+1527692230978	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527854844521	geckodriver	INFO	geckodriver 0.20.0
+1527854844528	geckodriver	INFO	Listening on 127.0.0.1:42987
+1527854845566	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.4PiZExuG0JqF"
+1527854846968	Marionette	INFO	Listening on port 35727
+1527854846989	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527859313731	geckodriver	INFO	geckodriver 0.20.0
+1527859313735	geckodriver	INFO	Listening on 127.0.0.1:46833
+1527859314805	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.d6E8VBXSUm7V"
+1527859316174	Marionette	INFO	Listening on port 36753
+1527859316214	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527936322897	geckodriver	INFO	geckodriver 0.20.0
+1527936322905	geckodriver	INFO	Listening on 127.0.0.1:40931
+1527936323984	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.KtTv1GiVsCp7"
+1527936325695	Marionette	INFO	Listening on port 37613
+1527936325796	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527942437143	geckodriver	INFO	geckodriver 0.20.0
+1527942437151	geckodriver	INFO	Listening on 127.0.0.1:55433
+1527942438200	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.oUORalbFOrKD"
+1527942439740	Marionette	INFO	Listening on port 42495
+1527942439809	Marionette	WARN	TLS certificate errors will be ignored for this session
+1527942930145	geckodriver	INFO	geckodriver 0.20.0
+1527942930148	geckodriver	INFO	Listening on 127.0.0.1:43819
+1527942931228	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.LgeVqRoCKn6n"
+1527942932642	Marionette	INFO	Listening on port 42503
+1527942932738	Marionette	WARN	TLS certificate errors will be ignored for this session
