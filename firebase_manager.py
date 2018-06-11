@@ -5,6 +5,8 @@ from google.cloud.exceptions import NotFound
 
 import time
 from datetime import datetime
+from datetime import timedelta
+import pytz
 from user import User
 
 # https://firebase.google.com/docs/firestore/query-data/get-data
@@ -46,41 +48,51 @@ class FirebaseManager:
     def _get_user(self, uid):
         return self._get_users_ref().document(uid)
 
-    def _get_active_subscriptions(self):
-        return self._get_users_ref().where(u'activeSubscription', u'==', True).get()
+    def _get_active_subs_next_hour(self):
+        now = datetime.utcnow()
+        now_plus_one_hour = now + timedelta(hours=1)
+
+        return self._get_users_ref().where(u'activeSubscription', u'==', True) \
+            .where(u'next***REMOVED***Date', u'>=', now) \
+            .where(u'next***REMOVED***Date', u'<=', now_plus_one_hour) \
+            .get()
 
     def _get_todays_***REMOVED***(self, uid):
+        today = datetime.utcnow().date()
+        today_start = datetime(today.year, today.month, today.day, tzinfo=pytz.UTC)
+        today_end = today_start + timedelta(1)
+
         try:
-            today = datetime.utcnow().strftime('%Y-%m-%d')
             return next(self._get_user(uid).collection(u'***REMOVED***s')
-                        .where(u'scheduledDate', u'==', today).limit(1).get())
-        except NotFound:
+                        .where(u'scheduledDate', u'>=', today_start)
+                        .where(u'scheduledDate', u'<=', today_end)
+                        .limit(1).get())
+        except (NotFound, StopIteration):
             return None
 
     def get_scheduled_***REMOVED***s(self):
         scheduled = []
-        today = datetime.utcnow().strftime('%Y-%m-%d')
+        now = datetime.utcnow()
+        now_plus_one_hour = now + timedelta(hours=1)
 
-        active_subscriptions = self._get_active_subscriptions()
-        for doc in active_subscriptions:
+        subs_next_hour = self._get_active_subs_next_hour()
+        for doc in subs_next_hour:
             try:
                 user_uid = doc.id
                 user_dict = doc.to_dict()
-                todays_***REMOVED***_doc_gen = self._get_user(user_uid).collection(u'***REMOVED***s') \
-                    .where(u'scheduledDate', u'==', today).limit(1).get()
-                todays_***REMOVED***_doc = next(todays_***REMOVED***_doc_gen)
 
-                ***REMOVED***_id = todays_***REMOVED***_doc.id
-                ***REMOVED***_dict = todays_***REMOVED***_doc.to_dict()
+                ***REMOVED***s = self._get_user(user_uid).collection(u'***REMOVED***s')
+                scheduled_***REMOVED***_gen = ***REMOVED***s\
+                    .where(u'delivered', u'==', False)\
+                    .where(u'scheduledDate', u'>=', now)\
+                    .where(u'scheduledDate', u'<=', now_plus_one_hour) \
+                    .limit(1).get()
+                scheduled_***REMOVED*** = next(scheduled_***REMOVED***_gen)
 
-                user = User(user_dict, ***REMOVED***_dict, ***REMOVED***_id)
-
-                current_time_millis_utc = self._current_millis()
-                scheduled_time_millis_utc = user.get_user_scheduled_time_millis_utc()
-                interval_time_millis_utc = self._current_millis() + MILLIS_01_HOURS
-
-                if (current_time_millis_utc < scheduled_time_millis_utc < interval_time_millis_utc)\
-                        and not user.***REMOVED***.delivered:
+                if scheduled_***REMOVED***:
+                    ***REMOVED***_id = scheduled_***REMOVED***.id
+                    ***REMOVED***_dict = scheduled_***REMOVED***.to_dict()
+                    user = User(user_dict, ***REMOVED***_dict, ***REMOVED***_id)
                     scheduled.append(user)
 
             except (NotFound, StopIteration) as e:
@@ -94,33 +106,6 @@ class FirebaseManager:
         for doc in users:
             ids.append(doc.id)
         return ids
-
-    # def _get_scheduled_deliveries_day(self):
-    #     scheduled = []
-    #     users = self._get_users()
-    #
-    #     for doc in users:
-    #         user_dict = doc.to_dict()
-    #         ***REMOVED***_dict = self._get_todays_***REMOVED***(user_dict['uid'])
-    #
-    #         user = User(user_dict, ***REMOVED***_dict)
-    #
-    #         if user.***REMOVED***.delivered_time_utc < (self._current_millis() - MILLIS_24_HOURS):
-    #             scheduled.append(user)
-    #     return scheduled
-
-    # def get_scheduled_deliveries_hour(self):
-    #     scheduled = []
-    #     scheduled_day = self._get_scheduled_deliveries_day()
-    #
-    #     for user in scheduled_day:
-    #         current_time_millis_utc = self._current_millis()
-    #         scheduled_time_millis_utc = user.get_user_scheduled_time_millis_utc()
-    #         interval_time_millis_utc = self._current_millis() + MILLIS_01_HOURS
-    #
-    #         if current_time_millis_utc < scheduled_time_millis_utc < interval_time_millis_utc:
-    #             scheduled.append(user)
-    #     return scheduled
 
     def mark_***REMOVED***_delivered_now(self, uid):
         doc: firestore.firestore.DocumentSnapshot = self._get_todays_***REMOVED***(uid)

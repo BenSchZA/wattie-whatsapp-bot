@@ -72,6 +72,7 @@ class FileManager:
 
         for user in firebase_scheduled:
             # Clear user downloads
+            # TODO: check that files aren't being redownloaded
             self._remove_user_downloads(user.uid)
             self.downloads_collection.delete_many({"uid": user.uid})
 
@@ -100,7 +101,7 @@ class FileManager:
             'number': user.number,
             'url': user.***REMOVED***.audio_url,
             'path': path,
-            'scheduled_millis': user.get_user_scheduled_time_millis_utc(),
+            'scheduled_millis': user.***REMOVED***.scheduled_date.utcnow().timestamp() * 1000,
             'delivered': delivered,
             'created_millis': utils.time_in_millis_utc(),
             'created_date': datetime.utcnow()

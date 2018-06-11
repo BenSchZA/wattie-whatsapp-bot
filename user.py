@@ -12,6 +12,7 @@ class User:
         self._mobile_num = user_dict['mobileNum']
         self.number = self._mobile_num_prefix + self._mobile_num
         self.active_subscription = user_dict['activeSubscription']
+        self.next_***REMOVED***_date = user_dict['next***REMOVED***Date']
         self.***REMOVED*** = self.***REMOVED***(***REMOVED***_id=***REMOVED***_id, ***REMOVED***_dict=***REMOVED***_dict) if ***REMOVED***_dict else None
 
     class ***REMOVED***:
@@ -20,7 +21,7 @@ class User:
             super().__init__()
             self.id = ***REMOVED***_id
             self.delivered = ***REMOVED***_dict['delivered']
-            self.scheduled_time_utc = ***REMOVED***_dict['scheduledTime']
+            self.scheduled_date: datetime = ***REMOVED***_dict['scheduledDate']
             self.audio_url = ***REMOVED***_dict['audioURL']
 
     def get_user_scheduled_time_millis_utc(self):
