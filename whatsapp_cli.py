@@ -65,7 +65,7 @@ def _process_queue():
                     exp_c.staleness_of(contact_header)
                 )
             except TimeoutException:
-                session.restart_connection()
+                session.refresh_connection()
                 continue
             finally:
                 print('Page refreshed')
