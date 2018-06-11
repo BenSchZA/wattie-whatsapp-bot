@@ -21,6 +21,7 @@ import utils
 
 LOGS = 'logs'
 DOWNLOADS = 'downloads'
+DATA = 'data'
 
 
 class FileManager:
@@ -44,6 +45,7 @@ class FileManager:
     def _initialize_directories(self):
         self._create_directory(LOGS)
         self._create_directory(DOWNLOADS)
+        self._create_directory(DATA)
 
     @staticmethod
     def _create_directory(directory):

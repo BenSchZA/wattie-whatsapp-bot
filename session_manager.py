@@ -21,6 +21,9 @@ TIMEOUT = 30
 binary = FirefoxBinary('/usr/bin/firefox-developer-edition')
 webdriver.DesiredCapabilities.FIREFOX["unexpectedAlertBehaviour"] = "accept"
 
+SESSION_DATA = 'data/session.data'
+COOKIE_DATA = 'data/cookie.data'
+
 
 class SessionManager:
 
@@ -99,12 +102,12 @@ class SessionManager:
             'session_id': session_id
         }}
 
-        with open('session.data', 'w+') as outfile:
+        with open(SESSION_DATA, 'w+') as outfile:
             json.dump(self.previous_session, outfile)
 
     def _fetch_session(self):
         try:
-            with open('session.data') as json_file:
+            with open(SESSION_DATA) as json_file:
                 self.previous_session = json.load(json_file)
         except FileNotFoundError:
             pass
@@ -115,12 +118,12 @@ class SessionManager:
             self.logger.debug('Saving cookie: ' + cookie)
         self.cookies = {'cookies': cookies}
 
-        with open('cookie.data', 'w+') as outfile:
+        with open(COOKIE_DATA, 'w+') as outfile:
             json.dump(self.cookies, outfile)
 
     def _load_cookies(self):
         try:
-            with open('cookie.data') as json_file:
+            with open(COOKIE_DATA) as json_file:
                 data = json.load(json_file)
                 if 'cookies' in data:
                     self.cookies = data

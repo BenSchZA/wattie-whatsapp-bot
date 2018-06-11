@@ -1,14 +1,16 @@
 import time
 import csv
 
+UPTIME_DATA = 'data/uptime.csv'
+
 
 def process_up(context):
-    with open('uptime.csv', 'a+') as outfile:
+    with open(UPTIME_DATA, 'a+') as outfile:
         outfile.write(_get_csv_string(context) + ',' + 'up\n')
 
 
 def process_down(context):
-    with open('uptime.csv', 'a+') as outfile:
+    with open(UPTIME_DATA, 'a+') as outfile:
         outfile.write(_get_csv_string(context) + ',' + 'down\n')
 
 
@@ -19,7 +21,7 @@ def _get_csv_string(context):
 def get_uptime(context):
     uptime = 0
     last_millis = 0
-    with open('uptime.csv', 'r+') as csv_file:
+    with open(UPTIME_DATA, 'r+') as csv_file:
         read_csv = csv.reader(csv_file, delimiter=',')
         for row in read_csv:
             millis = int(row[0])
@@ -40,7 +42,7 @@ def get_uptime(context):
 def get_downtime(context):
     downtime = 0
     last_millis = 0
-    with open('uptime.csv', 'r+') as csv_file:
+    with open(UPTIME_DATA, 'r+') as csv_file:
         read_csv = csv.reader(csv_file, delimiter=',')
         for row in read_csv:
             millis = int(row[0])
