@@ -89,11 +89,12 @@ class SessionManager:
         self._load_cookies()
         self.driver.get('https://web.whatsapp.com/')
 
+        self.session_id = self.driver.session_id
+        self.executor_url = self.driver.command_executor._url
+
         self.logger.info('New session created')
         self.logger.debug('Session ID: ' + self.session_id)
 
-        self.session_id = self.driver.session_id
-        self.executor_url = self.driver.command_executor._url
         self._save_session(self.session_id, self.executor_url)
 
     def get_driver(self):
