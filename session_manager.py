@@ -7,6 +7,7 @@ import uptime_manager
 from schedule_manager import ScheduleManager
 import time
 import http_server
+import config
 from multiprocessing import Process
 
 from selenium import webdriver
@@ -18,7 +19,7 @@ from urllib.error import URLError
 
 TIMEOUT = 30
 
-binary = FirefoxBinary('/usr/bin/firefox-developer-edition')
+binary = FirefoxBinary(config.FIREFOX_BINARY_LOCATION)
 webdriver.DesiredCapabilities.FIREFOX["unexpectedAlertBehaviour"] = "accept"
 
 SESSION_DATA = 'data/session.data'

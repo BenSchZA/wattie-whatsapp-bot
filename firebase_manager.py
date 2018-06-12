@@ -8,6 +8,7 @@ from datetime import datetime
 from datetime import timedelta
 import pytz
 from user import User
+import config
 
 # https://firebase.google.com/docs/firestore/query-data/get-data
 # https://firebase.google.com/docs/firestore/query-data/queries
@@ -29,8 +30,7 @@ class FirebaseManager:
             initialized = False
 
         if not initialized:
-            cred = credentials.Certificate('***REMOVED***/'
-                                           '***REMOVED***')
+            cred = credentials.Certificate(config.FIREBASE_CERTIFICATE_LOCATION)
             firebase_admin.initialize_app(cred)
 
         self.db = firestore.client()
