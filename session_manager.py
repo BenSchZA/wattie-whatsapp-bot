@@ -55,6 +55,8 @@ class SessionManager:
             self.logger.debug('Session ID: ' + self.session_id)
 
             self.driver = self._create_driver_session(self.session_id, self.executor_url)
+        else:
+            self._create_new_driver_session()
 
         try:
             # If previous session does exist, reuse session
