@@ -1,0 +1,81 @@
+version: '2'
+services:
+    wattie:
+        build: .
+        image: debian/latest
+        environment:
+           - FIREBASE_CERTIFICATE_LOCATION=/secrets/***REMOVED***
+           - FIREFOX_BINARY_LOCATION=/usr/bin/firefox-developer-edition
+        volumes:
+            - /usr/bin:/usr/bin
+            - ./downloads:/app/downloads
+            - ./logs:/app/logs
+            - ./data:/app/data
+            - ***REMOVED***:/secrets
+        ports:
+            - 8001:8001
+        depends_on:
+            - mongodb
+            - hub
+        networks:
+            - net
+    mongodb:
+        image: mongo:latest
+        environment:
+            - MONGO_DATA_DIR=/data/db
+            - MONGO_LOG_DIR=/dev/null
+        volumes:
+            - mongodb:/data/db
+        ports:
+            - 27017:27017
+        command: mongod --smallfiles --logpath=/dev/null # --quiet
+        networks:
+            - net
+    hub:
+        image: selenium/hub:3.12.0-cobalt
+        ports:
+            - 4444:4444
+        tty: true
+        networks:
+            - net
+    selenium-firefox:
+        #image: selenium/node-firefox
+        image: selenium/node-firefox-debug:3.12.0-cobalt
+        ports:
+            - 5900:5900
+        tty: true
+        depends_on:
+            - hub
+        volumes:
+            - /dev/shm:/dev/shm
+            #- /tmp/.X11-unix:/tmp/.X11-unix
+        environment:
+            - HUB_HOST=hub
+            - HUB_PORT_4444_TCP_ADDR=hub
+            - HUB_PORT_4444_TCP_PORT=4444
+            #- DISPLAY=$DISPLAY
+        networks:
+            - net
+#    selenium-chrome:
+#        #image: selenium/node-firefox
+#        image: selenium/node-chrome:3.12.0-cobalt
+#        ports:
+#            - 5901:5900
+#        tty: true
+#        depends_on:
+#            - hub
+#        volumes:
+#            - /dev/shm:/dev/shm
+#            #- /tmp/.X11-unix:/tmp/.X11-unix
+#        environment:
+#            - HUB_HOST=hub
+#            - HUB_PORT_4444_TCP_ADDR=hub
+#            - HUB_PORT_4444_TCP_PORT=4444
+#            #- DISPLAY=$DISPLAY
+#        networks:
+#            - selenium
+volumes:
+    mongodb:
+networks:
+    net:
+      driver: bridge

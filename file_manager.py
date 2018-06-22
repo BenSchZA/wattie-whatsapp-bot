@@ -35,7 +35,7 @@ class FileManager:
         self.downloader_running = False
 
     def _initialize_database(self):
-        self.client = MongoClient()
+        self.client = MongoClient('mongodb', 27017)
         self.db = self.client.file_manager
         self.firebase = FirebaseManager()
 

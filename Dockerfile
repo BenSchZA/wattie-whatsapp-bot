@@ -1,20 +1,23 @@
-FROM python:3.6-alpine as base
+#FROM python:3.6 as base
+#
+#FROM base as builder
+#
+#RUN mkdir /install
+#WORKDIR /install
+#
+#COPY requirements.txt /requirements.txt
+#
+##--install-option="--prefix=/install"
+#ENV PYTHONUSERBASE=/install
+#RUN pip install -r /requirements.txt
 
-FROM base as builder
+FROM python:3.6
 
-RUN mkdir /install
-WORKDIR /install
-
-COPY requirements.txt /requirements.txt
-
-RUN pip install --install-option="--prefix=/install" -r /requirements.txt
-
-FROM base
-
-COPY --from=builder /install /usr
-COPY src /app
-
+RUN mkdir /app
 WORKDIR /app
+
+COPY . /app
+RUN pip install -r requirements.txt
 
 EXPOSE 8001
 

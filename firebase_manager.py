@@ -3,12 +3,12 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from google.cloud.exceptions import NotFound
 
+import os
 import time
 from datetime import datetime
 from datetime import timedelta
 import pytz
 from user import User
-import config
 
 # https://firebase.google.com/docs/firestore/query-data/get-data
 # https://firebase.google.com/docs/firestore/query-data/queries
@@ -30,7 +30,7 @@ class FirebaseManager:
             initialized = False
 
         if not initialized:
-            cred = credentials.Certificate(config.FIREBASE_CERTIFICATE_LOCATION)
+            cred = credentials.Certificate(os.environ['FIREBASE_CERTIFICATE_LOCATION'])
             firebase_admin.initialize_app(cred)
 
         self.db = firestore.client()

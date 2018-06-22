@@ -7,8 +7,9 @@ import uptime_manager
 from schedule_manager import ScheduleManager
 import time
 import http_server
-import config
+import os
 from multiprocessing import Process
+from retrying import retry
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -19,8 +20,7 @@ from urllib.error import URLError
 
 TIMEOUT = 30
 
-binary = FirefoxBinary(config.FIREFOX_BINARY_LOCATION)
-webdriver.DesiredCapabilities.FIREFOX["unexpectedAlertBehaviour"] = "accept"
+binary = FirefoxBinary(os.environ['FIREFOX_BINARY_LOCATION'])
 
 SESSION_DATA = 'data/session.data'
 COOKIE_DATA = 'data/cookie.data'
@@ -47,17 +47,18 @@ class SessionManager:
         self.cookies = {}
 
         self.driver = None
-        if 'session' in self.previous_session:
-            self.session = self.previous_session['session']
-            self.session_id = self.session['session_id']
-            self.executor_url = self.session['executor_url']
-
-            self.logger.info('Session exists')
-            self.logger.debug('Session ID: ' + self.session_id)
-
-            self.driver = self._create_driver_session(self.session_id, self.executor_url)
-        else:
-            self._create_new_driver_session()
+        # if 'session' in self.previous_session:
+        #     self.session = self.previous_session['session']
+        #     self.session_id = self.session['session_id']
+        #     self.executor_url = self.session['executor_url']
+        #
+        #     self.logger.info('Session exists')
+        #     self.logger.debug('Session ID: ' + self.session_id)
+        #
+        #     self.driver = self._create_driver_session(self.session_id, self.executor_url)
+        # else:
+        #     self._create_new_driver_session()
+        self._create_new_driver_session()
 
         try:
             # If previous session does exist, reuse session
@@ -81,9 +82,15 @@ class SessionManager:
         time.sleep(5)
         return self.driver.get_screenshot_as_png()
 
+    @retry(wait_exponential_multiplier=500, wait_exponential_max=60000)
     def _create_new_driver_session(self):
         self.logger.info('Creating new session...')
-        self.driver = webdriver.Firefox(firefox_binary=binary)
+
+        capabilities = webdriver.DesiredCapabilities().FIREFOX.copy()
+        capabilities["unexpectedAlertBehaviour"] = "accept"
+
+        self.driver = webdriver.Remote(command_executor='http://hub:4444/wd/hub', desired_capabilities=capabilities)
+        # self.driver = webdriver.Firefox(firefox_binary=binary)
 
         self.driver.get('https://web.whatsapp.com/')
         self._load_cookies()

@@ -21,6 +21,7 @@ pymongo==3.6.1
 pytz==2018.4
 PyYAML==3.12
 requests==2.18.4
+retrying==1.3.3
 rsa==3.4.2
 selenium==3.11.0
 selenium-page-elements==0.1.6

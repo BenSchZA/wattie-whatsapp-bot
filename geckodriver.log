@@ -6066,3 +6066,32 @@ JavaScript error: resource://devtools/shared/base-loader.js -> resource://devtoo
 1527942931228	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.LgeVqRoCKn6n"
 1527942932642	Marionette	INFO	Listening on port 42503
 1527942932738	Marionette	WARN	TLS certificate errors will be ignored for this session
+1529678478799	geckodriver	INFO	geckodriver 0.20.1
+1529678478807	geckodriver	INFO	Listening on 127.0.0.1:33635
+1529678479943	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.cG6dDBUciTWG"
+1529678481822	Marionette	INFO	Listening on port 43587
+1529678481853	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://web.whatsapp.com/vendor2.030d3590e07b379cf716.js, line 39: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://web.whatsapp.com/vendor2.030d3590e07b379cf716.js, line 49: NS_ERROR_NOT_INITIALIZED: 
+Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null
+GeckoDriver.prototype.get@chrome://marionette/content/driver.js:1090:3
+
+1529678495005	geckodriver	INFO	geckodriver 0.20.1
+1529678495014	geckodriver	INFO	Listening on 127.0.0.1:50099
+[Parent 14609, Gecko_IOThread] WARNING: pipe error (112): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 14609, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1529678496003	Marionette	INFO	Stopped listening on port 43587
+1529678496087	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.AzqYEZibZMjF"
+1529678497774	Marionette	INFO	Listening on port 46491
+1529678497798	Marionette	WARN	TLS certificate errors will be ignored for this session
+1529686652993	geckodriver	INFO	geckodriver 0.20.1
+1529686653002	geckodriver	INFO	Listening on 127.0.0.1:36321
+1529686654199	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-profile" "/tmp/rust_mozprofile.CQg9mbc6Mlg5"
+1529686656088	Marionette	INFO	Listening on port 39259
+1529686656129	Marionette	WARN	TLS certificate errors will be ignored for this session
+Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null
+GeckoDriver.prototype.get@chrome://marionette/content/driver.js:1090:3
+
+JavaScript error: https://web.whatsapp.com/vendor2.030d3590e07b379cf716.js, line 49: NS_ERROR_NOT_INITIALIZED: 
+[Parent 19471, Gecko_IOThread] WARNING: pipe error (129): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1529686661387	Marionette	INFO	Stopped listening on port 39259
