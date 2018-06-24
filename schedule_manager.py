@@ -1,4 +1,4 @@
-import subprocess
+from whatsapp_cli_interface import send_whatsapp
 from firebase_manager import FirebaseManager
 from file_manager import FileManager
 import log_manager
@@ -34,7 +34,7 @@ class ScheduleManager:
             media = "\"%s\"" % schedule['path']
             uid = schedule['uid']
 
-            if self._send_***REMOVED***(number, message, media):
+            if send_whatsapp(number=number, message=message, media=media):
                 self.file_manager.mark_delivered(uid)
                 self.logger.info('***REMOVED*** delivered to %s' % uid)
 
@@ -43,13 +43,3 @@ class ScheduleManager:
 
     def is_handler_running(self):
         return self.handler_running
-
-    @staticmethod
-    def _send_***REMOVED***(number, message, media):
-        try:
-            subprocess.check_output(["./venv/bin/python whatsapp_cli.py --number %s --message %s --media %s"
-                                     % (number, message, media)], shell=True)
-            return True
-        except subprocess.CalledProcessError as e:
-            print(e)
-            return False

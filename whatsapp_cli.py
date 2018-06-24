@@ -12,9 +12,10 @@ from selenium.common.exceptions import *
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--message', help='send message', type=str, required=True)
 parser.add_argument('--number', nargs='+', help='to number', required=True)
-parser.add_argument('--media', nargs='+', help='media attachment', required=True)
+parser.add_argument('--message', help='send message', type=str, required=False)
+parser.add_argument('--media', nargs='+', help='media attachment', required=False)
+parser.add_argument('--url', nargs='+', help='url link', required=False)
 
 args = parser.parse_args()
 
@@ -24,9 +25,10 @@ session = session.SessionManager()
 driver = session.get_driver()
 # session.save_cookies()
 
-phone_numbers = args.number
+numbers = args.number
 message = args.message
 media = args.media
+url = args.url
 
 
 def _handle_alert():
@@ -41,7 +43,11 @@ def _handle_alert():
 
 def _process_queue():
     print("Processing queue...")
-    for number in phone_numbers:
+    for number in numbers:
+        processed_message = False
+        processed_url = False
+        processed_media = False
+
         print('Ensuring connection okay')
         session.wait_until_connection_okay()
 
@@ -70,76 +76,107 @@ def _process_queue():
             finally:
                 print('Page refreshed')
 
-        try:
-            content = WebDriverWait(driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
-            )
-            content.send_keys(message)
-            print('Sending message to ' + number)
-        except TimeoutException:
-            session.refresh_connection()
-            continue
-        finally:
-            pass
+        if message:
+            try:
+                content = WebDriverWait(driver, TIMEOUT).until(
+                    exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
+                )
+                content.send_keys(message)
+                print('Sending message to ' + number)
+            except TimeoutException:
+                session.refresh_connection()
+                continue
+            finally:
+                pass
 
-        try:
-            send_button = WebDriverWait(driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.CLASS_NAME, "_2lkdt"))
-            )
-            send_button.click()
-            print('Message sent to ' + number)
-        except TimeoutException:
-            session.refresh_connection()
-            continue
-        finally:
-            pass
+            try:
+                send_button = WebDriverWait(driver, TIMEOUT).until(
+                    exp_c.visibility_of_element_located((By.CLASS_NAME, "_2lkdt"))
+                )
+                send_button.click()
+                print('Message sent to ' + number)
+            except TimeoutException:
+                session.refresh_connection()
+                continue
+            finally:
+                processed_message = True
+                pass
 
-        try:
-            attach = WebDriverWait(driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.XPATH, "//div[@title='Attach']"))
-            )
-            attach.click()
-            print('Attaching file for ' + number)
-        except TimeoutException:
-            session.refresh_connection()
-            continue
-        finally:
-            pass
+        if url:
+            try:
+                content = WebDriverWait(driver, TIMEOUT).until(
+                    exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
+                )
+                content.send_keys(message)
+                print('Sending message to ' + number)
+            except TimeoutException:
+                session.refresh_connection()
+                continue
+            finally:
+                pass
 
-        try:
-            file = driver.find_element_by_xpath("//input[@accept='*']")
-            driver.execute_script("arguments[0].style.display='block';", file)
-            WebDriverWait(driver, TIMEOUT).until(
-                exp_c.visibility_of(file)
-            )
-            file.send_keys(media)
-            print('File attached for ' + number)
-        except TimeoutException:
-            session.refresh_connection()
-            continue
-        finally:
-            pass
+            try:
+                send_button = WebDriverWait(driver, TIMEOUT).until(
+                    exp_c.visibility_of_element_located((By.CLASS_NAME, "_2lkdt"))
+                )
+                send_button.click()
+                print('Message sent to ' + number)
+            except TimeoutException:
+                session.refresh_connection()
+                continue
+            finally:
+                processed_url = True
+                pass
 
-        try:
-            print('Sending attachment to ' + number)
-            send_file = WebDriverWait(driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3hV1n yavlE']"))
-            )
-            send_file.click()
-            print('Waiting for attachment to upload')
-            WebDriverWait(driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
-            )
-            WebDriverWait(driver, TIMEOUT*10).until(
-                exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
-            )
-            print('Attachment sent to ' + number)
+        if media:
+            try:
+                attach = WebDriverWait(driver, TIMEOUT).until(
+                    exp_c.visibility_of_element_located((By.XPATH, "//div[@title='Attach']"))
+                )
+                attach.click()
+                print('Attaching file for ' + number)
+            except TimeoutException:
+                session.refresh_connection()
+                continue
+            finally:
+                pass
+
+            try:
+                file = driver.find_element_by_xpath("//input[@accept='*']")
+                driver.execute_script("arguments[0].style.display='block';", file)
+                WebDriverWait(driver, TIMEOUT).until(
+                    exp_c.visibility_of(file)
+                )
+                file.send_keys(media)
+                print('File attached for ' + number)
+            except TimeoutException:
+                session.refresh_connection()
+                continue
+            finally:
+                pass
+
+            try:
+                print('Sending attachment to ' + number)
+                send_file = WebDriverWait(driver, TIMEOUT).until(
+                    exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3hV1n yavlE']"))
+                )
+                send_file.click()
+                print('Waiting for attachment to upload')
+                WebDriverWait(driver, TIMEOUT).until(
+                    exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
+                )
+                WebDriverWait(driver, TIMEOUT*10).until(
+                    exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
+                )
+                print('Attachment sent to ' + number)
+            except TimeoutException:
+                session.refresh_connection()
+                continue
+            finally:
+                processed_media = True
+                pass
+        if (message and not processed_message) or (url and not processed_url) or (media and not processed_media):
             exit(0)
-        except TimeoutException:
-            session.refresh_connection()
-            continue
-        finally:
-            pass
     exit(1)
 
 

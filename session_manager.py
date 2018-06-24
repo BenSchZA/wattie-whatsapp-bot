@@ -6,7 +6,7 @@ import log_manager
 import uptime_manager
 from schedule_manager import ScheduleManager
 import time
-import http_server
+import api
 import os
 from multiprocessing import Process
 from retrying import retry
@@ -31,8 +31,8 @@ class SessionManager:
     def __init__(self) -> None:
         super().__init__()
 
-        # Start HTTP server in another process for service monitoring
-        self.start_server()
+        # Start API in another process for service monitoring
+        self.start_api()
 
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
@@ -72,10 +72,10 @@ class SessionManager:
         finally:
             uptime_manager.process_up(self)
 
-    def start_server(self):
+    def start_api(self):
         # Start HTTP server in another process for service monitoring
-        server_process = Process(target=http_server.run)
-        server_process.start()
+        api_process = Process(target=api.start)
+        api_process.start()
 
     def get_screenshot(self):
         self.wait_until_connection_okay()
