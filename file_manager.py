@@ -1,9 +1,12 @@
 import os
 import shutil
 import errno
+import string
+import random
 
 from datetime import datetime
 import urllib.request
+import requests
 
 import pymongo
 from pymongo import MongoClient
@@ -21,6 +24,7 @@ import utils
 
 LOGS = 'logs'
 DOWNLOADS = 'downloads'
+TEMP = 'temp'
 DATA = 'data'
 
 
@@ -45,6 +49,7 @@ class FileManager:
     def _initialize_directories(self):
         self._create_directory(LOGS)
         self._create_directory(DOWNLOADS)
+        self._create_directory(DOWNLOADS + '/' + TEMP)
         self._create_directory(DATA)
 
     @staticmethod
@@ -55,6 +60,29 @@ class FileManager:
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
+
+    @staticmethod
+    def create_uid(num_chars=6):
+        return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(num_chars))
+
+    def download_temp_file(self, url, filename):
+        # Configure path
+        directory = self._get_temp_download_dir() + self.create_uid()
+        path = os.path.join(directory, filename)
+
+        # Create directory structure and download file
+        self._create_directory(directory)
+        # urllib.request.urlretrieve(url, path)
+        req = requests.get(url)
+        with open(path, 'wb') as file:
+            self.logger.info("Saving temp file to %s" % path)
+            file.write(req.content)
+
+        return path
+
+    def delete_temp_file(self, path):
+        self.logger.info("Deleting temp file at %s" % path)
+        return self._delete_path(path)
 
     def download_and_schedule(self):
         if self.downloader_running:
@@ -74,8 +102,7 @@ class FileManager:
 
         for user in firebase_scheduled:
             # Clear user downloads
-            # TODO: check that files aren't being redownloaded
-            self._remove_user_downloads(user.uid)
+            self._delete_path(self._get_download_dir() + user.uid)
             self.downloads_collection.delete_many({"uid": user.uid})
 
             # Configure path
@@ -85,7 +112,10 @@ class FileManager:
 
             # Create directory structure and download file
             self._create_directory(directory)
-            urllib.request.urlretrieve(user.***REMOVED***.audio_url, path)
+            # urllib.request.urlretrieve(user.***REMOVED***.audio_url, path)
+            req = requests.get(user.***REMOVED***.audio_url)
+            with open(path, 'wb') as file:
+                file.write(req.content)
 
             # Create database entry for logging and management
             self._schedule(user, path)
@@ -140,12 +170,20 @@ class FileManager:
         pwd = os.getcwd()
         return pwd + '/' + DOWNLOADS + '/'
 
-    def _remove_user_downloads(self, uid):
-        self.logger.info("Removing user %s downloads" % uid)
+    @staticmethod
+    def _get_temp_download_dir():
+        pwd = os.getcwd()
+        return pwd + '/' + DOWNLOADS + '/' + TEMP + '/'
+
+    def _delete_path(self, path):
+        self.logger.info("Removing path %s" % path)
         try:
-            shutil.rmtree(self._get_download_dir() + uid)
+            shutil.rmtree(path)
+            self.logger.info("Path remove")
+            return True
         except FileNotFoundError:
-            pass
+            self.logger.info("Path not found")
+            return False
 
     def _get_download_entry_for_uid(self, uid):
         self.downloads_collection.find_one({"uid": uid})

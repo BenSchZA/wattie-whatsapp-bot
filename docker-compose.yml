@@ -2,21 +2,24 @@ version: '2'
 services:
     wattie:
         build: .
-        image: debian/latest
+        image: debian/latest:wattie
         environment:
-           - FIREBASE_CERTIFICATE_LOCATION=/secrets/***REMOVED***
-           - FIREFOX_BINARY_LOCATION=/usr/bin/firefox-developer-edition
+           - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
+           - CELL_NUMBER='***REMOVED***'
+           - MONITOR_FREQUENCY=30
+           - TIMEOUT=30
         volumes:
-            - /usr/bin:/usr/bin
+            - pip_cache:/root/.cache/pip
             - ./downloads:/app/downloads
             - ./logs:/app/logs
             - ./data:/app/data
-            - ***REMOVED***:/secrets
+            - ${FIREBASE_CERTIFICATE_PATH}:/secrets
         ports:
             - 8001:8001
         depends_on:
             - mongodb
             - hub
+            - selenium-firefox
         networks:
             - net
     mongodb:
@@ -28,7 +31,7 @@ services:
             - mongodb:/data/db
         ports:
             - 27017:27017
-        command: mongod --smallfiles --logpath=/dev/null # --quiet
+        command: mongod --smallfiles --logpath=/dev/null
         networks:
             - net
     hub:
@@ -39,7 +42,6 @@ services:
         networks:
             - net
     selenium-firefox:
-        #image: selenium/node-firefox
         image: selenium/node-firefox-debug:3.12.0-cobalt
         ports:
             - 5900:5900
@@ -48,34 +50,17 @@ services:
             - hub
         volumes:
             - /dev/shm:/dev/shm
-            #- /tmp/.X11-unix:/tmp/.X11-unix
         environment:
             - HUB_HOST=hub
             - HUB_PORT_4444_TCP_ADDR=hub
             - HUB_PORT_4444_TCP_PORT=4444
-            #- DISPLAY=$DISPLAY
         networks:
             - net
-#    selenium-chrome:
-#        #image: selenium/node-firefox
-#        image: selenium/node-chrome:3.12.0-cobalt
-#        ports:
-#            - 5901:5900
-#        tty: true
-#        depends_on:
-#            - hub
-#        volumes:
-#            - /dev/shm:/dev/shm
-#            #- /tmp/.X11-unix:/tmp/.X11-unix
-#        environment:
-#            - HUB_HOST=hub
-#            - HUB_PORT_4444_TCP_ADDR=hub
-#            - HUB_PORT_4444_TCP_PORT=4444
-#            #- DISPLAY=$DISPLAY
-#        networks:
-#            - selenium
+
 volumes:
     mongodb:
+    pip_cache:
+
 networks:
     net:
       driver: bridge

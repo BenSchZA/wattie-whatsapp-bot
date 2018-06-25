@@ -1,4 +1,4 @@
-import session_manager
+from session_manager import SessionManager
 
 import logging.handlers
 from email.mime.text import MIMEText
@@ -31,7 +31,7 @@ class SMTPSHandler(logging.handlers.SMTPHandler):
             msg['To'] = self.toaddrs[0]
             msg['Date'] = formatdate()
 
-            session = session_manager.SessionManager()
+            session = SessionManager()
             image_data = session.get_screenshot()
             text = MIMEText('Screenshot attached')
             msg.attach(text)

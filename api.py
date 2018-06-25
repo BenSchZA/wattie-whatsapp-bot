@@ -1,29 +1,64 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 from whatsapp_cli_interface import send_whatsapp
+from file_manager import FileManager
+import log_manager
+import os
 
 app = Flask(__name__)
 api = Api(app)
 
+logger = log_manager.get_logger('api_manager')
+
 
 @app.route("/health")
 def health_check():
-    return 'healthy'
+    logger.info('Handling /health request')
+
+    if send_whatsapp(number=os.environ['CELL_NUMBER'], message='Health check'):
+        return 'healthy', 200
+    else:
+        return 'unhealthy', 500
 
 
 @app.route('/message')
-def send_whatsapp_message():
+def send_message():
+    logger.info('Handling /message request: %s' % request.args)
+
     number = request.args.get('number')
     message = request.args.get('message')
+    media = request.args.get('media')
+    filename = request.args.get('filename')
 
-    send_whatsapp(number=number, message=message)
+    file_manager = FileManager()
+    path = ''
 
-    return 'Sending message %s to %s' % (message, number)
+    if media and filename:
+        logger.info('Fetching media')
+        file_manager = FileManager()
+        path = file_manager.download_temp_file(media, filename)
+    elif media and not filename:
+        return '"media" must have corresponding "filename"'
+
+    if number and message and not media:
+        logger.info('Sending message')
+        if send_whatsapp(number=number, message=message):
+            return 'Message %s sent to %s' % (message, number)
+        else:
+            return 'Failed to send message'
+    elif number and message and media:
+        logger.info('Sending media message')
+        if send_whatsapp(number=number, message=message, media=path):
+            file_manager.delete_temp_file(path)
+            return 'Message %s sent to %s with attachment %s' % (message, number, media)
+        else:
+            return 'Failed to send message'
+    return 'Invalid request', 400
 
 
 def start():
-    app.run(port='8001')
-
-
-if __name__ == '__main__':
-    app.run(port='8001')
+    try:
+        app.run(debug=True, host='0.0.0.0', port='8001')
+    except OSError:
+        logger.error('Address already in use')
+        pass

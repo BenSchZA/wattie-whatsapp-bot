@@ -26,7 +26,9 @@ Using your VNC viewer of choice connect to **localhost port 5900**, the followin
 
 Ports 8001 and 5900 need to be open to incoming connections in order to use API and VNC.
 
-## Local environment variables
+## Environment variables
+
+### Host
 
 The following environment variables need to be exported on the Docker host for the build to succeed.
 
@@ -39,6 +41,14 @@ This means if the server is rebuilt, the actual Firebase certificate will need t
 See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]
 
 `scp -i .ssh/ssh-key /home/yoda/secrets/***REMOVED*** ubuntu@ec2-url.com:~/secrets`
+
+### Docker-compose
+
+**CELL_NUMBER**: The cell number of Wattie - used for health checks.
+
+**MONITOR_FREQUENCY**: How often in seconds to check Wattie's health.
+
+**TIMEOUT**: How long to wait in seconds before refreshing or restarting the connection.
 
 ## SSHing into EC2 host
 

@@ -1,4 +1,4 @@
-from whatsapp_cli_interface import send_whatsapp
+import whatsapp_cli_interface
 from firebase_manager import FirebaseManager
 from file_manager import FileManager
 import log_manager
@@ -34,7 +34,7 @@ class ScheduleManager:
             media = "\"%s\"" % schedule['path']
             uid = schedule['uid']
 
-            if send_whatsapp(number=number, message=message, media=media):
+            if whatsapp_cli_interface.send_whatsapp(number=number, message=message, media=media):
                 self.file_manager.mark_delivered(uid)
                 self.logger.info('***REMOVED*** delivered to %s' % uid)
 

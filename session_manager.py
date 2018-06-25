@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from singleton import Singleton
 import json
 import threading
 import log_manager
@@ -7,20 +8,15 @@ import uptime_manager
 from schedule_manager import ScheduleManager
 import time
 import api
-import os
 from multiprocessing import Process
 from retrying import retry
+import os
 
 from selenium import webdriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.common.exceptions import SessionNotCreatedException
 from selenium.common.exceptions import NoSuchWindowException
 from selenium.common.exceptions import WebDriverException
 from urllib.error import URLError
-
-TIMEOUT = 30
-
-binary = FirefoxBinary(os.environ['FIREFOX_BINARY_LOCATION'])
 
 SESSION_DATA = 'data/session.data'
 COOKIE_DATA = 'data/cookie.data'
@@ -31,34 +27,33 @@ class SessionManager:
     def __init__(self) -> None:
         super().__init__()
 
-        # Start API in another process for service monitoring
-        self.start_api()
-
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
-
-        self.schedule_manager = ScheduleManager()
 
         self.logger.info('Fetching Firefox session...')
 
         self.previous_session = {}
         self._fetch_session()
+        self.active_connection = False
 
         self.cookies = {}
 
         self.driver = None
-        # if 'session' in self.previous_session:
-        #     self.session = self.previous_session['session']
-        #     self.session_id = self.session['session_id']
-        #     self.executor_url = self.session['executor_url']
-        #
-        #     self.logger.info('Session exists')
-        #     self.logger.debug('Session ID: ' + self.session_id)
-        #
-        #     self.driver = self._create_driver_session(self.session_id, self.executor_url)
-        # else:
-        #     self._create_new_driver_session()
-        self._create_new_driver_session()
+        if 'session' in self.previous_session:
+            self.session = self.previous_session['session']
+            self.session_id = self.session['session_id']
+            self.executor_url = self.session['executor_url']
+
+            self.logger.info('Session exists')
+            self.logger.debug('Session ID: ' + self.session_id)
+
+            self.driver = self._get_existing_driver_session(self.session_id, self.executor_url)
+        else:
+            self._create_new_driver_session()
+
+        self.schedule_manager = ScheduleManager()
+        # Start API for service monitoring
+        self.start_api()
 
         try:
             # If previous session does exist, reuse session
@@ -73,9 +68,13 @@ class SessionManager:
             uptime_manager.process_up(self)
 
     def start_api(self):
+        self.logger.info('Starting api')
         # Start HTTP server in another process for service monitoring
-        api_process = Process(target=api.start)
-        api_process.start()
+        try:
+            api_process = Process(target=api.start)
+            api_process.start()
+        except OSError:
+            pass
 
     def get_screenshot(self):
         self.wait_until_connection_okay()
@@ -145,7 +144,24 @@ class SessionManager:
             pass
 
     @staticmethod
-    def _create_driver_session(session_id, executor_url):
+    def get_existing_driver_session():
+        previous_session = {}
+        try:
+            with open(SESSION_DATA) as json_file:
+                previous_session = json.load(json_file)
+        except FileNotFoundError:
+            pass
+
+        session_id = ''
+        executor_url = ''
+        if 'session' in previous_session:
+            session_id = previous_session['session']['session_id']
+            executor_url = previous_session['session']['executor_url']
+
+        return SessionManager._get_existing_driver_session(session_id, executor_url)
+
+    @staticmethod
+    def _get_existing_driver_session(session_id, executor_url):
         from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 
         capabilities = webdriver.DesiredCapabilities().FIREFOX.copy()
@@ -176,16 +192,18 @@ class SessionManager:
 
     def connection_okay(self):
         try:
-            return 'whatsapp' in self.driver.current_url
+            return 'whatsapp' in self.driver.current_url #and whatsapp_cli_interface\
+                #.send_whatsapp(self, number=os.environ['CELL_NUMBER'], message='Health check')
         except (WebDriverException, NoSuchWindowException):
             self.logger.exception("Connection okay exception")
             self.logger.critical("Connection down")
             return False
 
-    def wait_until_connection_okay(self):
-        must_end = time.time() + TIMEOUT
+    @staticmethod
+    def wait_until_connection_okay():
+        must_end = time.time() + int(os.environ['TIMEOUT'])
         while time.time() < must_end:
-            if self.connection_okay():
+            if SessionManager.get_existing_driver_session():
                 return True
             time.sleep(0.5)
         return False
@@ -198,10 +216,12 @@ class SessionManager:
             pass
         self.__init__()
 
-    def refresh_connection(self):
-        self.logger.info("Refreshing connection")
+    @staticmethod
+    def refresh_connection():
         try:
-            self.driver.refresh()
+            driver = SessionManager.get_existing_driver_session()
+            if driver:
+                driver.refresh()
         except SessionNotCreatedException:
             pass
 
@@ -210,12 +230,11 @@ class SessionManager:
 
             self.logger.info('Uptime: ' + str(int(round(uptime_manager.get_uptime_percent(self)))) + '%')
 
-            active_connection = self.connection_okay()
-            self.logger.debug("Active connection: %r" % active_connection)
+            self.active_connection = self.connection_okay()
+            self.logger.debug("Active connection: %r" % self.active_connection)
             self.logger.debug("Handler running: %r" % self.schedule_manager.handler_running)
 
-            if not active_connection:
-                # self.server.set_response(self.server(), 500)
+            if not self.active_connection:
                 self.restart_connection()
                 uptime_manager.process_down(self)
             else:
@@ -224,7 +243,7 @@ class SessionManager:
                 if not self.schedule_manager.handler_running:
                     self.schedule_manager.handle_schedules()
 
-            threading.Timer(10, self.monitor_connection).start()
+            threading.Timer(os.environ['MONITOR_FREQUENCY'], self.monitor_connection).start()
 
 
 if __name__ == "__main__":

@@ -1,8 +1,13 @@
+aniso8601==3.0.2
 CacheControl==0.12.4
 cachetools==2.1.0
 certifi==2018.4.16
 chardet==3.0.4
+click==6.7
 firebase-admin==2.10.0
+Flask==1.0.2
+Flask-Jsonpify==1.5.0
+Flask-RESTful==0.3.6
 google-api-core==1.1.2
 google-auth==1.4.1
 google-cloud-core==0.28.1
@@ -12,6 +17,9 @@ google-resumable-media==0.3.1
 googleapis-common-protos==1.5.3
 grpcio==1.12.0
 idna==2.6
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
 msgpack-python==0.5.6
 protobuf==3.5.2.post1
 pyaml==17.12.1
@@ -27,3 +35,4 @@ selenium==3.11.0
 selenium-page-elements==0.1.6
 six==1.11.0
 urllib3==1.22
+Werkzeug==0.14.1
