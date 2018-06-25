@@ -20,9 +20,27 @@ Using your VNC viewer of choice connect to **localhost port 5900**, the followin
 
 `vncviewer localhost:5900`
 
-## Amazon EC2
+## Amazon EC2 Config
 
 Ports 8001 and 5900 need to be open to incoming connections in order to use API and VNC.
+
+## Local environment variables
+
+The following environment variables need to be exported on the Docker host for the build to succeed.
+
+**FIREBASE_CERTIFICATE_PATH**: The path to the directory holding the Firebase certificate e.g. /home/ec2-user/secrets
+
+**FIREBASE_CERTIFICATE_NAME**: The name of the Firebase certificate e.g. ***REMOVED***
+
+This means if the server is rebuilt, the actual Firebase certificate will need to be uploaded using `scp` and the relevant SSH key, for example:
+
+See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]
+
+`scp -i .ssh/ssh-key /home/yoda/secrets/***REMOVED*** ubuntu@ec2-url.com:~/secrets`
+
+## SSHing into EC2 host
+
+See Wattie v1.0 for instructions.
 
 ---
 
