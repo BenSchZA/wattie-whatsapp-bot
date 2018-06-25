@@ -20,6 +20,8 @@ Using your VNC viewer of choice connect to **localhost port 5900**, the followin
 
 `vncviewer localhost:5900`
 
+> Password: 'secret'
+
 ## Amazon EC2 Config
 
 Ports 8001 and 5900 need to be open to incoming connections in order to use API and VNC.
