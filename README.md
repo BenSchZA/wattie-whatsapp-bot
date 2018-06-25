@@ -2,6 +2,34 @@
 
 ---
 
+# Wattie v2.0-Docker
+
+---
+
+Wattie has been moved to a Docker multi-service container - it can now be started quickly without worrying about EC2 environment configuration.
+
+## 1. Docker
+
+`docker-compose build && docker-compose up`
+
+This will start a Docker container with **port 8001 exposed for API and 5900 exposed for VNC**.
+
+## 2. Graphical VNC Viewer
+
+Using your VNC viewer of choice connect to **localhost port 5900**, the following example uses **TigerVNC**:
+
+`vncviewer localhost:5900`
+
+## Amazon EC2
+
+Ports 8001 and 5900 need to be open to incoming connections in order to use API and VNC.
+
+---
+
+# Wattie v1.0
+
+---
+
 # Run locally:
 
 **Start mongo db:** ensure default config set
