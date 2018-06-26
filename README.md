@@ -36,6 +36,10 @@ The following environment variables need to be exported on the Docker host for t
 
 **FIREBASE_CERTIFICATE_NAME**: The name of the Firebase certificate e.g. ***REMOVED***
 
+**SELENIUM_VNC_PASSWORD**: Password for Selenium VNC server - for now just hard coded as '***REMOVED***' to save time.
+
+**AUTH_TOKEN**: Token to authorize API requests. 'X-Auth-Token' header entry in HTTP request.
+
 This means if the server is rebuilt, the actual Firebase certificate will need to be uploaded using `scp` and the relevant SSH key, for example:
 
 See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]

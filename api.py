@@ -13,6 +13,11 @@ logger = log_manager.get_logger('api_manager')
 
 @app.route("/health")
 def health_check():
+    if not check_auth():
+        return 'unauthorized', 400
+    else:
+        pass
+
     logger.info('Handling /health request')
 
     if send_whatsapp(number=os.environ['CELL_NUMBER'], message='Health check'):
@@ -23,6 +28,11 @@ def health_check():
 
 @app.route('/message')
 def send_message():
+    if not check_auth():
+        return 'unauthorized', 400
+    else:
+        pass
+
     logger.info('Handling /message request: %s' % request.args)
 
     number = request.args.get('number')
@@ -65,6 +75,10 @@ def send_message():
         else:
             return 'Failed to send message'
     return 'Invalid request', 400
+
+
+def check_auth():
+    return request.headers.get('X-Auth-Token') == os.environ['AUTH_TOKEN']
 
 
 def start():
