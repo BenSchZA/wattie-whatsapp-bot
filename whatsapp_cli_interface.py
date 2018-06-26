@@ -4,7 +4,7 @@ import log_manager
 logger = log_manager.get_logger('whatsapp_cli')
 
 
-def send_whatsapp(number, message=None, media=None):
+def send_whatsapp(number, message=None, media=None, url=None):
     logger.info('Whatsapp CLI interface started')
 
     process = "python whatsapp_cli.py --numbers %s" % number
@@ -13,6 +13,8 @@ def send_whatsapp(number, message=None, media=None):
         process += " --message \"%s\"" % message
     if media:
         process += " --media \"%s\"" % media
+    if url:
+        process += " --url \"%s\"" % url
 
     logger.info('Process %s about to start' % process)
 

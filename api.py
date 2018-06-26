@@ -29,6 +29,7 @@ def send_message():
     message = request.args.get('message')
     media = request.args.get('media')
     filename = request.args.get('filename')
+    url = request.args.get('url')
 
     file_manager = FileManager()
     path = ''

@@ -8,12 +8,15 @@ class User:
         super().__init__()
         self.uid = user_dict['uid']
         self.username = user_dict['username']
+        self.***REMOVED***_token = user_dict['***REMOVED***Token']
         self._mobile_num_prefix = user_dict['mobileNumPrefix']
         self._mobile_num = user_dict['mobileNum']
         self.number = self._mobile_num_prefix + self._mobile_num
         self.active_subscription = user_dict['activeSubscription']
         self.next_***REMOVED***_date = user_dict['next***REMOVED***Date']
         self.***REMOVED*** = self.***REMOVED***(***REMOVED***_id=***REMOVED***_id, ***REMOVED***_dict=***REMOVED***_dict) if ***REMOVED***_dict else None
+        self.deliver_weblink = user_dict['deliverWebLink']
+        self.deliver_voicenote = user_dict['deliverVoicenote']
 
     class ***REMOVED***:
 

@@ -87,7 +87,7 @@ class FileManager:
         self._delete_path(self._get_download_dir() + uid)
         self.downloads_collection.delete_many({"uid": uid})
 
-    def download_and_schedule(self):
+    def schedule(self):
         if self.downloader_running:
             self.logger.info("Already running")
             return
@@ -125,25 +125,27 @@ class FileManager:
             # Clear user downloads
             self._remove_schedule(user.uid)
 
-            # Configure path
-            filename = user.***REMOVED***.id + '.mp3'
-            directory = self._get_download_dir() + user.uid
-            path = os.path.join(directory, filename)
+            path = ''
+            if user.deliver_voicenote:
+                # Configure path
+                filename = user.***REMOVED***.id + '.mp3'
+                directory = self._get_download_dir() + user.uid
+                path = os.path.join(directory, filename)
 
-            # Create directory structure and download file
-            self._create_directory(directory)
-            # urllib.request.urlretrieve(user.***REMOVED***.audio_url, path)
-            req = requests.get(user.***REMOVED***.audio_url)
-            with open(path, 'wb') as file:
-                file.write(req.content)
+                # Create directory structure and download file
+                self._create_directory(directory)
+                # urllib.request.urlretrieve(user.***REMOVED***.audio_url, path)
+                req = requests.get(user.***REMOVED***.audio_url)
+                with open(path, 'wb') as file:
+                    file.write(req.content)
 
             # Create database entry for logging and management
-            self._schedule(user, path)
+            self._create_db_schedule(user, path)
 
         self.downloader_running = False
         self.logger.info("Finished handling downloads")
 
-    def _schedule(self, user: User, path):
+    def _create_db_schedule(self, user: User, path):
         # Create download_collection object for insertion into database
         delivered = False
         download = {
@@ -152,8 +154,11 @@ class FileManager:
             'name': user.username,
             'number': user.number,
             'url': user.***REMOVED***.audio_url,
+            '***REMOVED***_token': user.***REMOVED***_token,
             'path': path,
             'scheduled_millis': user.***REMOVED***.scheduled_date.timestamp() * 1000,
+            'deliver_voicenote': user.deliver_voicenote,
+            'deliver_weblink': user.deliver_weblink,
             'delivered': delivered,
             'created_millis': utils.time_in_millis_utc(),
             'created_date': datetime.utcnow()
