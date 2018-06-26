@@ -11,6 +11,11 @@ api = Api(app)
 logger = log_manager.get_logger('api_manager')
 
 
+@app.route("/ping")
+def ping():
+    return 'healthy', 200
+
+
 @app.route("/health")
 def health_check():
     if not check_auth():
