@@ -203,7 +203,7 @@ class SessionManager:
     def wait_until_connection_okay():
         must_end = time.time() + int(os.environ['TIMEOUT'])
         while time.time() < must_end:
-            if SessionManager.get_existing_driver_session():
+            if 'whatsapp' in SessionManager.get_existing_driver_session().current_url:
                 return True
             time.sleep(0.5)
         return False
@@ -243,7 +243,7 @@ class SessionManager:
                 if not self.schedule_manager.handler_running:
                     self.schedule_manager.handle_schedules()
 
-            threading.Timer(os.environ['MONITOR_FREQUENCY'], self.monitor_connection).start()
+            threading.Timer(int(os.environ['MONITOR_FREQUENCY']), self.monitor_connection).start()
 
 
 if __name__ == "__main__":

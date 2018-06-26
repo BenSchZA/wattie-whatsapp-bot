@@ -30,8 +30,8 @@ class ScheduleManager:
             self.logger.info("Delivering message to %s " % schedule['uid'])
             self.logger.debug("Schedule entry: %s" % schedule)
             number = schedule['number']
-            message = "\"Hello %s! Here\'s your personalized ***REMOVED***:\"" % (schedule['name'])
-            media = "\"%s\"" % schedule['path']
+            message = "Hello %s! Here\'s your personalized ***REMOVED***:" % (schedule['name'])
+            media = schedule['path']
             uid = schedule['uid']
 
             if whatsapp_cli_interface.send_whatsapp(number=number, message=message, media=media):

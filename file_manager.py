@@ -80,9 +80,9 @@ class FileManager:
 
         return path
 
-    def delete_temp_file(self, path):
-        self.logger.info("Deleting temp file at %s" % path)
-        return self._delete_path(path)
+    def delete_temp_files(self):
+        self.logger.info("Deleting temp files")
+        return self._delete_path(self._get_temp_download_dir())
 
     def download_and_schedule(self):
         if self.downloader_running:
@@ -179,7 +179,7 @@ class FileManager:
         self.logger.info("Removing path %s" % path)
         try:
             shutil.rmtree(path)
-            self.logger.info("Path remove")
+            self.logger.info("Path removed")
             return True
         except FileNotFoundError:
             self.logger.info("Path not found")

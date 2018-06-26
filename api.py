@@ -33,6 +33,9 @@ def send_message():
     file_manager = FileManager()
     path = ''
 
+    if not number:
+        return
+
     if media and filename:
         logger.info('Fetching media')
         file_manager = FileManager()
@@ -40,17 +43,24 @@ def send_message():
     elif media and not filename:
         return '"media" must have corresponding "filename"'
 
-    if number and message and not media:
+    if message and not media:
         logger.info('Sending message')
         if send_whatsapp(number=number, message=message):
-            return 'Message %s sent to %s' % (message, number)
+            return 'Message \"%s\" sent to %s' % (message, number)
         else:
             return 'Failed to send message'
-    elif number and message and media:
+    elif message and media:
         logger.info('Sending media message')
         if send_whatsapp(number=number, message=message, media=path):
-            file_manager.delete_temp_file(path)
-            return 'Message %s sent to %s with attachment %s' % (message, number, media)
+            file_manager.delete_temp_files()
+            return 'Message \"%s\" sent to %s with attachment %s' % (message, number, media)
+        else:
+            return 'Failed to send message'
+    elif not message and media:
+        logger.info('Sending media')
+        if send_whatsapp(number=number, media=path):
+            file_manager.delete_temp_files()
+            return 'Message sent to %s with attachment %s' % (number, media)
         else:
             return 'Failed to send message'
     return 'Invalid request', 400

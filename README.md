@@ -10,7 +10,7 @@ Wattie has been moved to a Docker multi-service container - it can now be starte
 
 ## 1. Docker
 
-`docker-compose build && docker-compose up`
+`docker-compose up --build`
 
 This will start a Docker container with **port 8001 exposed for API and 5900 exposed for VNC**.
 

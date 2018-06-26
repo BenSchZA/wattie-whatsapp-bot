@@ -6,7 +6,7 @@ services:
         environment:
            - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
            - CELL_NUMBER='***REMOVED***'
-           - MONITOR_FREQUENCY=30
+           - MONITOR_FREQUENCY=10
            - TIMEOUT=30
         volumes:
             - pip_cache:/root/.cache/pip
@@ -50,6 +50,7 @@ services:
             - hub
         volumes:
             - /dev/shm:/dev/shm
+            - ./downloads:/app/downloads
         environment:
             - HUB_HOST=hub
             - HUB_PORT_4444_TCP_ADDR=hub

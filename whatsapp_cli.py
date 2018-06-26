@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import sys
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as exp_c
@@ -18,7 +19,8 @@ class WhatsAppCli:
 
     def __init__(self) -> None:
         super().__init__()
-        self.session = SessionManager()
+
+        self.session = SessionManager
         self.driver = self.session.get_existing_driver_session()
 
         self.numbers = None
