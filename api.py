@@ -68,7 +68,7 @@ def send_message():
 
 def start():
     try:
-        app.run(debug=True, host='0.0.0.0', port='8001')
+        app.run(host='0.0.0.0', port='8001', use_reloader=False)
     except OSError:
         logger.error('Address already in use')
         pass

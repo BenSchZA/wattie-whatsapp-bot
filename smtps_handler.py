@@ -31,12 +31,13 @@ class SMTPSHandler(logging.handlers.SMTPHandler):
             msg['To'] = self.toaddrs[0]
             msg['Date'] = formatdate()
 
-            session = SessionManager()
-            image_data = session.get_screenshot()
             text = MIMEText('Screenshot attached')
             msg.attach(text)
-            image = MIMEImage(image_data, 'screenshot.png')
-            msg.attach(image)
+
+            image_data = SessionManager.get_screenshot()
+            if image_data:
+                image = MIMEImage(image_data, 'screenshot.png')
+                msg.attach(image)
 
             if self.username:
                 # smtp.ehlo()

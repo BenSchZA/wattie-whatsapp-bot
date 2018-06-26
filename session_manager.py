@@ -11,6 +11,7 @@ import api
 from multiprocessing import Process
 from retrying import retry
 import os
+import utils
 
 from selenium import webdriver
 from selenium.common.exceptions import SessionNotCreatedException
@@ -30,7 +31,7 @@ class SessionManager:
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
 
-        self.logger.info('Fetching Firefox session...')
+        self.logger.info(utils.whos_calling('Fetching Firefox session...'))
 
         self.previous_session = {}
         self._fetch_session()
@@ -44,42 +45,51 @@ class SessionManager:
             self.session_id = self.session['session_id']
             self.executor_url = self.session['executor_url']
 
-            self.logger.info('Session exists')
-            self.logger.debug('Session ID: ' + self.session_id)
-
-            self.driver = self._get_existing_driver_session(self.session_id, self.executor_url)
+            self.logger.info('Fetching driver session with ID: %s' % self.session_id)
+            self.driver = SessionManager.get_existing_driver_session()
         else:
             self._create_new_driver_session()
+        self.logger.debug('Using session with ID: %s' % self.driver.session_id)
 
+        # Start API & service monitoring
+        # self.start_api()
         self.schedule_manager = ScheduleManager()
-        # Start API for service monitoring
-        self.start_api()
 
+        self.logger.info('Starting WhatsApp web')
         try:
             # If previous session does exist, reuse session
             self.driver.get('https://web.whatsapp.com/')
-            self._load_cookies()
-            self.driver.get('https://web.whatsapp.com/')
-        except (SessionNotCreatedException, ConnectionRefusedError, URLError):
+            self.monitor_connection()
+            # self._load_cookies()
+            # self.driver.get('https://web.whatsapp.com/')
+        except (WebDriverException, SessionNotCreatedException, ConnectionRefusedError, URLError):
             # If previous session does not exist, create a new session
             self.logger.exception('Connection refused', exc_info=False)
             self._create_new_driver_session()
+            self.monitor_connection()
         finally:
             uptime_manager.process_up(self)
 
     def start_api(self):
-        self.logger.info('Starting api')
+        self.logger.info('Starting API')
         # Start HTTP server in another process for service monitoring
         try:
             api_process = Process(target=api.start)
             api_process.start()
+            self.logger.info('API started')
         except OSError:
+            self.logger.error('API error')
             pass
 
-    def get_screenshot(self):
-        self.wait_until_connection_okay()
+    @staticmethod
+    def get_screenshot():
+        SessionManager.wait_until_connection_okay()
         time.sleep(5)
-        return self.driver.get_screenshot_as_png()
+        driver = SessionManager.get_existing_driver_session()
+        if driver:
+            return driver.get_screenshot_as_png()
+        else:
+            return None
 
     @retry(wait_exponential_multiplier=500, wait_exponential_max=60000)
     def _create_new_driver_session(self):
@@ -92,8 +102,8 @@ class SessionManager:
         # self.driver = webdriver.Firefox(firefox_binary=binary)
 
         self.driver.get('https://web.whatsapp.com/')
-        self._load_cookies()
-        self.driver.get('https://web.whatsapp.com/')
+        # self._load_cookies()
+        # self.driver.get('https://web.whatsapp.com/')
 
         self.session_id = self.driver.session_id
         self.executor_url = self.driver.command_executor._url
@@ -102,9 +112,6 @@ class SessionManager:
         self.logger.debug('Session ID: ' + self.session_id)
 
         self._save_session(self.session_id, self.executor_url)
-
-    def get_driver(self):
-        return self.driver
 
     def _save_session(self, session_id, executer_url):
         self.previous_session = {'session': {
@@ -152,13 +159,12 @@ class SessionManager:
         except FileNotFoundError:
             pass
 
-        session_id = ''
-        executor_url = ''
         if 'session' in previous_session:
             session_id = previous_session['session']['session_id']
             executor_url = previous_session['session']['executor_url']
-
-        return SessionManager._get_existing_driver_session(session_id, executor_url)
+            return SessionManager._get_existing_driver_session(session_id, executor_url)
+        else:
+            return None
 
     @staticmethod
     def _get_existing_driver_session(session_id, executor_url):
@@ -183,7 +189,7 @@ class SessionManager:
 
         new_driver = webdriver.Remote(command_executor=executor_url, desired_capabilities=capabilities)
         new_driver.session_id = session_id
-        new_driver._is_remote = False
+        new_driver._is_remote = True
 
         # Replace the patched function with original function
         RemoteWebDriver.execute = org_command_execute
@@ -249,8 +255,5 @@ class SessionManager:
 if __name__ == "__main__":
     # If you call this script from the command line (the shell) it will
     # run the 'main' function
-    print("Starting Firefox session manager")
+    print(utils.whos_calling("Starting Firefox session manager"))
     session = SessionManager()
-    print("Starting session monitor")
-    session.monitor_connection()
-    input("Press enter to exit - keep running for session to stay active\n")
