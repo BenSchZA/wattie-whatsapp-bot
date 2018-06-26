@@ -51,8 +51,6 @@ class SessionManager:
             self._create_new_driver_session()
         self.logger.debug('Using session with ID: %s' % self.driver.session_id)
 
-        # Start API & service monitoring
-        # self.start_api()
         self.schedule_manager = ScheduleManager()
 
         self.logger.info('Starting WhatsApp web')
@@ -69,6 +67,9 @@ class SessionManager:
             self.monitor_connection()
         finally:
             uptime_manager.process_up(self)
+
+        # Start API & service monitoring
+        self.start_api()
 
     def start_api(self):
         self.logger.info('Starting API')
