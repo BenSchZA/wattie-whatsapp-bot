@@ -54,7 +54,10 @@ class ScheduleManager:
 
             if whatsapp_cli_interface.send_whatsapp(number=number, message=message, media=media, url=url):
                 self.file_manager.mark_delivered(uid)
+                self.file_manager.delete_user_file(uid)
                 self.logger.info('***REMOVED*** delivered to %s' % uid)
+            else:
+                self.logger.error('***REMOVED*** failed to deliver to %s' % uid)
 
         self.handler_running = False
         self.logger.info("Finished handling schedules")

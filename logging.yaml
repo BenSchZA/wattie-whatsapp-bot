@@ -63,6 +63,15 @@ handlers:
         backupCount: 20
         encoding: utf8
 
+    firebase_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: DEBUG
+        formatter: simple
+        filename: logs/firebase.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
     file_info_file_handler:
         class: logging.handlers.RotatingFileHandler
         level: DEBUG
@@ -104,6 +113,10 @@ loggers:
         level: DEBUG
         handlers: [console, socket, email_reporting, api_file_handler]
         propagate: no
+    firebase_manager:
+        level: DEBUG
+        handlers: [console, socket, email_reporting, firebase_file_handler]
+        propagate: no
     session_manager:
         level: DEBUG
         handlers: [console, socket, email_reporting, session_info_file_handler, session_error_file_handler]
@@ -124,6 +137,7 @@ root:
     socket,
     email_reporting,
     api_file_handler,
+    firebase_file_handler,
     session_info_file_handler,
     session_error_file_handler,
     file_info_file_handler,

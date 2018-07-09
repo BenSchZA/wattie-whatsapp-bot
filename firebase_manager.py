@@ -9,6 +9,7 @@ from datetime import datetime
 from datetime import timedelta
 import pytz
 from user import User
+import log_manager
 
 # https://firebase.google.com/docs/firestore/query-data/get-data
 # https://firebase.google.com/docs/firestore/query-data/queries
@@ -23,6 +24,10 @@ class FirebaseManager:
 
     def __init__(self) -> None:
         super().__init__()
+        self.logger = log_manager.get_logger('firebase_manager')
+
+        self.logger.info('Starting Firebase manager')
+
         # Use a service account
         try:
             initialized = firebase_admin._DEFAULT_APP_NAME in firebase_admin._apps
@@ -30,10 +35,14 @@ class FirebaseManager:
             initialized = False
 
         if not initialized:
+            self.logger.info('Firebase not initialized')
             cred = credentials.Certificate(os.environ['FIREBASE_CERTIFICATE_LOCATION'])
             firebase_admin.initialize_app(cred)
+        else:
+            self.logger.info('Firebase initialized')
 
         self.db = firestore.client()
+        self.logger.info('Firebase manager started')
 
     @staticmethod
     def _current_millis():
@@ -68,6 +77,7 @@ class FirebaseManager:
                         .where(u'scheduledDate', u'<=', today_end)
                         .limit(1).get())
         except (NotFound, StopIteration):
+            self.logger.debug('Failed to get today\'s ***REMOVED*** for user %s' % uid)
             return None
 
     def get_scheduled_***REMOVED***s(self):
@@ -95,7 +105,7 @@ class FirebaseManager:
                     user = User(user_dict, ***REMOVED***_dict, ***REMOVED***_id)
                     scheduled.append(user)
 
-            except (NotFound, StopIteration) as e:
+            except (NotFound, StopIteration):
                 continue
 
         return scheduled
@@ -114,3 +124,6 @@ class FirebaseManager:
             doc_ref.update({
                 u'delivered': True
             })
+            self.logger.info('Marked ***REMOVED*** delivered for user %s' % uid)
+        else:
+            self.logger.info('Failed to mark ***REMOVED*** delivered for user %s' % uid)

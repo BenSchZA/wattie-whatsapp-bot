@@ -26,6 +26,8 @@ DOWNLOADS = 'downloads'
 TEMP = 'temp'
 DATA = 'data'
 
+ONE_HOUR_MILLIS = 3600000
+
 
 class FileManager:
 
@@ -35,7 +37,7 @@ class FileManager:
         self._initialize_database()
         self.logger = log_manager.get_logger('file_manager')
 
-        self.downloader_running = False
+        self.scheduler_running = False
 
     def _initialize_database(self):
         self.client = MongoClient('mongodb', 27017)
@@ -83,16 +85,19 @@ class FileManager:
         self.logger.info("Deleting temp files")
         return self._delete_path(self._get_temp_download_dir())
 
-    def _remove_schedule(self, uid):
+    def delete_user_file(self, uid):
         self._delete_path(self._get_download_dir() + uid)
+
+    def _remove_schedule(self, uid):
+        self.delete_user_file(uid)
         self.downloads_collection.delete_many({"uid": uid})
 
     def schedule(self):
-        if self.downloader_running:
+        if self.scheduler_running:
             self.logger.info("Already running")
             return
         else:
-            self.downloader_running = True
+            self.scheduler_running = True
             self.logger.info("Handling downloads")
 
         # Get list of scheduled deliveries from Firebase database
@@ -102,7 +107,7 @@ class FileManager:
             self.logger.exception("Failed handling downloads")
             return
         finally:
-            self.downloader_running = False
+            self.scheduler_running = False
 
         # Remove and process overdue deliveries
         self.logger.info('Processing overdue schedules')
@@ -112,17 +117,29 @@ class FileManager:
             self.logger.error('Removing schedule for %s' % schedule['uid'])
             self._remove_schedule(schedule['uid'])
 
-        # Filter scheduled deliveries to not include users already in local database
+        # Filter scheduled deliveries
+        # Remove:
+        #  * undelivered or
+        #  * delivered inside current window
         self.logger.info('Creating download queue')
         download_queue = list(filter(lambda firebase_user:
-                                     not self.downloads_collection.find_one({"uid": firebase_user.uid}),
+                                     not (self.downloads_collection.find_one({
+                                        "uid": firebase_user.uid,
+                                        "delivered": False
+                                        }) or self.downloads_collection.find_one({
+                                         "uid": firebase_user.uid,
+                                         "delivered": True,
+                                         "scheduled_millis": {
+                                             "$lt": utils.time_in_millis_utc() + ONE_HOUR_MILLIS,
+                                             "$gt": utils.time_in_millis_utc()
+                                         }})),
                                      firebase_scheduled))
 
         self.logger.info('Processing download queue')
         for user in download_queue:
-            self.logger.info('Downloading and scheduling for %s' % user.uid)
-            self.logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
-            # Clear user downloads
+            self.logger.info('Downloading / scheduling for %s' % user.uid)
+
+            # Clear user db entry and downloads
             self._remove_schedule(user.uid)
 
             path = ''
@@ -138,11 +155,13 @@ class FileManager:
                 req = requests.get(user.***REMOVED***.audio_url)
                 with open(path, 'wb') as file:
                     file.write(req.content)
+                self.logger.debug('Downloaded file for user %s' % user.***REMOVED***.scheduled_date)
 
-            # Create database entry for logging and management
+            # Update/create database entry for logging and management
             self._create_db_schedule(user, path)
+            self.logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
 
-        self.downloader_running = False
+        self.scheduler_running = False
         self.logger.info("Finished handling downloads")
 
     def _create_db_schedule(self, user: User, path):
@@ -167,18 +186,17 @@ class FileManager:
         # Insert object into downloads_collection and log database uid
         try:
             download_id = self.downloads_collection.insert_one(download).inserted_id
-            self.logger.info('File downloaded & stored in database with ID ' + str(download_id))
+            self.logger.info('Schedule in database with ID ' + str(download_id))
             return download_id
         except WriteError as e:
             self.logger.info('Entry exists for user %s & url %s' % (user.uid, user.***REMOVED***.audio_url))
             return None
 
     def get_schedule(self):
-        one_hour_in_millis = 3600000
         schedule = self.downloads_collection.find({
             "delivered": False,
             "scheduled_millis": {
-                "$lt": utils.time_in_millis_utc() + one_hour_in_millis,
+                "$lt": utils.time_in_millis_utc() + ONE_HOUR_MILLIS,
                 "$gt": utils.time_in_millis_utc()
             }})
         return schedule
@@ -219,4 +237,5 @@ class FileManager:
 
     def _get_overdue_schedules(self):
         return self.downloads_collection.find({"delivered": False,
-                                               "scheduled_millis": {"$lt": utils.time_in_millis_utc()}})
+                                               "scheduled_millis": {"$lt": utils.time_in_millis_utc()}
+                                               })
