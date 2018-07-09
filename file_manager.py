@@ -201,8 +201,8 @@ class FileManager:
             }})
         return schedule
 
-    def mark_delivered(self, uid):
-        self.firebase.mark_***REMOVED***_delivered_now(uid)
+    def mark_delivered(self, uid, ***REMOVED***_id):
+        self.firebase.mark_***REMOVED***_delivered_now(uid, ***REMOVED***_id)
         self.downloads_collection.update_one(
             {"uid": uid},
             {"$set": {

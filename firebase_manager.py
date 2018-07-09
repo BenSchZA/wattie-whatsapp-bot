@@ -80,6 +80,15 @@ class FirebaseManager:
             self.logger.debug('Failed to get today\'s ***REMOVED*** for user %s' % uid)
             return None
 
+    def _get_***REMOVED***(self, uid, ***REMOVED***_id):
+        try:
+            return next(self._get_user(uid).collection(u'***REMOVED***s')
+                        .where(u'***REMOVED***UID', u'==', ***REMOVED***_id)
+                        .limit(1).get())
+        except (NotFound, StopIteration):
+            self.logger.debug('Failed to get ***REMOVED*** with id %s for user %s' % (***REMOVED***_id, uid))
+            return None
+
     def get_scheduled_***REMOVED***s(self):
         scheduled = []
         now = datetime.utcnow()
@@ -117,13 +126,14 @@ class FirebaseManager:
             ids.append(doc.id)
         return ids
 
-    def mark_***REMOVED***_delivered_now(self, uid):
-        doc: firestore.firestore.DocumentSnapshot = self._get_todays_***REMOVED***(uid)
+    def mark_***REMOVED***_delivered_now(self, uid, ***REMOVED***_id):
+        doc: firestore.firestore.DocumentSnapshot = self._get_***REMOVED***(uid, ***REMOVED***_id)
         doc_ref: firestore.firestore.DocumentReference = doc.reference
+
         if doc_ref:
             doc_ref.update({
                 u'delivered': True
             })
-            self.logger.info('Marked ***REMOVED*** delivered for user %s' % uid)
+            self.logger.debug('Marked ***REMOVED*** delivered for user %s and doc id %s' % (uid, doc_ref.id))
         else:
-            self.logger.info('Failed to mark ***REMOVED*** delivered for user %s' % uid)
+            self.logger.debug('Failed to mark ***REMOVED*** delivered for user %s and doc id %s' % (uid, doc_ref.id))
