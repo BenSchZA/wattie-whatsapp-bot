@@ -26,8 +26,6 @@ DOWNLOADS = 'downloads'
 TEMP = 'temp'
 DATA = 'data'
 
-ONE_HOUR_MILLIS = 3600000
-
 
 class FileManager:
 
@@ -85,14 +83,8 @@ class FileManager:
         self.logger.info("Deleting temp files")
         return self._delete_path(self._get_temp_download_dir())
 
-    def delete_user_file(self, uid):
-        self._delete_path(self._get_download_dir() + uid)
-
-    def _remove_schedule(self, uid):
-        self.delete_user_file(uid)
-        self.downloads_collection.delete_many({"uid": uid})
-
     def schedule(self):
+        self.logger.info("Method: schedule()")
         if self.scheduler_running:
             self.logger.info("Already running")
             return
@@ -111,11 +103,11 @@ class FileManager:
 
         # Remove and process overdue deliveries
         self.logger.info('Processing overdue schedules')
-        overdue_schedules = self._get_overdue_schedules()
+        overdue_schedules = self.get_overdue_schedules()
         for schedule in overdue_schedules:
             self.logger.error('Delivery overdue for %s' % schedule['uid'])
             self.logger.error('Removing schedule for %s' % schedule['uid'])
-            self._remove_schedule(schedule['uid'])
+            self.remove_schedule(schedule['uid'])
 
         # Filter scheduled deliveries
         # Remove:
@@ -130,7 +122,7 @@ class FileManager:
                                          "uid": firebase_user.uid,
                                          "delivered": True,
                                          "scheduled_millis": {
-                                             "$lt": utils.time_in_millis_utc() + ONE_HOUR_MILLIS,
+                                             "$lt": utils.time_in_millis_utc() + utils.ONE_HOUR_MILLIS,
                                              "$gt": utils.time_in_millis_utc()
                                          }})),
                                      firebase_scheduled))
@@ -140,34 +132,41 @@ class FileManager:
             self.logger.info('Downloading / scheduling for %s' % user.uid)
 
             # Clear user db entry and downloads
-            self._remove_schedule(user.uid)
+            self.remove_schedule(user.uid)
 
             path = ''
             if user.deliver_voicenote:
-                # Configure path
-                filename = user.***REMOVED***.id + '.mp3'
-                directory = self._get_download_dir() + user.uid
-                path = os.path.join(directory, filename)
-
-                # Create directory structure and download file
-                self._create_directory(directory)
-                # urllib.request.urlretrieve(user.***REMOVED***.audio_url, path)
-                req = requests.get(user.***REMOVED***.audio_url)
-                with open(path, 'wb') as file:
-                    file.write(req.content)
-                self.logger.debug('Downloaded file for user %s' % user.***REMOVED***.scheduled_date)
+                path = self.download_user_file(user)
 
             # Update/create database entry for logging and management
-            self._create_db_schedule(user, path)
+            self.create_db_schedule(user, path)
             self.logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
 
         self.scheduler_running = False
         self.logger.info("Finished handling downloads")
 
-    def _create_db_schedule(self, user: User, path):
+    def download_user_file(self, user: User):
+        # Configure path
+        filename = user.***REMOVED***.id + '.mp3'
+        directory = self._get_download_dir() + user.uid
+        path = os.path.join(directory, filename)
+
+        # Create directory structure and download file
+        self._create_directory(directory)
+        # urllib.request.urlretrieve(user.***REMOVED***.audio_url, path)
+        req = requests.get(user.***REMOVED***.audio_url)
+        with open(path, 'wb') as file:
+            file.write(req.content)
+        self.logger.debug('Downloaded file for user %s' % user.***REMOVED***.scheduled_date)
+        return path
+
+    def delete_user_file(self, uid):
+        self._delete_path(self._get_download_dir() + uid)
+
+    def create_db_schedule(self, user: User, path):
         # Create download_collection object for insertion into database
         delivered = False
-        download = {
+        schedule = {
             'id': user.***REMOVED***.id,
             'uid': user.uid,
             'name': user.username,
@@ -185,23 +184,29 @@ class FileManager:
 
         # Insert object into downloads_collection and log database uid
         try:
-            download_id = self.downloads_collection.insert_one(download).inserted_id
-            self.logger.info('Schedule in database with ID ' + str(download_id))
-            return download_id
-        except WriteError as e:
+            schedule_id = self.downloads_collection.insert_one(schedule).inserted_id
+            self.logger.info('Schedule in database with ID ' + str(schedule_id))
+            return schedule_id
+        except WriteError:
             self.logger.info('Entry exists for user %s & url %s' % (user.uid, user.***REMOVED***.audio_url))
             return None
+
+    def remove_schedule(self, uid):
+        self.delete_user_file(uid)
+        self.downloads_collection.delete_many({"uid": uid})
 
     def get_schedule(self):
         schedule = self.downloads_collection.find({
             "delivered": False,
             "scheduled_millis": {
-                "$lt": utils.time_in_millis_utc() + ONE_HOUR_MILLIS,
+                "$lt": utils.time_in_millis_utc() + utils.ONE_HOUR_MILLIS,
                 "$gt": utils.time_in_millis_utc()
             }})
         return schedule
 
-    def mark_delivered(self, uid, ***REMOVED***_id):
+    def mark_delivered(self, schedule):
+        uid = schedule['uid']
+        ***REMOVED***_id = schedule['id']
         self.firebase.mark_***REMOVED***_delivered_now(uid, ***REMOVED***_id)
         self.downloads_collection.update_one(
             {"uid": uid},
@@ -235,7 +240,7 @@ class FileManager:
     def _does_uid_have_downloads(self, uid):
         return self.downloads_collection.find_one({"uid": uid}).count() > 0
 
-    def _get_overdue_schedules(self):
+    def get_overdue_schedules(self):
         return self.downloads_collection.find({"delivered": False,
                                                "scheduled_millis": {"$lt": utils.time_in_millis_utc()}
                                                })
