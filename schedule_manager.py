@@ -74,13 +74,14 @@ class ScheduleManager:
         #  * delivered inside current window
         self.logger.info('Creating delivery queue')
         delivery_queue = list(filter(lambda firebase_user:
-                                     not (self.file_manager.downloads_collection.find_one({
-                                         "uid": firebase_user.uid,
-                                         "delivered": True,
-                                         "scheduled_millis": {
-                                             "$lt": utils.time_in_millis_utc() + utils.ONE_HOUR_MILLIS,
-                                             "$gt": utils.time_in_millis_utc()
-                                         }})),
+                                     # not (self.file_manager.downloads_collection.find_one({
+                                     #     "uid": firebase_user.uid,
+                                     #     "delivered": True,
+                                     #     "scheduled_millis": {
+                                     #         "$lt": utils.time_in_millis_utc() + utils.ONE_HOUR_MILLIS,
+                                     #         "$gt": utils.time_in_millis_utc()
+                                     #     }}))
+                                     True,
                                      firebase_scheduled))
 
         self.logger.info('Processing delivery queue of size %d' % len(delivery_queue))
