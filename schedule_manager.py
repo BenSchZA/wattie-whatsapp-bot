@@ -5,6 +5,7 @@ import log_manager
 import utils
 from pymongo.collection import ObjectId
 from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
+from alert_manager import AlertManager
 
 
 class ScheduleManager:
@@ -13,6 +14,7 @@ class ScheduleManager:
         super().__init__()
         self.firebase = FirebaseManager()
         self.file_manager = FileManager()
+        self.alert_manager = AlertManager()
         self.scheduled_deliveries_hour = None
         self.handler_running = False
         self.scheduler_running = False
@@ -102,8 +104,18 @@ class ScheduleManager:
             if self.deliver_schedule(schedule):
                 self.file_manager.mark_delivered(schedule)
                 self.file_manager.delete_user_file(user.uid)
+                user.***REMOVED***.delivered = True
             else:
                 self.file_manager.remove_schedule(user.uid)
+                user.***REMOVED***.delivered = False
+                # self.alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+                #                                % (user.uid, str(schedule)))
+
+        # number_delivered = len(list(filter(lambda queue_entry: queue_entry.racast.delivered, delivery_queue)))
+
+        # if len(delivery_queue) > 0:
+        #     self.alert_manager.slack_alert('Delivered %d of %d ***REMOVED***s in queue.'
+        #                                    % (number_delivered, len(delivery_queue)))
 
         self.scheduler_running = False
         self.logger.info("Finished handling downloads")
