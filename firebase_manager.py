@@ -10,13 +10,12 @@ from datetime import timedelta
 import pytz
 from user import User
 import log_manager
+import utils
 
 # https://firebase.google.com/docs/firestore/query-data/get-data
 # https://firebase.google.com/docs/firestore/query-data/queries
 # https://firebase.google.com/docs/firestore/query-data/order-limit-data
 
-MILLIS_24_HOURS = 86400000
-MILLIS_01_HOURS = 3600000
 FIREBASE_APP_NAME = '***REMOVED***'
 
 
@@ -37,6 +36,7 @@ class FirebaseManager:
         if not initialized:
             self.logger.info('Firebase not initialized')
             cred = credentials.Certificate(os.environ['FIREBASE_CERTIFICATE_LOCATION'])
+            # cred = credentials.Certificate('***REMOVED***/***REMOVED***')
             firebase_admin.initialize_app(cred)
         else:
             self.logger.info('Firebase initialized')
@@ -93,8 +93,14 @@ class FirebaseManager:
         scheduled = []
         now = datetime.utcnow()
         now_plus_one_hour = now + timedelta(hours=1)
+        
+        # Generators within generators are dark magic and do not work!
+        len_subs_next_hour = utils.generator_len(self._get_active_subs_next_hour())
+        subs_next_hour = list(self._get_active_subs_next_hour())
 
-        subs_next_hour = self._get_active_subs_next_hour()
+        self.logger.debug('%d active subs scheduled for next hour' % len_subs_next_hour)
+
+        no_valid_***REMOVED***s = 0
         for doc in subs_next_hour:
             try:
                 user_uid = doc.id
@@ -102,7 +108,7 @@ class FirebaseManager:
 
                 ***REMOVED***s = self._get_user(user_uid).collection(u'***REMOVED***s')
                 scheduled_***REMOVED***_gen = ***REMOVED***s\
-                    .where(u'delivered', u'==', False)\
+                    .where(u'delivered', u'==', False) \
                     .where(u'scheduledDate', u'>=', now)\
                     .where(u'scheduledDate', u'<=', now_plus_one_hour) \
                     .limit(1).get()
@@ -115,8 +121,10 @@ class FirebaseManager:
                     scheduled.append(user)
 
             except (NotFound, StopIteration):
+                no_valid_***REMOVED***s += 1
                 continue
 
+        self.logger.debug('%d of %d active subs have no valid ***REMOVED***s' % (no_valid_***REMOVED***s, len_subs_next_hour))
         return scheduled
 
     def _get_user_ids(self):

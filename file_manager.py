@@ -122,7 +122,7 @@ class FileManager:
                                          "uid": firebase_user.uid,
                                          "delivered": True,
                                          "scheduled_millis": {
-                                             "$lt": utils.time_in_millis_utc() + utils.ONE_HOUR_MILLIS,
+                                             "$lt": utils.time_in_millis_utc() + utils.MILLIS_1_HOUR,
                                              "$gt": utils.time_in_millis_utc()
                                          }})),
                                      firebase_scheduled))
@@ -199,7 +199,7 @@ class FileManager:
         schedule = self.downloads_collection.find({
             "delivered": False,
             "scheduled_millis": {
-                "$lt": utils.time_in_millis_utc() + utils.ONE_HOUR_MILLIS,
+                "$lt": utils.time_in_millis_utc() + utils.MILLIS_1_HOUR,
                 "$gt": utils.time_in_millis_utc()
             }})
         return schedule

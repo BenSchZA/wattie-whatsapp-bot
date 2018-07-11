@@ -9,8 +9,8 @@ class User:
         self.uid = user_dict['uid']
         self.username = user_dict['username']
         self.***REMOVED***_token = user_dict['***REMOVED***Token']
-        self._mobile_num_prefix = user_dict['mobileNumPrefix']
-        self._mobile_num = user_dict['mobileNum']
+        self._mobile_num_prefix = user_dict['mobileNumPrefix'] if user_dict['mobileNumPrefix'] else ''
+        self._mobile_num = user_dict['mobileNum'] if user_dict['mobileNum'] else ''
         self.number = self._mobile_num_prefix + self._mobile_num
         self.active_subscription = user_dict['activeSubscription']
         self.next_***REMOVED***_date = user_dict['next***REMOVED***Date']
