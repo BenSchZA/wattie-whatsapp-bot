@@ -93,7 +93,7 @@ class FirebaseManager:
         scheduled = []
         now = datetime.utcnow()
         now_plus_one_hour = now + timedelta(hours=1)
-        
+
         # Generators within generators are dark magic and do not work!
         len_subs_next_hour = utils.generator_len(self._get_active_subs_next_hour())
         subs_next_hour = list(self._get_active_subs_next_hour())

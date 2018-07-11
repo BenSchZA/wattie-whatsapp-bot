@@ -17,6 +17,9 @@ from selenium import webdriver
 from selenium.common.exceptions import SessionNotCreatedException
 from selenium.common.exceptions import NoSuchWindowException
 from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import NoAlertPresentException
+from selenium.common.exceptions import UnexpectedAlertPresentException
+from selenium.webdriver.common.keys import Keys
 from urllib.error import URLError
 
 SESSION_DATA = 'data/session.data'
@@ -69,7 +72,7 @@ class SessionManager:
             uptime_manager.process_up(self)
 
         # Start API & service monitoring
-        self.start_api()
+        # self.start_api()
 
     def start_api(self):
         self.logger.info('Starting API')
@@ -223,13 +226,33 @@ class SessionManager:
             pass
         self.__init__()
 
+    def refresh_connection_else_restart(self):
+        try:
+            driver = SessionManager.get_existing_driver_session()
+            if driver:
+                try:
+                    driver.refresh()
+                except UnexpectedAlertPresentException:
+                    try:
+                        driver.switch_to.alert.dismiss()
+                    except NoAlertPresentException:
+                        pass
+        except (SessionNotCreatedException, NoAlertPresentException):
+            self.restart_connection()
+
     @staticmethod
     def refresh_connection():
         try:
             driver = SessionManager.get_existing_driver_session()
             if driver:
-                driver.refresh()
-        except SessionNotCreatedException:
+                try:
+                    driver.refresh()
+                except UnexpectedAlertPresentException:
+                    try:
+                        driver.switch_to.alert.dismiss()
+                    except NoAlertPresentException:
+                        pass
+        except (SessionNotCreatedException, NoAlertPresentException):
             pass
 
     def monitor_connection(self):
@@ -242,7 +265,7 @@ class SessionManager:
             self.logger.debug("Handler running: %r" % self.schedule_manager.handler_running)
 
             if not self.active_connection:
-                self.restart_connection()
+                self.refresh_connection_else_restart()
                 uptime_manager.process_down(self)
             else:
                 uptime_manager.process_up(self)

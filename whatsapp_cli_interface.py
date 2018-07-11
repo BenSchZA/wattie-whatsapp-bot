@@ -7,7 +7,11 @@ logger = log_manager.get_logger('whatsapp_cli')
 def send_whatsapp(number, message=None, media=None, url=None):
     logger.info('Whatsapp CLI interface started')
 
-    process = "python whatsapp_cli.py --numbers %s" % number
+    if not number:
+        logger.error('Failed to send message: Invalid number')
+        return False
+
+    process = "python whatsapp_cli.py --number %s" % number
 
     if message:
         process += " --message \"%s\"" % message
