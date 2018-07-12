@@ -6095,3 +6095,1234 @@ GeckoDriver.prototype.get@chrome://marionette/content/driver.js:1090:3
 JavaScript error: https://web.whatsapp.com/vendor2.030d3590e07b379cf716.js, line 49: NS_ERROR_NOT_INITIALIZED: 
 [Parent 19471, Gecko_IOThread] WARNING: pipe error (129): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
 1529686661387	Marionette	INFO	Stopped listening on port 39259
+1531392227569	geckodriver	INFO	geckodriver 0.21.0
+1531392227577	geckodriver	INFO	Listening on 127.0.0.1:35633
+1531392228638	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.zkNnxsZBxt6r"
+1531392230087	Marionette	INFO	Listening on port 35805
+1531392230149	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392230200	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392230220	Marionette	DEBUG	[2147483649] Frame script registered
+1531392230242	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392231228	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392231848	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392235844	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531392241200	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531392281390	geckodriver	INFO	geckodriver 0.21.0
+1531392281395	geckodriver	INFO	Listening on 127.0.0.1:32781
+1531392282436	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.V8uLm3I2dh8J"
+1531392283954	Marionette	INFO	Listening on port 41647
+1531392284043	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392284099	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392284102	Marionette	DEBUG	[2147483649] Frame script registered
+1531392284129	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392285393	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392285690	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+[Parent 20745, Gecko_IOThread] WARNING: pipe error (60): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392285855	Marionette	INFO	Stopped listening on port 35805
+1531392288664	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 21677, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392332822	Marionette	INFO	Stopped listening on port 41647
+1531392333089	geckodriver	INFO	geckodriver 0.21.0
+1531392333093	geckodriver	INFO	Listening on 127.0.0.1:46897
+1531392334138	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.ZVW9HkvMVqr3"
+1531392335421	Marionette	INFO	Listening on port 42157
+1531392335446	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392335490	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392335493	Marionette	DEBUG	[2147483649] Frame script registered
+1531392335512	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392336746	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392336935	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392340436	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531392412757	geckodriver	INFO	geckodriver 0.21.0
+1531392412761	geckodriver	INFO	Listening on 127.0.0.1:39557
+1531392413839	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.sc4gAZskwWLu"
+[Parent 23175, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392414211	Marionette	INFO	Stopped listening on port 42157
+1531392415274	Marionette	INFO	Listening on port 40181
+1531392415345	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392415391	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392415391	Marionette	DEBUG	[2147483649] Frame script registered
+1531392415405	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392416525	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392417112	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392420042	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 24681, Gecko_IOThread] WARNING: pipe error (67): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392569713	Marionette	INFO	Stopped listening on port 40181
+1531392570389	geckodriver	INFO	geckodriver 0.21.0
+1531392570393	geckodriver	INFO	Listening on 127.0.0.1:48155
+1531392571445	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.j5Sdzqadclkb"
+1531392572767	Marionette	INFO	Listening on port 39569
+1531392572872	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392572920	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392572921	Marionette	DEBUG	[2147483649] Frame script registered
+1531392572940	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392573963	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392574576	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392578182	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531392625944	geckodriver	INFO	geckodriver 0.21.0
+1531392625948	geckodriver	INFO	Listening on 127.0.0.1:35785
+1531392626996	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.NMZPwp1cEk4M"
+1531392628426	Marionette	INFO	Listening on port 34867
+1531392628504	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392628576	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392628578	Marionette	DEBUG	[2147483649] Frame script registered
+1531392628603	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392629042	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392629347	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+[Parent 26115, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392629830	Marionette	INFO	Stopped listening on port 39569
+1531392632349	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 27292, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392716876	Marionette	INFO	Stopped listening on port 34867
+1531392717231	geckodriver	INFO	geckodriver 0.21.0
+1531392717235	geckodriver	INFO	Listening on 127.0.0.1:33989
+1531392718309	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.Vu8kYufxpwU6"
+1531392719660	Marionette	INFO	Listening on port 42075
+1531392719721	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392719779	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392719780	Marionette	DEBUG	[2147483649] Frame script registered
+1531392719802	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392721206	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392721408	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392729292	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 28563, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392855174	Marionette	INFO	Stopped listening on port 42075
+1531392857487	geckodriver	INFO	geckodriver 0.21.0
+1531392857492	geckodriver	INFO	Listening on 127.0.0.1:36539
+1531392858518	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.susSWjC1jvQP"
+1531392859061	geckodriver	INFO	geckodriver 0.21.0
+1531392859067	geckodriver	INFO	Listening on 127.0.0.1:33677
+1531392860102	Marionette	INFO	Listening on port 44043
+1531392860110	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.cImWGycvpDvn"
+1531392860125	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392860179	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392860185	Marionette	DEBUG	[2147483649] Frame script registered
+1531392860206	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392860373	geckodriver	INFO	geckodriver 0.21.0
+1531392860379	geckodriver	INFO	Listening on 127.0.0.1:42415
+1531392861415	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.J98OvL3q4r6o"
+1531392861505	Marionette	INFO	Listening on port 33777
+1531392861518	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392861573	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392861576	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392861582	Marionette	DEBUG	[2147483649] Frame script registered
+1531392861618	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392861874	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392863204	Marionette	INFO	Listening on port 39165
+1531392863244	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392863300	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392863300	Marionette	DEBUG	[2147483649] Frame script registered
+1531392863327	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392863894	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392864191	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392864661	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392864868	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531392865090	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392869314	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531392871228	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 30226, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 30226, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392874800	Marionette	INFO	Stopped listening on port 33777
+[Parent 30009, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392875582	Marionette	INFO	Stopped listening on port 44043
+[Parent 30463, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 30463, Gecko_IOThread] WARNING: pipe error (67): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392883685	Marionette	INFO	Stopped listening on port 39165
+1531392887309	geckodriver	INFO	geckodriver 0.21.0
+1531392887313	geckodriver	INFO	Listening on 127.0.0.1:55409
+1531392888390	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.HuyI9AXVMyNK"
+1531392889754	Marionette	INFO	Listening on port 37189
+1531392889796	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392889856	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392889871	Marionette	DEBUG	[2147483649] Frame script registered
+1531392889886	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392905398	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392905582	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392908595	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 4341, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531392947139	Marionette	INFO	Stopped listening on port 37189
+1531392950871	geckodriver	INFO	geckodriver 0.21.0
+1531392950875	geckodriver	INFO	Listening on 127.0.0.1:59671
+1531392951947	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.4pMGfMpOJ1ZK"
+1531392953313	Marionette	INFO	Listening on port 37331
+1531392953373	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531392953419	Marionette	DEBUG	[2147483649] Frame script loaded
+1531392953425	Marionette	DEBUG	[2147483649] Frame script registered
+1531392953441	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531392956113	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531392956289	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531392958967	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 6176, Gecko_IOThread] WARNING: pipe error (67): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531393021018	Marionette	INFO	Stopped listening on port 37331
+1531393023699	geckodriver	INFO	geckodriver 0.21.0
+1531393023703	geckodriver	INFO	Listening on 127.0.0.1:33149
+1531393024742	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.Nd933ZNUosSB"
+1531393026101	Marionette	INFO	Listening on port 34797
+1531393026158	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531393026208	Marionette	DEBUG	[2147483649] Frame script loaded
+1531393026209	Marionette	DEBUG	[2147483649] Frame script registered
+1531393026230	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531393027237	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531393027840	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531393031546	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 7558, Gecko_IOThread] WARNING: pipe error (79): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531393159102	Marionette	INFO	Stopped listening on port 34797
+1531393165401	geckodriver	INFO	geckodriver 0.21.0
+1531393165405	geckodriver	INFO	Listening on 127.0.0.1:59709
+1531393166470	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.ImZiwM5CNmQn"
+1531393167849	Marionette	INFO	Listening on port 46309
+1531393167875	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531393167935	Marionette	DEBUG	[2147483649] Frame script loaded
+1531393167938	Marionette	DEBUG	[2147483649] Frame script registered
+1531393167959	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531393169396	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531393169585	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531393172386	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531393179484	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+console.error: "TypeError: this.onSelected is not a function: onDetachedFront@resource://devtools/shared/base-loader.js -> resource://devtools/client/inspector/computed/computed.js:1461:5\nemit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:178:37\nemit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:255:29\n_onMutations@resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/selection.js:105:7\nemit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:178:37\nemit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:255:29\nWalkerFront<.getMutations</<@resource://devtools/shared/base-loader.js -> resource://devtools/shared/fronts/inspector.js:420:7\n"
+TypeError: this.onSelected is not a function: onDetachedFront@resource://devtools/shared/base-loader.js -> resource://devtools/client/inspector/computed/computed.js:1461:5
+emit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:178:37
+emit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:255:29
+_onMutations@resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/selection.js:105:7
+emit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:178:37
+emit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:255:29
+WalkerFront<.getMutations</<@resource://devtools/shared/base-loader.js -> resource://devtools/shared/fronts/inspector.js:420:7
+
+[Parent 8540, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531393566138	Marionette	INFO	Stopped listening on port 46309
+1531393571620	geckodriver	INFO	geckodriver 0.21.0
+1531393571625	geckodriver	INFO	Listening on 127.0.0.1:34785
+1531393572697	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.FZF61lzncZ7h"
+1531393574048	Marionette	INFO	Listening on port 35269
+1531393574111	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531393574159	Marionette	DEBUG	[2147483649] Frame script loaded
+1531393574159	Marionette	DEBUG	[2147483649] Frame script registered
+1531393574183	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531393580386	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531393581422	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531393629895	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531393630644	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+JavaScript error: resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/toolbox.js, line 1260: TypeError: currentPanel is undefined
+console.error: "TypeError: this.onSelected is not a function: onDetachedFront@resource://devtools/shared/base-loader.js -> resource://devtools/client/inspector/computed/computed.js:1461:5\nemit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:178:37\nemit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:255:29\n_onMutations@resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/selection.js:105:7\nemit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:178:37\nemit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:255:29\nWalkerFront<.getMutations</<@resource://devtools/shared/base-loader.js -> resource://devtools/shared/fronts/inspector.js:420:7\n"
+TypeError: this.onSelected is not a function: onDetachedFront@resource://devtools/shared/base-loader.js -> resource://devtools/client/inspector/computed/computed.js:1461:5
+emit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:178:37
+emit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:255:29
+_onMutations@resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/selection.js:105:7
+emit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:178:37
+emit@resource://devtools/shared/base-loader.js -> resource://devtools/shared/event-emitter.js:255:29
+WalkerFront<.getMutations</<@resource://devtools/shared/base-loader.js -> resource://devtools/shared/fronts/inspector.js:420:7
+
+[Parent 10657, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531393785997	Marionette	INFO	Stopped listening on port 35269
+1531393788595	geckodriver	INFO	geckodriver 0.21.0
+1531393788598	geckodriver	INFO	Listening on 127.0.0.1:49941
+1531393789672	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.JTAhjoSJuHMN"
+1531393791050	Marionette	INFO	Listening on port 33553
+1531393791084	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531393791130	Marionette	DEBUG	[2147483649] Frame script loaded
+1531393791136	Marionette	DEBUG	[2147483649] Frame script registered
+1531393791160	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531393792076	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531393793089	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531393828415	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531393828701	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for https://web.whatsapp.com/
+1531393830138	Marionette	DEBUG	[2147483649] Received DOM event unload for https://web.whatsapp.com/
+1531393832720	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531393847074	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531393856336	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1531394171393	Marionette	INFO	Stopped listening on port 33553
+1531394174906	geckodriver	INFO	geckodriver 0.21.0
+1531394174909	geckodriver	INFO	Listening on 127.0.0.1:43473
+1531394175974	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.9FGA731md2Ta"
+1531394177448	Marionette	INFO	Listening on port 41881
+1531394177480	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531394177539	Marionette	DEBUG	[2147483649] Frame script loaded
+1531394177542	Marionette	DEBUG	[2147483649] Frame script registered
+1531394177554	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531394178943	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531394179241	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531394182099	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531394204840	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+JavaScript error: resource://devtools/shared/base-loader.js -> resource://devtools/client/framework/toolbox.js, line 1260: TypeError: currentPanel is undefined
+[Parent 16015, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531394413696	Marionette	INFO	Stopped listening on port 41881
+1531394461055	geckodriver	INFO	geckodriver 0.21.0
+1531394461059	geckodriver	INFO	Listening on 127.0.0.1:45001
+1531394462127	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.GYVXMcKZ9zgQ"
+1531394463559	Marionette	INFO	Listening on port 43019
+1531394463633	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531394463678	Marionette	DEBUG	[2147483649] Frame script loaded
+1531394463679	Marionette	DEBUG	[2147483649] Frame script registered
+1531394463695	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531394465094	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531394465276	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531394468506	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531394476536	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Parent 17381, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531394513889	Marionette	INFO	Stopped listening on port 43019
+1531394517283	geckodriver	INFO	geckodriver 0.21.0
+1531394517287	geckodriver	INFO	Listening on 127.0.0.1:57033
+1531394518361	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.QPF5y0XqH8Vv"
+1531394519837	Marionette	INFO	Listening on port 44379
+1531394519870	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531394519924	Marionette	DEBUG	[2147483649] Frame script loaded
+1531394519925	Marionette	DEBUG	[2147483649] Frame script registered
+1531394519953	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531394521125	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531394521743	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531394525338	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531394531559	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1531394724282	Marionette	INFO	Stopped listening on port 44379
+1531394727188	geckodriver	INFO	geckodriver 0.21.0
+1531394727192	geckodriver	INFO	Listening on 127.0.0.1:41477
+1531394728256	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.YkN2e5yyFxHq"
+1531394729604	Marionette	INFO	Listening on port 37745
+1531394729664	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531394729712	Marionette	DEBUG	[2147483649] Frame script loaded
+1531394729714	Marionette	DEBUG	[2147483649] Frame script registered
+1531394729736	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531394732160	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531394732352	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531394734984	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531394741101	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531394760820	Marionette	INFO	Stopped listening on port 37745
+1531394765452	geckodriver	INFO	geckodriver 0.21.0
+1531394765457	geckodriver	INFO	Listening on 127.0.0.1:42011
+1531394766518	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.CD1vTNCVDkhA"
+1531394767890	Marionette	INFO	Listening on port 45641
+1531394767944	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531394767989	Marionette	DEBUG	[2147483649] Frame script loaded
+1531394767993	Marionette	DEBUG	[2147483649] Frame script registered
+1531394768006	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531394769422	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531394769604	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531394769692	Marionette	DEBUG	[2147483649] Received DOM event unload for https://web.whatsapp.com/
+1531394769694	Marionette	DEBUG	[2147483649] Received observer notification outer-window-destroyed for 2147483649
+JavaScript error: https://web.whatsapp.com/progress.a4f09278b9e5d9faf80755f1127d567d.js, line 2: NS_ERROR_NOT_INITIALIZED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x550027,name=PNecko::Msg_RemoveRequestContext) Channel closing: too late to send/recv, messages will be lost
+
+1531394769849	Marionette	INFO	Stopped listening on port 45641
+JavaScript error: resource://gre/modules/osfile/osfile_async_front.jsm, line 408: Error: OS.File has been shut down. Rejecting post to remove
+JavaScript error: resource://gre/modules/osfile/osfile_async_front.jsm, line 408: Error: OS.File has been shut down. Rejecting post to remove
+1531394786696	geckodriver	INFO	geckodriver 0.21.0
+1531394786700	geckodriver	INFO	Listening on 127.0.0.1:57653
+1531394787760	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.qYBwUXuXp8Vn"
+1531394789107	Marionette	INFO	Listening on port 41129
+1531394789179	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531394789230	Marionette	DEBUG	[2147483649] Frame script loaded
+1531394789231	Marionette	DEBUG	[2147483649] Frame script registered
+1531394789244	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531394790690	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531394790907	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531394793276	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531394799299	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531394831782	geckodriver	INFO	geckodriver 0.21.0
+1531394831786	geckodriver	INFO	Listening on 127.0.0.1:46479
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1531394832224	Marionette	INFO	Stopped listening on port 41129
+1531394832850	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.ug46I6mO8c8v"
+1531394834219	Marionette	INFO	Listening on port 35647
+1531394834269	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531394834319	Marionette	DEBUG	[2147483649] Frame script loaded
+1531394834323	Marionette	DEBUG	[2147483649] Frame script registered
+1531394834348	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531394835755	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531394835945	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531394839128	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531394843279	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 23707, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531395114948	Marionette	INFO	Stopped listening on port 35647
+1531395120592	geckodriver	INFO	geckodriver 0.21.0
+1531395120596	geckodriver	INFO	Listening on 127.0.0.1:52231
+1531395121671	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.pJT1A72UR52q"
+1531395123032	Marionette	INFO	Listening on port 34707
+1531395123097	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531395123143	Marionette	DEBUG	[2147483649] Frame script loaded
+1531395123145	Marionette	DEBUG	[2147483649] Frame script registered
+1531395123163	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531395125455	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531395125641	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531395136479	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531395137230	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Child 25976, Chrome_ChildThread] WARNING: pipe error: Broken pipe: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 726
+[Child 25976, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531395235235	Marionette	INFO	Stopped listening on port 34707
+1531395235816	geckodriver	INFO	geckodriver 0.21.0
+1531395235819	geckodriver	INFO	Listening on 127.0.0.1:48119
+1531395236889	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.KiHeUwNXz2hU"
+1531395238267	Marionette	INFO	Listening on port 37085
+1531395238296	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531395238343	Marionette	DEBUG	[2147483649] Frame script loaded
+1531395238348	Marionette	DEBUG	[2147483649] Frame script registered
+1531395238369	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531395239809	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531395239985	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531395242336	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531395248738	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531395447259	geckodriver	INFO	geckodriver 0.21.0
+1531395447263	geckodriver	INFO	Listening on 127.0.0.1:60145
+1531395448333	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.nAVLmSfKC5Oo"
+1531395449751	Marionette	INFO	Listening on port 34255
+1531395449848	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531395449922	Marionette	DEBUG	[2147483649] Frame script loaded
+1531395449939	Marionette	DEBUG	[2147483649] Frame script registered
+1531395449980	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531395451107	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+[Parent 27646, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531395451605	Marionette	INFO	Stopped listening on port 37085
+1531395451682	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531395455578	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531395459610	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531395475632	Marionette	INFO	Stopped listening on port 34255
+1531395478126	geckodriver	INFO	geckodriver 0.21.0
+1531395478130	geckodriver	INFO	Listening on 127.0.0.1:52511
+1531395479200	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.1HYM2TEsWGx0"
+1531395480543	Marionette	INFO	Listening on port 35877
+1531395480606	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531395480657	Marionette	DEBUG	[2147483649] Frame script loaded
+1531395480662	Marionette	DEBUG	[2147483649] Frame script registered
+1531395480686	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531395482973	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531395483166	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531395490691	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531395491772	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Parent 31165, Gecko_IOThread] WARNING: pipe error (67): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531395555087	Marionette	INFO	Stopped listening on port 35877
+1531395555711	geckodriver	INFO	geckodriver 0.21.0
+1531395555715	geckodriver	INFO	Listening on 127.0.0.1:52877
+1531395556791	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.E6gz3p5s1vD0"
+1531395558136	Marionette	INFO	Listening on port 41727
+1531395558228	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531395558274	Marionette	DEBUG	[2147483649] Frame script loaded
+1531395558275	Marionette	DEBUG	[2147483649] Frame script registered
+1531395558289	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531395559722	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531395559934	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531395562646	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531395570801	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1531395584194	Marionette	INFO	Stopped listening on port 41727
+1531395586575	geckodriver	INFO	geckodriver 0.21.0
+1531395586579	geckodriver	INFO	Listening on 127.0.0.1:48013
+1531395587648	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.qpqKQt6imVrz"
+1531395589000	Marionette	INFO	Listening on port 37849
+1531395589059	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531395589104	Marionette	DEBUG	[2147483649] Frame script loaded
+1531395589112	Marionette	DEBUG	[2147483649] Frame script registered
+1531395589128	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531395590388	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531395590588	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531395593040	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531395598923	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 1715, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531395667078	Marionette	INFO	Stopped listening on port 37849
+1531395671591	geckodriver	INFO	geckodriver 0.21.0
+1531395671595	geckodriver	INFO	Listening on 127.0.0.1:50163
+1531395672666	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.bbALa2hpsKdd"
+1531395674091	Marionette	INFO	Listening on port 41735
+1531395674182	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531395674226	Marionette	DEBUG	[2147483649] Frame script loaded
+1531395674227	Marionette	DEBUG	[2147483649] Frame script registered
+1531395674243	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531395675306	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531395675907	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531395679957	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531395683689	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531395685201	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 3938, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531396181184	Marionette	INFO	Stopped listening on port 41735
+1531396184241	geckodriver	INFO	geckodriver 0.21.0
+1531396184245	geckodriver	INFO	Listening on 127.0.0.1:36787
+1531396185290	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.b4wWrrwcObT8"
+1531396186732	Marionette	INFO	Listening on port 46103
+1531396186822	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531396186869	Marionette	DEBUG	[2147483649] Frame script loaded
+1531396186870	Marionette	DEBUG	[2147483649] Frame script registered
+1531396186885	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531396187934	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531396188112	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531396190274	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531396265467	Marionette	INFO	Stopped listening on port 46103
+1531396268629	geckodriver	INFO	geckodriver 0.21.0
+1531396268634	geckodriver	INFO	Listening on 127.0.0.1:54249
+1531396269678	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.LZnTWba3IB0Z"
+1531396271048	Marionette	INFO	Listening on port 36379
+1531396271086	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531396271141	Marionette	DEBUG	[2147483649] Frame script loaded
+1531396271146	Marionette	DEBUG	[2147483649] Frame script registered
+1531396271169	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531396272589	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531396272795	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531396275689	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531396285781	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531396287409	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 8346, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531396604575	Marionette	INFO	Stopped listening on port 36379
+1531396607285	geckodriver	INFO	geckodriver 0.21.0
+1531396607290	geckodriver	INFO	Listening on 127.0.0.1:42747
+1531396608378	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.vBSXbWbainta"
+1531396609781	Marionette	INFO	Listening on port 32797
+1531396609784	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531396609826	Marionette	DEBUG	[2147483649] Frame script loaded
+1531396609831	Marionette	DEBUG	[2147483649] Frame script registered
+1531396609850	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531396610850	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531396611422	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531396615464	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531396629321	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531396631023	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 10425, Gecko_IOThread] WARNING: pipe error (73): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531396791342	Marionette	INFO	Stopped listening on port 32797
+1531396794236	geckodriver	INFO	geckodriver 0.21.0
+1531396794240	geckodriver	INFO	Listening on 127.0.0.1:49527
+1531396795307	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.UcAF8mCY23hH"
+1531396796703	Marionette	INFO	Listening on port 39823
+1531396796722	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531396796780	Marionette	DEBUG	[2147483649] Frame script loaded
+1531396796783	Marionette	DEBUG	[2147483649] Frame script registered
+1531396796825	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531396798247	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531396798465	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531396801376	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 11653, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531396911694	Marionette	INFO	Stopped listening on port 39823
+1531397272374	geckodriver	INFO	geckodriver 0.21.0
+1531397272378	geckodriver	INFO	Listening on 127.0.0.1:44367
+1531397273435	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.6aUZCq1UAQ30"
+1531397274861	Marionette	INFO	Listening on port 43441
+1531397274940	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531397274986	Marionette	DEBUG	[2147483649] Frame script loaded
+1531397274988	Marionette	DEBUG	[2147483649] Frame script registered
+1531397275009	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531397276273	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531397276580	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531397281825	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531397293120	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531397294567	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531399833679	geckodriver	INFO	geckodriver 0.21.0
+1531399833686	geckodriver	INFO	Listening on 127.0.0.1:52659
+1531399834864	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.dOd95flY4JwC"
+1531399836721	Marionette	INFO	Listening on port 40607
+1531399836779	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531399836824	Marionette	DEBUG	[2147483649] Frame script loaded
+1531399836828	Marionette	DEBUG	[2147483649] Frame script registered
+1531399836846	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531399838133	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531399838455	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531399839799	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for https://web.whatsapp.com/
+1531399839820	Marionette	DEBUG	[2147483649] Received DOM event unload for https://web.whatsapp.com/
+1531399839824	Marionette	DEBUG	[2147483649] Received observer notification outer-window-destroyed for 2147483649
+JavaScript error: https://web.whatsapp.com/vendor2.030d3590e07b379cf716.js, line 49: NS_ERROR_NOT_INITIALIZED: 
+[Parent 18704, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531399839978	Marionette	INFO	Stopped listening on port 40607
+1531399842935	Marionette	INFO	Stopped listening on port 43441
+1531399847647	geckodriver	INFO	geckodriver 0.21.0
+1531399847651	geckodriver	INFO	Listening on 127.0.0.1:60085
+1531399848764	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.tgyFuLiqXkUZ"
+1531399850198	Marionette	INFO	Listening on port 39023
+1531399850289	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531399850335	Marionette	DEBUG	[2147483649] Frame script loaded
+1531399850336	Marionette	DEBUG	[2147483649] Frame script registered
+1531399850353	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531399851743	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531399851920	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531399854450	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531399861581	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531399862596	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531399863526	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531399864377	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Parent 19056, Gecko_IOThread] WARNING: pipe error (40): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531401363667	Marionette	INFO	Stopped listening on port 39023
+1531401366797	geckodriver	INFO	geckodriver 0.21.0
+1531401366817	geckodriver	INFO	Listening on 127.0.0.1:50705
+1531401367891	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.PqAzny3BnK1T"
+1531401369579	Marionette	INFO	Listening on port 44585
+1531401369600	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531401369642	Marionette	DEBUG	[2147483649] Frame script loaded
+1531401369656	Marionette	DEBUG	[2147483649] Frame script registered
+1531401369685	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531401370679	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531401371271	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531401381507	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531401592703	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 22700, Gecko_IOThread] WARNING: pipe error (60): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531401854696	Marionette	INFO	Stopped listening on port 44585
+1531401857838	geckodriver	INFO	geckodriver 0.21.0
+1531401857842	geckodriver	INFO	Listening on 127.0.0.1:55165
+1531401858967	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.LNw8DXwIfPEs"
+1531401860451	Marionette	INFO	Listening on port 45973
+1531401860481	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531401860545	Marionette	DEBUG	[2147483649] Frame script loaded
+1531401860546	Marionette	DEBUG	[2147483649] Frame script registered
+1531401860585	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531401861704	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531401862241	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531401865835	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531401873089	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531401875786	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531401876340	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531401876921	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402107581	geckodriver	INFO	geckodriver 0.21.0
+1531402107589	geckodriver	INFO	Listening on 127.0.0.1:37365
+[Parent 24123, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531402108092	Marionette	INFO	Stopped listening on port 45973
+1531402108729	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.W03fcGw974f8"
+1531402110375	Marionette	INFO	Listening on port 35045
+1531402110435	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531402110478	Marionette	DEBUG	[2147483649] Frame script loaded
+1531402110480	Marionette	DEBUG	[2147483649] Frame script registered
+1531402110494	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531402111613	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531402112221	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531402116416	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531402122677	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402124233	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402124911	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402125447	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402320940	geckodriver	INFO	geckodriver 0.21.0
+1531402320948	geckodriver	INFO	Listening on 127.0.0.1:47151
+1531402322114	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.sWE9cebBIRUU"
+1531402324802	Marionette	INFO	Listening on port 42727
+1531402324830	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531402324884	Marionette	DEBUG	[2147483649] Frame script loaded
+1531402324890	Marionette	DEBUG	[2147483649] Frame script registered
+1531402324912	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531402325924	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531402326974	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531402360655	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531402361478	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 27435, Gecko_IOThread] WARNING: pipe error (79): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531402415504	Marionette	INFO	Stopped listening on port 42727
+1531402418458	geckodriver	INFO	geckodriver 0.21.0
+1531402418465	geckodriver	INFO	Listening on 127.0.0.1:37001
+1531402419570	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.6mVTCBsv8Vbd"
+1531402421165	Marionette	INFO	Listening on port 42167
+1531402421184	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531402421228	Marionette	DEBUG	[2147483649] Frame script loaded
+1531402421235	Marionette	DEBUG	[2147483649] Frame script registered
+1531402421257	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531402422280	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531402422881	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531402428758	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531402435193	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+[Parent 12046, Gecko_IOThread] WARNING: pipe error (79): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531402465008	Marionette	INFO	Stopped listening on port 42167
+1531402467127	geckodriver	INFO	geckodriver 0.21.0
+1531402467131	geckodriver	INFO	Listening on 127.0.0.1:58121
+1531402468220	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.N6k1OomGczVP"
+1531402469686	Marionette	INFO	Listening on port 32873
+1531402469734	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531402469779	Marionette	DEBUG	[2147483649] Frame script loaded
+1531402469780	Marionette	DEBUG	[2147483649] Frame script registered
+1531402469794	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531402471188	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531402471508	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531402475385	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531402482429	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402484240	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402485138	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402485969	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402486772	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402487542	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402488341	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402489197	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402490018	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402490794	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 25206, Gecko_IOThread] WARNING: pipe error (60): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531402572564	Marionette	INFO	Stopped listening on port 35045
+[Parent 13797, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531402774900	Marionette	INFO	Stopped listening on port 32873
+1531402781652	geckodriver	INFO	geckodriver 0.21.0
+1531402781656	geckodriver	INFO	Listening on 127.0.0.1:58987
+1531402782745	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.z7JEj6DdgYcx"
+1531402784177	Marionette	INFO	Listening on port 43267
+1531402784255	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531402784308	Marionette	DEBUG	[2147483649] Frame script loaded
+1531402784309	Marionette	DEBUG	[2147483649] Frame script registered
+1531402784326	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531402785465	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531402786048	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531402788650	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531402799643	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402802282	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402807322	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402808872	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402810442	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 15855, Gecko_IOThread] WARNING: pipe error (129): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 15855, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531402877097	Marionette	INFO	Stopped listening on port 43267
+1531402880400	geckodriver	INFO	geckodriver 0.21.0
+1531402880404	geckodriver	INFO	Listening on 127.0.0.1:50537
+1531402880439	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.oDKwcF00RuWa"
+1531402881771	Marionette	INFO	Listening on port 33475
+1531402881859	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531402881906	Marionette	DEBUG	[2147483649] Frame script loaded
+1531402881908	Marionette	DEBUG	[2147483649] Frame script registered
+1531402881922	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531402883346	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531402883652	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531402885887	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531402917459	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531402927548	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x2D00B1,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x900006,name=PWebSocket::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+[Parent 16686, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531403108062	Marionette	INFO	Stopped listening on port 33475
+1531403111124	geckodriver	INFO	geckodriver 0.21.0
+1531403111128	geckodriver	INFO	Listening on 127.0.0.1:39059
+1531403112177	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.SkLrOrnx2kJ0"
+1531403113549	Marionette	INFO	Listening on port 45865
+1531403113587	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531403113634	Marionette	DEBUG	[2147483649] Frame script loaded
+1531403113650	Marionette	DEBUG	[2147483649] Frame script registered
+1531403113673	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531403114725	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531403115341	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531403118704	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531403124075	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403124913	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403125740	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403126631	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403127473	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403128278	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403129106	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403129960	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403130797	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403131553	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 18374, Gecko_IOThread] WARNING: pipe error (67): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531403332961	Marionette	INFO	Stopped listening on port 45865
+1531403335986	geckodriver	INFO	geckodriver 0.21.0
+1531403335990	geckodriver	INFO	Listening on 127.0.0.1:54981
+1531403337109	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.tBAj5Ki7NPLJ"
+1531403338587	Marionette	INFO	Listening on port 37743
+1531403338616	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531403338676	Marionette	DEBUG	[2147483649] Frame script loaded
+1531403338679	Marionette	DEBUG	[2147483649] Frame script registered
+1531403338693	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531403339697	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531403340302	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531403345134	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531403384820	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403394553	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531403400136	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 19614, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531403682933	Marionette	INFO	Stopped listening on port 37743
+1531403685186	geckodriver	INFO	geckodriver 0.21.0
+1531403685190	geckodriver	INFO	Listening on 127.0.0.1:55401
+1531403686291	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.MRtYz3g5Dq04"
+1531403687771	Marionette	INFO	Listening on port 40567
+1531403687800	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531403687851	Marionette	DEBUG	[2147483649] Frame script loaded
+1531403687856	Marionette	DEBUG	[2147483649] Frame script registered
+1531403687878	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531403689013	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531403689608	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531403693829	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 21060, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531403765440	Marionette	INFO	Stopped listening on port 40567
+1531403768334	geckodriver	INFO	geckodriver 0.21.0
+1531403768338	geckodriver	INFO	Listening on 127.0.0.1:58425
+1531403769430	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.XHA3JA5rZC0N"
+1531403770962	Marionette	INFO	Listening on port 44395
+1531403771037	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531403771084	Marionette	DEBUG	[2147483649] Frame script loaded
+1531403771085	Marionette	DEBUG	[2147483649] Frame script registered
+1531403771097	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531403772177	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531403772476	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531403782475	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 21980, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531403813628	Marionette	INFO	Stopped listening on port 44395
+1531403816668	geckodriver	INFO	geckodriver 0.21.0
+1531403816672	geckodriver	INFO	Listening on 127.0.0.1:43599
+1531403816711	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.rX6sAORppYtA"
+1531403818091	Marionette	INFO	Listening on port 35835
+1531403818118	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531403818163	Marionette	DEBUG	[2147483649] Frame script loaded
+1531403818164	Marionette	DEBUG	[2147483649] Frame script registered
+1531403818187	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531403819606	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531403819803	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531403822577	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531404251494	Marionette	INFO	Stopped listening on port 35835
+1531404254274	geckodriver	INFO	geckodriver 0.21.0
+1531404254278	geckodriver	INFO	Listening on 127.0.0.1:55009
+1531404255375	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.FI9SeKnesRGS"
+1531404256935	Marionette	INFO	Listening on port 42759
+1531404256994	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531404257045	Marionette	DEBUG	[2147483649] Frame script loaded
+1531404257060	Marionette	DEBUG	[2147483649] Frame script registered
+1531404257092	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531404258528	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531404258836	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531404263424	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+1531404277156	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404277943	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404278957	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404279774	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404280550	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404281330	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404282128	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404282961	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404283744	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+1531404284544	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
+[Parent 25775, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531404349508	Marionette	INFO	Stopped listening on port 42759
+1531404352579	geckodriver	INFO	geckodriver 0.21.0
+1531404352584	geckodriver	INFO	Listening on 127.0.0.1:37977
+1531404353668	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.aEFjqG7uaCT5"
+1531404355121	Marionette	INFO	Listening on port 36379
+1531404355184	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531404355236	Marionette	DEBUG	[2147483649] Frame script loaded
+1531404355237	Marionette	DEBUG	[2147483649] Frame script registered
+1531404355259	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531404356267	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531404356894	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531404360175	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 27656, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531404457077	Marionette	INFO	Stopped listening on port 36379
+1531404841029	geckodriver	INFO	geckodriver 0.21.0
+1531404841033	geckodriver	INFO	Listening on 127.0.0.1:60727
+1531404842100	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.EECgoFKfT4T9"
+1531404843621	Marionette	INFO	Listening on port 34535
+1531404843718	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531404843761	Marionette	DEBUG	[2147483649] Frame script loaded
+1531404843763	Marionette	DEBUG	[2147483649] Frame script registered
+1531404843782	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531404845350	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531404845516	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531404848521	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 29095, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531404887176	Marionette	INFO	Stopped listening on port 34535
+1531404890475	geckodriver	INFO	geckodriver 0.21.0
+1531404890482	geckodriver	INFO	Listening on 127.0.0.1:42263
+1531404891630	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.1BM3zDsVwMWA"
+1531404893449	Marionette	INFO	Listening on port 33457
+1531404893544	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531404893599	Marionette	DEBUG	[2147483649] Frame script loaded
+1531404893600	Marionette	DEBUG	[2147483649] Frame script registered
+1531404893619	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531404895020	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531404895202	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531404903304	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 30125, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531404921706	Marionette	INFO	Stopped listening on port 33457
+1531404926875	geckodriver	INFO	geckodriver 0.21.0
+1531404926880	geckodriver	INFO	Listening on 127.0.0.1:58525
+1531404928019	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.jamAgVTX8B9v"
+1531404929537	Marionette	INFO	Listening on port 38063
+1531404929627	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531404929674	Marionette	DEBUG	[2147483649] Frame script loaded
+1531404929675	Marionette	DEBUG	[2147483649] Frame script registered
+1531404929694	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531404931092	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531404931258	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531404934732	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 31364, Gecko_IOThread] WARNING: pipe error (128): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531404949091	Marionette	INFO	Stopped listening on port 38063
+1531404978631	geckodriver	INFO	geckodriver 0.21.0
+1531404978637	geckodriver	INFO	Listening on 127.0.0.1:50765
+1531404979777	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.Eedgch5GaeCu"
+1531404981255	Marionette	INFO	Listening on port 36059
+1531404981287	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531404981335	Marionette	DEBUG	[2147483649] Frame script loaded
+1531404981339	Marionette	DEBUG	[2147483649] Frame script registered
+1531404981374	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531404982724	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531404982900	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531404992416	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1531405014758	Marionette	INFO	Stopped listening on port 36059
+1531405015582	geckodriver	INFO	geckodriver 0.21.0
+1531405015588	geckodriver	INFO	Listening on 127.0.0.1:35431
+1531405016707	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.VXLU77udiJhP"
+1531405018309	Marionette	INFO	Listening on port 41549
+1531405018318	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531405018367	Marionette	DEBUG	[2147483649] Frame script loaded
+1531405018379	Marionette	DEBUG	[2147483649] Frame script registered
+1531405018421	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531405019405	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531405020057	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531405024112	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 2872, Gecko_IOThread] WARNING: pipe error (60): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531405082683	Marionette	INFO	Stopped listening on port 41549
+1531405085342	geckodriver	INFO	geckodriver 0.21.0
+1531405085346	geckodriver	INFO	Listening on 127.0.0.1:33285
+1531405086431	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.zc9wvZbqOkaZ"
+1531405087907	Marionette	INFO	Listening on port 40145
+1531405087940	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531405087994	Marionette	DEBUG	[2147483649] Frame script loaded
+1531405087998	Marionette	DEBUG	[2147483649] Frame script registered
+1531405088045	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531405089063	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531405089650	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531405094006	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 3970, Gecko_IOThread] WARNING: pipe error (129): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Parent 3970, Gecko_IOThread] WARNING: pipe error (71): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531405109333	Marionette	INFO	Stopped listening on port 40145
+1531405112273	geckodriver	INFO	geckodriver 0.21.0
+1531405112277	geckodriver	INFO	Listening on 127.0.0.1:33413
+1531405113366	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.pnzER5wiPLj2"
+1531405114796	Marionette	INFO	Listening on port 39965
+1531405114883	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531405114933	Marionette	DEBUG	[2147483649] Frame script loaded
+1531405114934	Marionette	DEBUG	[2147483649] Frame script registered
+1531405114954	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531405116297	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531405116485	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531405125681	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Parent 4856, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1531405206629	Marionette	INFO	Stopped listening on port 39965
+1531405209144	geckodriver	INFO	geckodriver 0.21.0
+1531405209148	geckodriver	INFO	Listening on 127.0.0.1:35771
+1531405210221	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.FgF7TVE0dnMP"
+1531405211643	Marionette	INFO	Listening on port 43363
+1531405211751	Marionette	WARN	TLS certificate errors will be ignored for this session
+1531405211797	Marionette	DEBUG	[2147483649] Frame script loaded
+1531405211798	Marionette	DEBUG	[2147483649] Frame script registered
+1531405211816	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1531405213279	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1531405213481	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1531405222808	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
