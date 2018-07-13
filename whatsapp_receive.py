@@ -42,6 +42,11 @@ class WhatsAppReceive:
         self.driver = webdriver.Firefox(firefox_binary=binary)
         self.driver.get('https://web.whatsapp.com/')
 
+        self.wait = WebDriverWait(self.driver, TIMEOUT)
+
+        self.processed_conversation_ids = []
+        self.previous_conversation_content = None
+
     def _initialize_database(self):
         self.client = MongoClient('localhost', 27017)
         self.db = self.client.whatsapp_cli
@@ -58,53 +63,100 @@ class WhatsAppReceive:
         print('Fetching conversations panel')
         conversations_panel: WebElement = self._get_conversations_panel()
         print('Fetching conversations')
-        conversations: [WebElement] = conversations_panel.find_elements_by_class_name('_2wP_Y')
-
-        previous_conversation_content = None
+        conversations: [WebElement] = lambda: conversations_panel.find_elements_by_class_name('_2wP_Y')
 
         print('Processing conversations')
-        for conversation in conversations:
-            name = conversation.find_element_by_xpath("//span[@class='_1wjpf']").get_attribute('title')
-            last_message = conversation.find_element_by_xpath("//span[@class='_2_LEW']").get_attribute('title')
-            print('Processing conversation: Name - %s ~ Last Message - %s' % (name, last_message))
+        previous_last_processed_conversation = None
+        while True:
+            last_processed_conversation = self._process_visible_conversations(conversations)
+            if last_processed_conversation == previous_last_processed_conversation:
+                break
+            self._scroll_into_view(last_processed_conversation)
+            time.sleep(1)
+            previous_last_processed_conversation = last_processed_conversation
+
+    def _process_visible_conversations(self, conversations):
+        conversations_copy = list(reversed(conversations())).copy()
+
+        for conversation in reversed(conversations()):
+            name = None
+            try:
+                name = self.wait.until(lambda _: conversation.find_element_by_xpath(".//span[@class='_1wjpf']")) \
+                    .get_attribute('title')
+                last_message = self.wait.until(lambda _: conversation.find_element_by_xpath(".//span[@class='_2_LEW']")) \
+                    .get_attribute('title')
+                print('Processing conversation %s: Name - %s ~ Last Message - %s' % (conversation.id, name, last_message))
+            except NoSuchElementException:
+                print('No such element')
+
+            if name in self.processed_conversation_ids:
+                continue
+            else:
+                self.processed_conversation_ids.append(name)
 
             # If moving from active conversation, wait for content to refresh after click
             conversation.click()
-            if previous_conversation_content:
-                WebDriverWait(self.driver, TIMEOUT).until(
-                    exp_c.staleness_of(previous_conversation_content)
-                )
+            if self.previous_conversation_content:
+                self.wait.until(exp_c.staleness_of(self.previous_conversation_content))
 
-            messages_panel = WebDriverWait(self.driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_9tCEa']"))
-            )
-            previous_conversation_content = messages_panel
+            messages_panel = self.wait.until(lambda _: conversation.find_element_by_xpath("//div[@class='_9tCEa']"))
+            # self.wait.until(
+            #     lambda _: 'loading' not in messages_panel.find_element_by_class_name('_3dGYA').get_attribute('title'))
+
+            # Scroll through all messages until 100 messages are scraped, or we reach the top
+            try:
+                while len(messages_panel.find_elements_by_class_name('vW7d1')) < 1:
+                    try:
+                        load_spinner = WebDriverWait(self.driver, 2) \
+                            .until(lambda _: self.driver.find_element_by_xpath("//div[@class='_3dGYA']"))
+                        self._scroll_into_view(load_spinner)
+                    except TimeoutException:
+                        break
+                    self.wait.until(lambda _: not self._messages_are_loading())
+            except NoSuchElementException:
+                pass
+
+            self.previous_conversation_content = messages_panel
             messages = self._extract_conversation_messages(messages_panel)
 
+            print('Saving messages to database')
             for message in messages:
-                print('Saving message to database')
                 self.save_message(message)
+
+        return conversations_copy[-1]
+
+    def _scroll_into_view(self, web_element):
+        self.driver.execute_script('arguments[0].scrollIntoView(true);', web_element)
+
+    def _messages_are_loading(self):
+        try:
+            def load_spinner(): self.driver.find_element_by_xpath("//div[@class='_3dGYA']")
+            if load_spinner():
+                return 'loading' in load_spinner().get_attribute('title')
+            else:
+                return False
+        except NoSuchElementException:
+            return False
 
     def _get_conversations_panel(self):
         conversations_panel = None
         try:
-            conversations_panel = WebDriverWait(self.driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.XPATH, "//div[@class='RLfQR']"))
-            )
+            conversations_panel = self.wait.until(
+                exp_c.visibility_of_element_located((By.XPATH, "//div[@class='RLfQR']")))
         except TimeoutException:
             pass
         return conversations_panel
 
     def _extract_conversation_messages(self, messages_panel):
-        message_elements: [WebElement] = messages_panel.find_elements_by_class_name('vW7d1')
+        message_elements: [WebElement] = lambda: messages_panel.find_elements_by_class_name('vW7d1')
         messages: [Message] = []
 
-        for msg in message_elements:
+        for index in range(len(message_elements())):
             try:
-                details_el: WebElement = msg.find_element_by_xpath("//div[@class='Tkt2p']/div[1]")
+                details_el: WebElement = message_elements()[index].find_element_by_xpath("//div[@class='Tkt2p']/div[1]")
             except NoSuchElementException:
                 try:
-                    details_el: WebElement = msg.find_element_by_xpath("//div[@class='Tkt2p']/div[2]")
+                    details_el: WebElement = message_elements()[index].find_element_by_xpath("//div[@class='Tkt2p']/div[2]")
                 except NoSuchElementException:
                     print('No details')
                     continue
@@ -118,7 +170,8 @@ class WhatsAppReceive:
                 print('No details')
                 continue
 
-            content: str = msg.find_element_by_xpath("//span[@class='selectable-text invisible-space copyable-text']").text
+            content: str = self.wait.until(lambda x: message_elements()[index].find_element_by_xpath(
+                "//span[@class='selectable-text invisible-space copyable-text']")).text
 
             message = self.create_message(sender_name, time_string, sender_name, content)
             print('Message: %s' % message)
