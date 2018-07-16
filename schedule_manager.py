@@ -6,6 +6,9 @@ import utils
 from pymongo.collection import ObjectId
 from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
 from alert_manager import AlertManager
+import requests
+import os
+import elasticapm
 
 
 class ScheduleManager:
@@ -84,7 +87,22 @@ class ScheduleManager:
                                      })),
                                      firebase_scheduled))
 
+        delivery_queue = firebase_scheduled
+
         self.logger.info('Processing delivery queue of size %d' % len(delivery_queue))
+        self._process_delivery_queue(delivery_queue)
+
+        # number_delivered = len(list(filter(lambda queue_entry: queue_entry.racast.delivered, delivery_queue)))
+
+        # if len(delivery_queue) > 0:
+        #     self.alert_manager.slack_alert('Delivered %d of %d ***REMOVED***s in queue.'
+        #                                    % (number_delivered, len(delivery_queue)))
+
+        self.scheduler_running = False
+        self.logger.info("Finished handling downloads")
+
+    @elasticapm.capture_span()
+    def _process_delivery_queue(self, delivery_queue):
         for user in delivery_queue:
             self.logger.info('Downloading / scheduling for %s' % user.uid)
 
@@ -93,7 +111,8 @@ class ScheduleManager:
 
             path = ''
             if user.deliver_voicenote:
-                path = self.file_manager.download_user_file(user)
+                with elasticapm.capture_span('download_user_file'):
+                    path = self.file_manager.download_user_file(user)
 
             # Update/create database entry for logging and management
             self.logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
@@ -111,15 +130,6 @@ class ScheduleManager:
                 user.***REMOVED***.delivered = False
                 # self.alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
                 #                                % (user.uid, str(schedule)))
-
-        # number_delivered = len(list(filter(lambda queue_entry: queue_entry.racast.delivered, delivery_queue)))
-
-        # if len(delivery_queue) > 0:
-        #     self.alert_manager.slack_alert('Delivered %d of %d ***REMOVED***s in queue.'
-        #                                    % (number_delivered, len(delivery_queue)))
-
-        self.scheduler_running = False
-        self.logger.info("Finished handling downloads")
 
     def deliver_schedule(self, schedule):
         self.logger.info("Delivering message to %s " % schedule['uid'])
@@ -147,12 +157,34 @@ class ScheduleManager:
             self.logger.error('***REMOVED*** failed to deliver to %s' % uid)
             return False
 
-        if whatsapp_cli_interface.send_whatsapp(number=number, message=message, media=media, url=url):
+        params = {
+            'number': number,
+            'message': message,
+            'media': media,
+            'url': url
+        }
+
+        headers = {
+            'X-Auth-Token': os.environ['AUTH_TOKEN']
+        }
+
+        req = requests.get("http://0.0.0.0:8001/***REMOVED***", params=params, headers=headers)
+
+        if req.status_code == 200:
             self.logger.info('***REMOVED*** delivered to %s' % uid)
+            self.logger.debug('%s %s' % (req.status_code, req.reason))
             return True
         else:
             self.logger.error('***REMOVED*** failed to deliver to %s' % uid)
+            self.logger.debug('%s %s' % (req.status_code, req.reason))
             return False
+
+        # if whatsapp_cli_interface.send_whatsapp(number=number, message=message, media=media, url=url):
+        #     self.logger.info('***REMOVED*** delivered to %s' % uid)
+        #     return True
+        # else:
+        #     self.logger.error('***REMOVED*** failed to deliver to %s' % uid)
+        #     return False
 
     def is_handler_running(self):
         return self.handler_running

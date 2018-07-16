@@ -1,12 +1,21 @@
 from flask import Flask, request
-from flask_restful import Resource, Api
 from whatsapp_cli_interface import send_whatsapp
 from file_manager import FileManager
 import log_manager
 import os
+from elasticapm.contrib.flask import ElasticAPM
 
 app = Flask(__name__)
-api = Api(app)
+
+# configure to use ELASTIC_APM in your application's settings from elasticapm.contrib.flask import ElasticAPM
+app.config['ELASTIC_APM'] = {
+    # allowed app_name chars: a-z, A-Z, 0-9, -, _, and space from elasticapm.contrib.flask
+    'APP_NAME': os.environ['ELASTIC_APM_SERVICE_NAME'],
+    # 'SECRET_TOKEN': 'yourToken', #if you set on the APM server configuration
+    'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']  # your APM server url
+}
+
+apm = ElasticAPM(app)
 
 logger = log_manager.get_logger('api_manager')
 
@@ -80,6 +89,29 @@ def send_message():
         else:
             return 'Failed to send message'
     return 'Invalid request', 400
+
+
+@app.route('/***REMOVED***')
+def send_***REMOVED***():
+    if not check_auth():
+        return 'unauthorized', 400
+    else:
+        pass
+
+    logger.info('Handling /***REMOVED*** request: %s' % request.args)
+
+    number = request.args.get('number')
+    message = request.args.get('message')
+    media = request.args.get('media')
+    url = request.args.get('url')
+
+    if not number:
+        return 'Invalid "number"', 400
+
+    if send_whatsapp(number=number, message=message, media=media, url=url):
+        return 'Message sent to %s' % number, 200
+    else:
+        return 'Failed to send message', 400
 
 
 def check_auth():

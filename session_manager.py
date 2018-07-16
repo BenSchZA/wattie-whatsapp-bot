@@ -34,6 +34,9 @@ class SessionManager:
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
 
+        # Start API & service monitoring
+        self.start_api()
+
         self.logger.info(utils.whos_calling('Fetching Firefox session...'))
 
         self.previous_session = {}
@@ -70,9 +73,6 @@ class SessionManager:
             self.monitor_connection()
         finally:
             uptime_manager.process_up(self)
-
-        # Start API & service monitoring
-        # self.start_api()
 
     def start_api(self):
         self.logger.info('Starting API')
@@ -213,7 +213,9 @@ class SessionManager:
     def wait_until_connection_okay():
         must_end = time.time() + int(os.environ['TIMEOUT'])
         while time.time() < must_end:
-            if 'whatsapp' in SessionManager.get_existing_driver_session().current_url:
+            if 'whatsapp' in SessionManager.get_existing_driver_session().current_url\
+                    and SessionManager.get_existing_driver_session()\
+                    .find_element_by_xpath("//div[@class='_3q4NP _1Iexl']"):
                 return True
             time.sleep(0.5)
         return False
