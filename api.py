@@ -4,6 +4,8 @@ from file_manager import FileManager
 import log_manager
 import os
 from elasticapm.contrib.flask import ElasticAPM
+from elasticapm.handlers.logging import LoggingHandler
+import logging
 
 app = Flask(__name__)
 
@@ -16,6 +18,10 @@ app.config['ELASTIC_APM'] = {
 }
 
 apm = ElasticAPM(app)
+
+handler = LoggingHandler(client=apm.client)
+handler.setLevel(logging.WARN)
+app.logger.addHandler(handler)
 
 logger = log_manager.get_logger('api_manager')
 
@@ -93,24 +99,46 @@ def send_message():
 
 @app.route('/***REMOVED***')
 def send_***REMOVED***():
+    uid = request.args.get('uid')
+
     if not check_auth():
+        app.logger.error('Failed to send ***REMOVED***: Unauthorized',
+                         exc_info=True,
+                         extra={
+                             'uid': uid
+                         })
         return 'unauthorized', 400
     else:
         pass
 
     logger.info('Handling /***REMOVED*** request: %s' % request.args)
 
+    uid = request.args.get('uid')
     number = request.args.get('number')
     message = request.args.get('message')
     media = request.args.get('media')
     url = request.args.get('url')
 
     if not number:
+        app.logger.error('Failed to send ***REMOVED***: Invalid number',
+                         exc_info=True,
+                         extra={
+                             'uid': uid
+                         })
         return 'Invalid "number"', 400
 
     if send_whatsapp(number=number, message=message, media=media, url=url):
         return 'Message sent to %s' % number, 200
     else:
+        app.logger.error('Failed to send ***REMOVED***',
+                         exc_info=True,
+                         extra={
+                             'uid': uid,
+                             'number': number,
+                             'msg': message,
+                             'media': media,
+                             'url': url
+                         })
         return 'Failed to send message', 400
 
 

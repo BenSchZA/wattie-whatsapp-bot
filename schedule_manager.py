@@ -158,6 +158,7 @@ class ScheduleManager:
             return False
 
         params = {
+            'uid': uid,
             'number': number,
             'message': message,
             'media': media,
