@@ -135,7 +135,7 @@ def send_***REMOVED***():
                          extra={
                              'uid': uid,
                              'number': number,
-                             'msg': message,
+                             'text': message,
                              'media': media,
                              'url': url
                          })
