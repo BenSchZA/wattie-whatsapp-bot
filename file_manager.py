@@ -182,10 +182,10 @@ class FileManager:
             'created_date': datetime.utcnow()
         }
 
-        # Insert object into downloads_collection and log database uid
+        # Insert object into downloads_collection and log database id
         try:
             schedule_id = self.downloads_collection.insert_one(schedule).inserted_id
-            self.logger.info('Schedule in database with ID ' + str(schedule_id))
+            self.logger.info('Schedule inserted in database with ID ' + str(schedule_id))
             return schedule_id
         except WriteError:
             self.logger.info('Entry exists for user %s & url %s' % (user.uid, user.***REMOVED***.audio_url))
