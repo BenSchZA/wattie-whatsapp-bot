@@ -23,6 +23,7 @@ from session_manager import SessionManager
 from message import Message
 import re
 import requests
+import os
 
 TIMEOUT = 30
 MESSAGE_LIMIT = 5
@@ -62,12 +63,47 @@ class WhatsAppReceive:
 
     def process_contacts(self):
         self._for_each_conversation(self._process_contact)
-        self.processed_contacts = list(map(lambda contact: self._clean_contact_number(contact), self.processed_contacts))
-        self.processed_contacts = list(filter(None.__ne__, self.processed_contacts))
-
-        for number in self.processed_contacts:
-            print('Number: %s _ %s' % (number, self.get_uid_from_number(number)))
         print(self.processed_contacts)
+
+        new_user_contacts = self._get_new_user_contacts()
+        print(new_user_contacts)
+
+        print('Checking for new users')
+        while True:
+            if not new_user_contacts:
+                break
+            for number in new_user_contacts:
+                conversation = self._find_conversation_by_id(number)
+                if conversation:
+                    self._process_conversation(conversation)
+                    new_user_contacts.remove(number)
+            scroll_progress = self._side_pane_scroll_top()
+            scroll_max = self._side_pane_scroll_top_max()
+            if scroll_progress == scroll_max:
+                self._side_pane_scroll_to(0)
+            else:
+                self._side_pane_scroll_by(500)
+
+        # self.processed_contacts = list(map(lambda contact: self._clean_contact_number(contact), self.processed_contacts))
+        # self.processed_contacts = list(filter(None.__ne__, self.processed_contacts))
+        #
+        # for number in self.processed_contacts:
+        #     print('Number: %s _ %s' % (number, self._get_uid_from_number(number)))
+        # print(self.processed_contacts)
+
+    def _get_new_user_contacts(self):
+        new_user_contacts = []
+        for number in self.processed_contacts:
+            uid = self.get_uid_from_number_db(number)
+            if uid:
+                print('Existing user: %s' % uid)
+                continue
+            else:
+                uid = self._get_uid_from_number(number)
+            if not uid:
+                print('New user: %s' % number)
+                new_user_contacts.append(number)
+        return new_user_contacts
 
     def _clean_contact_number(self, contact_number):
         contact_number = contact_number.replace(' ', '')
@@ -76,7 +112,15 @@ class WhatsAppReceive:
         else:
             return None
 
-    def get_uid_from_number(self, contact_number):
+    def _is_valid_numeric(self, string):
+        for char in string:
+            if char.isdigit() or char == '+':
+                continue
+            else:
+                return False
+        return True
+
+    def _get_uid_from_number(self, contact_number):
         data = {
             'content-type': 'application/json',
             'fullMobileNum': contact_number
@@ -95,13 +139,25 @@ class WhatsAppReceive:
             print(req.status_code, req.reason)
             return None
 
-    def _is_valid_numeric(self, string):
-        for char in string:
-            if char.isdigit() or char == '+':
-                continue
-            else:
-                return False
-        return True
+    def _create_new_user(self, contact_number, username=None):
+        data = {
+            'Content-Type': 'application/json',
+            'fullMobileNum': contact_number,
+            'username': username
+        }
+
+        headers = {
+            'Authorization': '***REMOVED***',
+            'Origin': 'http://my***REMOVED***.com'
+        }
+
+        req = requests.post("http://***REMOVED***-client-api.fzg22nmp77.us-east-2.elasticbeanstalk.com/users/create_user_full_num", data=data, headers=headers)
+
+        if req.status_code == 200:
+            return req.json()['userUID']
+        else:
+            print(req.status_code, req.reason)
+            return None
 
     def process_messages(self):
         self._for_each_conversation(self._process_conversation)
@@ -118,17 +174,17 @@ class WhatsAppReceive:
         print('Processing conversations')
         while True:
             def sorted_conversations(): return sorted(conversations(), key=lambda el: self._get_element_y_position(el))
-            # conversations_copy = sorted_conversations().copy()
+            conversations_copy = sorted_conversations().copy()
             # print(list(map(lambda conv: '%s ~ %s' % (conv.id, conv.text), conversations_copy)))
-            for index in range(len(sorted_conversations())):
-                func(sorted_conversations()[index])
+            for index in range(len(conversations_copy)):
+                func(conversations_copy[index])
 
             scroll_progress = self._side_pane_scroll_top()
             scroll_max = self._side_pane_scroll_top_max()
             if scroll_progress == scroll_max:
                 break
 
-            last_processed_conversation = sorted_conversations()[-1]
+            last_processed_conversation = conversations_copy[-1]
             self._scroll_into_view(last_processed_conversation, True)
             time.sleep(0.1)
 
@@ -145,6 +201,7 @@ class WhatsAppReceive:
         return contact_name_number
 
     def _process_conversation(self, conversation: WebElement):
+        print('\nProcessing conversation...')
         uid = None
         try:
             # Assuming the user is not saved as a contact, 'contact_id' will return the number
@@ -153,16 +210,16 @@ class WhatsAppReceive:
 
             contact_id = self._clean_contact_number(contact_id)
             if not contact_id:
-                print('\nInvalid contact ID')
+                print('Invalid contact ID')
                 return False
 
             # Try get uid from local database, otherwise perform network call,
             # if this fails then user needs to be created first
             uid = self.get_uid_from_number_db(contact_id)
             if not uid:
-                uid = self.get_uid_from_number(contact_id)
+                uid = self._get_uid_from_number(contact_id)
             if not uid:
-                print('\nUser needs to be created')
+                print('User needs to be created')
 
             last_message_content = self.wait.until(lambda _: conversation.find_element_by_xpath(".//span[@class='_2_LEW']")) \
                 .get_attribute('title')
@@ -175,9 +232,9 @@ class WhatsAppReceive:
                 print('Messages in sync')
                 return True
 
-            print('\nProcessing conversation %s: ID - %s ~ Last Message - %s' % (conversation.id, contact_id, last_message_content))
+            print('Processing conversation %s: ID - %s' % (conversation.id, contact_id))
         except NoSuchElementException:
-            print('\nNo such element')
+            print('No such element')
             return False
 
         messages_panel = self.load_conversation_messages_panel(conversation)
@@ -195,6 +252,11 @@ class WhatsAppReceive:
             username = self._process_new_user(messages_panel)
             if username:
                 print('New user %s ~ %s' % (username, contact_id))
+                new_uid = self._create_new_user(contact_number=contact_id, username=username)
+                if new_uid:
+                    print('Successfully created user: %s' % new_uid)
+                else:
+                    print('Failed to create user: %s' % contact_id)
             else:
                 print('No valid launch sequence for %s' % contact_id)
             return False
@@ -263,6 +325,14 @@ class WhatsAppReceive:
         side_pane = self.driver.find_element_by_id('pane-side')
         return self._scroll_top_max(side_pane)
 
+    def _side_pane_scroll_by(self, pixels):
+        side_pane = self.driver.find_element_by_id('pane-side')
+        return self.driver.execute_script('return arguments[0].scrollBy(0, %d);' % pixels, side_pane)
+
+    def _side_pane_scroll_to(self, pixels):
+        side_pane = self.driver.find_element_by_id('pane-side')
+        return self.driver.execute_script('return arguments[0].scrollTo(0, %d);' % pixels, side_pane)
+
     def _messages_are_loading(self):
         try:
             def load_spinner(): self.driver.find_element_by_xpath("//div[@class='_3dGYA']")
@@ -281,6 +351,13 @@ class WhatsAppReceive:
         except TimeoutException:
             pass
         return conversations_panel
+
+    def _find_conversation_by_id(self, contact_id):
+        conversations_panel: WebElement = self._get_conversations_panel()
+        try:
+            return conversations_panel.find_element_by_xpath(".//span[@class='_1wjpf'][@title='%s']/ancestor::div[@class='_2wP_Y']" % contact_id)
+        except NoSuchElementException:
+            return None
 
     def _extract_and_save_messages(self, messages_panel):
         messages: [Message] = []
@@ -415,6 +492,6 @@ class WhatsAppReceive:
 if __name__ == '__main__':
     print('Procesing WhatsApp conversations')
     whatsapp_receive = WhatsAppReceive()
-    # print(whatsapp_receive.get_uid_from_contact_number('+27763381243'))
-    # whatsapp_receive.process_contacts()
-    whatsapp_receive.process_messages()
+    # print(whatsapp_receive._get_uid_from_number('+27763381243'))
+    whatsapp_receive.process_contacts()
+    # whatsapp_receive.process_messages()
