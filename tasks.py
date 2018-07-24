@@ -12,6 +12,7 @@ from schedule import Schedule
 from kombu import Queue
 from celery import Celery
 from celery.exceptions import SoftTimeLimitExceeded
+from celery.exceptions import MaxRetriesExceededError
 
 app = Celery('tasks', broker='redis://redis')
 
@@ -42,8 +43,7 @@ def download_and_deliver(self, user):
 
         path = ''
         if user.deliver_voicenote:
-            # with elasticapm.capture_span('download_user_file'):
-                path = file_manager.download_user_file(user)
+            path = file_manager.download_user_file(user)
 
         # Update/create database entry for logging and management
         logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
@@ -68,12 +68,12 @@ def download_and_deliver(self, user):
 
 @app.task(bind=True, soft_time_limit=120, default_retry_delay=5, max_retries=5)
 def deliver(self, user, schedule):
-    try:
-        user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
-        schedule = jsonpickle.loads(schedule, classes=[User, User.***REMOVED***, Schedule])
+    user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
+    user_json = jsonpickle.dumps(user)
+    schedule = jsonpickle.loads(schedule, classes=[User, User.***REMOVED***, Schedule])
 
+    try:
         if user.deliver_voicenote and not file_manager.does_path_exist(file_manager.get_user_download_path(user.uid)):
-            user_json = jsonpickle.dumps(user)
             download_and_deliver.apply_async(args=[user_json], queue='download')
             raise Exception('User download not available')
 
@@ -85,14 +85,19 @@ def deliver(self, user, schedule):
             user.***REMOVED***.delivered = True
             return True
         else:
-            file_manager.remove_schedule(user.uid)
             user.***REMOVED***.delivered = False
-            raise Exception('Delivery failed')
+            self.retry(exc=Exception('Delivery failed'))
             # self.alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
             #                                % (user.uid, str(schedule)))
 
-    except SoftTimeLimitExceeded as e:
-        self.retry(exc=e)
+    # except SoftTimeLimitExceeded as e:
+    except Exception as e:
+        try:
+            self.retry(exc=e)
+        except MaxRetriesExceededError:
+            logger.error('Max retries exceeded')
+            file_manager.remove_schedule(user.uid)
+            download_and_deliver.apply_async(args=[user_json], queue='download')
 
 
 def _deliver_schedule(schedule: Schedule):
