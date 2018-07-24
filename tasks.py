@@ -1,6 +1,3 @@
-import tasktiger
-from redis import Redis
-
 import elasticapm
 from pymongo.collection import ObjectId
 import os
@@ -12,96 +9,92 @@ from file_manager import FileManager
 from user import User
 from schedule import Schedule
 
+from kombu import Queue
 from celery import Celery
+from celery.exceptions import SoftTimeLimitExceeded
+
 app = Celery('tasks', broker='redis://redis')
 
-
-@app.task
-def add(x, y):
-    return x + y
-
+app.conf.task_queues = (
+    Queue('download'),
+    Queue('deliver')
+)
 
 file_manager = FileManager()
 logger = log_manager.get_logger('session_manager')
 
-conn = Redis(host='redis', db=1, decode_responses=True)
-
-tiger = tasktiger.TaskTiger(connection=conn, config={
-    'BATCH_QUEUES': {
-        'download': os.environ['NUM_WORKERS'],
-        'deliver': 1
-    }
-})
-
 
 def queue_download_and_deliver(user: User):
-    # user_json = json.dumps(user, cls=utils.DefaultJSONEncoder)
     user_json = jsonpickle.dumps(user)
 
-    tiger.delay(func=_download_and_deliver, args=(user_json,), retry=True, retry_method=tasktiger.linear(5, 5, 3))
-
-
-def _queue_delivery(user: User, schedule: Schedule):
-    # user_json = json.dumps(user, cls=utils.DefaultJSONEncoder)
-    # schedule_json = json.dumps(schedule, cls=utils.DefaultJSONEncoder)
-    user_json = jsonpickle.dumps(user)
-    schedule_json = jsonpickle.dumps(schedule)
-
-    tiger.delay(func=_deliver, args=(user_json, schedule_json,), retry=False, unique=True)
-    # when=datetime.utcnow()
+    download_and_deliver.apply_async(args=[user_json], queue='download')
+    # , link=deliver.s()
 
 
 @elasticapm.capture_span()
-@tiger.task(queue='download', hard_timeout=25)
-def _download_and_deliver(user):
-    user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
+@app.task(bind=True, soft_time_limit=60, default_retry_delay=5, max_retries=5)
+def download_and_deliver(self, user):
+    try:
+        user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
 
-    # Clear user db entry and downloads
-    if file_manager.does_path_exist(file_manager.get_user_download_path(user.uid)):
-        file_manager.remove_schedule(user.uid)
+        # Clear user db entry and downloads
+        if file_manager.does_path_exist(file_manager.get_user_download_path(user.uid)):
+            file_manager.remove_schedule(user.uid)
 
-    path = ''
-    if user.deliver_voicenote:
-        with elasticapm.capture_span('download_user_file'):
-            path = file_manager.download_user_file(user)
+        path = ''
+        if user.deliver_voicenote:
+            with elasticapm.capture_span('download_user_file'):
+                path = file_manager.download_user_file(user)
 
-    # Update/create database entry for logging and management
-    logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
+        # Update/create database entry for logging and management
+        logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
 
-    schedule_id = file_manager.create_db_schedule(user, path)
+        schedule_id = file_manager.create_db_schedule(user, path)
 
-    schedule = file_manager.downloads_collection.find_one({"_id": ObjectId(schedule_id)})
-    schedule = Schedule(user, schedule['path'])
+        schedule = file_manager.downloads_collection.find_one({"_id": ObjectId(schedule_id)})
+        schedule = Schedule(user, schedule['path'])
 
-    user.number = '27763381243'
-    schedule.number = '27763381243'
-    _queue_delivery(user, schedule)
+        # TODO:
+        user.number = '27763381243'
+        schedule.number = '27763381243'
 
-
-@elasticapm.capture_span()
-@tiger.task(queue='deliver', hard_timeout=30)
-def _deliver(user, schedule):
-    user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
-    schedule = jsonpickle.loads(schedule, classes=[User, User.***REMOVED***, Schedule])
-
-    if user.deliver_voicenote and not file_manager.does_path_exist(file_manager.get_user_download_path(user.uid)):
         user_json = jsonpickle.dumps(user)
         schedule_json = jsonpickle.dumps(schedule)
-        task = tasktiger.Task(tiger, _deliver, args=[user_json, schedule_json], unique=True)
-        task.cancel()
-        queue_download_and_deliver(user)
-        raise Exception('User download not available')
+        deliver.apply_async(args=[user_json, schedule_json], queue='deliver')
 
-    # If schedule delivered successfully, delete user file and mark delivered, else clear schedule
-    if _deliver_schedule(schedule):
-        # file_manager.mark_delivered(schedule)
-        file_manager.delete_user_file(user.uid)
-        user.***REMOVED***.delivered = True
-    else:
-        file_manager.remove_schedule(user.uid)
-        user.***REMOVED***.delivered = False
-        # self.alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
-        #                                % (user.uid, str(schedule)))
+        return user, schedule
+    except SoftTimeLimitExceeded as e:
+        self.retry(exc=e)
+
+
+@elasticapm.capture_span()
+@app.task(bind=True, soft_time_limit=60, default_retry_delay=5, max_retries=5)
+def deliver(self, user, schedule):
+    try:
+        user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
+        schedule = jsonpickle.loads(schedule, classes=[User, User.***REMOVED***, Schedule])
+
+        if user.deliver_voicenote and not file_manager.does_path_exist(file_manager.get_user_download_path(user.uid)):
+            user_json = jsonpickle.dumps(user)
+            download_and_deliver.apply_async(args=[user_json], queue='download')
+            raise Exception('User download not available')
+
+        # If schedule delivered successfully, delete user file and mark delivered, else clear schedule
+        if _deliver_schedule(schedule):
+            # TODO:
+            # file_manager.mark_delivered(schedule)
+            file_manager.delete_user_file(user.uid)
+            user.***REMOVED***.delivered = True
+            return True
+        else:
+            file_manager.remove_schedule(user.uid)
+            user.***REMOVED***.delivered = False
+            raise Exception('Delivery failed')
+            # self.alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+            #                                % (user.uid, str(schedule)))
+
+    except SoftTimeLimitExceeded as e:
+        self.retry(exc=e)
 
 
 def _deliver_schedule(schedule: Schedule):

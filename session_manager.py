@@ -281,9 +281,3 @@ if __name__ == "__main__":
     # run the 'main' function
     print(utils.whos_calling("Starting Firefox session manager"))
     session = SessionManager()
-
-    print('Starting TaskTiger workers')
-    import tasks
-    from tasks import add
-    print(add.delay(4, 4))
-    tasks.tiger.run_worker()

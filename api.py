@@ -8,8 +8,6 @@ from elasticapm.handlers.logging import LoggingHandler
 import logging
 from schedule_manager import ScheduleManager
 from flask_admin import Admin
-import tasktiger_admin
-import tasks
 
 app = Flask(__name__)
 
@@ -20,9 +18,6 @@ app.config['ELASTIC_APM'] = {
     # 'SECRET_TOKEN': 'yourToken', #if you set on the APM server configuration
     'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']  # your APM server url
 }
-
-admin = Admin(app, name='wattie-api', template_mode='bootstrap3')
-admin.add_view(tasktiger_admin.views.TaskTigerView(tasks.tiger))
 
 apm = ElasticAPM(app)
 

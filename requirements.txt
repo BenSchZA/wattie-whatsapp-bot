@@ -51,8 +51,6 @@ selenium==3.13.0
 selenium-page-elements==0.1.6
 six==1.11.0
 structlog==18.1.0
-tasktiger==0.9.3
-tasktiger-admin==0.2.2
 tornado==5.1
 urllib3==1.23
 vine==1.1.4
