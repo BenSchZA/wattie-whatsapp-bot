@@ -158,14 +158,14 @@ class WhatsAppCli:
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3hV1n yavlE']"))
                 )
                 send_file.click()
-                print('Waiting for attachment to upload')
-                WebDriverWait(self.driver, TIMEOUT).until(
-                    exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
-                )
-                WebDriverWait(self.driver, TIMEOUT*10).until(
-                    exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
-                )
-                print('Attachment sent to ' + self.number)
+                # print('Waiting for attachment to upload')
+                # WebDriverWait(self.driver, TIMEOUT).until(
+                #     exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
+                # )
+                # WebDriverWait(self.driver, TIMEOUT*10).until(
+                #     exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
+                # )
+                # print('Attachment sent to ' + self.number)
             except TimeoutException:
                 self.session.refresh_connection()
                 exit(1)
