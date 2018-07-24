@@ -14,6 +14,7 @@ import os
 import utils
 
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import SessionNotCreatedException
 from selenium.common.exceptions import NoSuchWindowException
 from selenium.common.exceptions import WebDriverException
@@ -221,10 +222,11 @@ class SessionManager:
     @staticmethod
     def wait_until_connection_okay():
         must_end = time.time() + int(os.environ['TIMEOUT'])
+        driver = SessionManager.get_existing_driver_session()
+        wait = WebDriverWait(driver, os.environ['TIMEOUT'])
         while time.time() < must_end:
-            if 'whatsapp' in SessionManager.get_existing_driver_session().current_url\
-                    and SessionManager.get_existing_driver_session()\
-                    .find_element_by_xpath("//div[@class='_3q4NP _1Iexl']"):
+            if 'whatsapp' in driver.current_url\
+                    and wait.until(lambda _: driver.find_element_by_xpath("//div[@class='_3q4NP _1Iexl']")):
                 return True
             time.sleep(0.5)
         return False
