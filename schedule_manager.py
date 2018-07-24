@@ -71,6 +71,7 @@ class ScheduleManager:
         for schedule in overdue_schedules:
             self.logger.error('Delivery overdue for %s' % schedule['uid'])
             self.logger.error('Removing schedule for %s' % schedule['uid'])
+            self.file_manager.delete_user_file(schedule['uid'])
             self.file_manager.remove_schedule(schedule['uid'])
 
         # Filter scheduled deliveries

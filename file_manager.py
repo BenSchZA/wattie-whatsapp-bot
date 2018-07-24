@@ -112,6 +112,7 @@ class FileManager:
         for schedule in overdue_schedules:
             self.logger.error('Delivery overdue for %s' % schedule['uid'])
             self.logger.error('Removing schedule for %s' % schedule['uid'])
+            self.delete_user_file(schedule['uid'])
             self.remove_schedule(schedule['uid'])
 
         # Filter scheduled deliveries
@@ -137,6 +138,7 @@ class FileManager:
             self.logger.info('Downloading / scheduling for %s' % user.uid)
 
             # Clear user db entry and downloads
+            self.delete_user_file(user.uid)
             self.remove_schedule(user.uid)
 
             path = ''
@@ -187,7 +189,6 @@ class FileManager:
             return None
 
     def remove_schedule(self, uid):
-        self.delete_user_file(uid)
         self.downloads_collection.delete_many({"uid": uid})
 
     def get_schedule(self):

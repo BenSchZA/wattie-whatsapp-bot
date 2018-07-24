@@ -38,8 +38,9 @@ def download_and_deliver(self, user):
         user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
 
         # Clear user db entry and downloads
+        file_manager.remove_schedule(user.uid)
         if file_manager.does_path_exist(file_manager.get_user_download_path(user.uid)):
-            file_manager.remove_schedule(user.uid)
+            file_manager.delete_user_file(user.uid)
 
         path = ''
         if user.deliver_voicenote:
@@ -96,6 +97,7 @@ def deliver(self, user, schedule):
             self.retry(exc=e)
         except MaxRetriesExceededError:
             logger.error('Max retries exceeded')
+            file_manager.delete_user_file(user.uid)
             file_manager.remove_schedule(user.uid)
             download_and_deliver.apply_async(args=[user_json], queue='download')
 
