@@ -31,8 +31,7 @@ def queue_download_and_deliver(user: User):
     # , link=deliver.s()
 
 
-@elasticapm.capture_span()
-@app.task(bind=True, soft_time_limit=60, default_retry_delay=5, max_retries=5)
+@app.task(bind=True, soft_time_limit=120, default_retry_delay=5, max_retries=5)
 def download_and_deliver(self, user):
     try:
         user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
@@ -43,7 +42,7 @@ def download_and_deliver(self, user):
 
         path = ''
         if user.deliver_voicenote:
-            with elasticapm.capture_span('download_user_file'):
+            # with elasticapm.capture_span('download_user_file'):
                 path = file_manager.download_user_file(user)
 
         # Update/create database entry for logging and management
@@ -67,8 +66,7 @@ def download_and_deliver(self, user):
         self.retry(exc=e)
 
 
-@elasticapm.capture_span()
-@app.task(bind=True, soft_time_limit=60, default_retry_delay=5, max_retries=5)
+@app.task(bind=True, soft_time_limit=120, default_retry_delay=5, max_retries=5)
 def deliver(self, user, schedule):
     try:
         user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])

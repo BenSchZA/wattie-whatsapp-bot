@@ -84,6 +84,10 @@ class FileManager:
         self.logger.info("Deleting temp files")
         return self._delete_path(self._get_temp_download_dir())
 
+    def delete_download_files(self):
+        self.logger.info("Deleting download files")
+        return self._delete_path(self._get_download_dir())
+
     def schedule(self):
         self.logger.info("Method: schedule()")
         if self.scheduler_running:
@@ -153,9 +157,8 @@ class FileManager:
         path = os.path.join(directory, filename)
 
         # Create directory structure and download file
-        self._create_directory(directory)
-        # urllib.request.urlretrieve(user.***REMOVED***.audio_url, path)
         req = requests.get(user.***REMOVED***.audio_url)
+        self._create_directory(directory)
         with open(path, 'wb') as file:
             file.write(req.content)
         self.logger.debug('Downloaded file for user %s' % user.uid)

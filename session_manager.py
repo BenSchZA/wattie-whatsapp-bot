@@ -29,8 +29,6 @@ firefox_profile = webdriver.FirefoxProfile()
 firefox_profile.set_preference('permissions.default.image', 2)
 firefox_profile.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
 
-driver = webdriver.Firefox(firefox_profile=firefox_profile)
-
 
 class SessionManager:
 
@@ -108,9 +106,9 @@ class SessionManager:
         capabilities = webdriver.DesiredCapabilities().FIREFOX.copy()
         capabilities["unexpectedAlertBehaviour"] = "accept"
 
-        self.driver = webdriver.Remote(browser_profile=firefox_profile,
-                                       command_executor='http://hub:4444/wd/hub',
+        self.driver = webdriver.Remote(command_executor='http://hub:4444/wd/hub',
                                        desired_capabilities=capabilities)
+        # browser_profile=firefox_profile,
         # self.driver = webdriver.Firefox(firefox_binary=binary)
 
         self.driver.get('https://web.whatsapp.com/')
@@ -200,9 +198,9 @@ class SessionManager:
         RemoteWebDriver.execute = new_command_execute
 
         new_driver = webdriver.Remote(
-            browser_profile=firefox_profile,
             command_executor=executor_url,
             desired_capabilities=capabilities)
+        # browser_profile=firefox_profile,
         new_driver.session_id = session_id
         new_driver._is_remote = True
 
