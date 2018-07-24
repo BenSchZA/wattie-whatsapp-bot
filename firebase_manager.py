@@ -62,9 +62,10 @@ class FirebaseManager:
         now_plus_one_hour = now + timedelta(hours=1)
 
         return self._get_users_ref().where(u'activeSubscription', u'==', True) \
-            .where(u'next***REMOVED***Date', u'>=', now) \
-            .where(u'next***REMOVED***Date', u'<=', now_plus_one_hour) \
             .get()
+            # .where(u'next***REMOVED***Date', u'>=', now) \
+            # .where(u'next***REMOVED***Date', u'<=', now_plus_one_hour) \
+            # .get()
 
     def _get_todays_***REMOVED***(self, uid):
         today = datetime.utcnow().date()
@@ -73,8 +74,8 @@ class FirebaseManager:
 
         try:
             return next(self._get_user(uid).collection(u'***REMOVED***s')
-                        .where(u'scheduledDate', u'>=', today_start)
-                        .where(u'scheduledDate', u'<=', today_end)
+                        # .where(u'scheduledDate', u'>=', today_start)
+                        # .where(u'scheduledDate', u'<=', today_end)
                         .limit(1).get())
         except (NotFound, StopIteration):
             self.logger.debug('Failed to get today\'s ***REMOVED*** for user %s' % uid)
@@ -107,11 +108,12 @@ class FirebaseManager:
                 user_dict = doc.to_dict()
 
                 ***REMOVED***s = self._get_user(user_uid).collection(u'***REMOVED***s')
-                scheduled_***REMOVED***_gen = ***REMOVED***s\
-                    .where(u'delivered', u'==', False) \
-                    .where(u'scheduledDate', u'>=', now)\
-                    .where(u'scheduledDate', u'<=', now_plus_one_hour) \
+                scheduled_***REMOVED***_gen = ***REMOVED***s \
                     .limit(1).get()
+                    # .where(u'delivered', u'==', False) \
+                    # .where(u'scheduledDate', u'>=', now)\
+                    # .where(u'scheduledDate', u'<=', now_plus_one_hour) \
+                    # .limit(1).get()
                 scheduled_***REMOVED*** = next(scheduled_***REMOVED***_gen)
 
                 if scheduled_***REMOVED***:

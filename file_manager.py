@@ -17,6 +17,7 @@ from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
 import log_manager
 from firebase_manager import FirebaseManager
 from user import User
+from schedule import Schedule
 
 import utils
 
@@ -157,34 +158,25 @@ class FileManager:
         req = requests.get(user.***REMOVED***.audio_url)
         with open(path, 'wb') as file:
             file.write(req.content)
-        self.logger.debug('Downloaded file for user %s' % user.***REMOVED***.scheduled_date)
+        self.logger.debug('Downloaded file for user %s' % user.uid)
         return path
+
+    def does_path_exist(self, path):
+        return os.path.exists(path)
+
+    def get_user_download_path(self, uid):
+        return self._get_download_dir() + uid
 
     def delete_user_file(self, uid):
         self._delete_path(self._get_download_dir() + uid)
 
     def create_db_schedule(self, user: User, path):
         # Create download_collection object for insertion into database
-        delivered = False
-        schedule = {
-            'id': user.***REMOVED***.id,
-            'uid': user.uid,
-            'name': user.username,
-            'number': user.number,
-            'url': user.***REMOVED***.audio_url,
-            '***REMOVED***_token': user.***REMOVED***_token,
-            'path': path,
-            'scheduled_millis': user.***REMOVED***.scheduled_date.timestamp() * 1000,
-            'deliver_voicenote': user.deliver_voicenote,
-            'deliver_weblink': user.deliver_weblink,
-            'delivered': delivered,
-            'created_millis': utils.time_in_millis_utc(),
-            'created_date': datetime.utcnow()
-        }
+        schedule = Schedule(user, path)
 
         # Insert object into downloads_collection and log database id
         try:
-            schedule_id = self.downloads_collection.insert_one(schedule).inserted_id
+            schedule_id = self.downloads_collection.insert_one(schedule.__dict__).inserted_id
             self.logger.info('Schedule inserted in database with ID ' + str(schedule_id))
             return schedule_id
         except WriteError:

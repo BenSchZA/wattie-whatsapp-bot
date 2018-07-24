@@ -6,6 +6,10 @@ import os
 from elasticapm.contrib.flask import ElasticAPM
 from elasticapm.handlers.logging import LoggingHandler
 import logging
+from schedule_manager import ScheduleManager
+from flask_admin import Admin
+import tasktiger_admin
+import tasks
 
 app = Flask(__name__)
 
@@ -17,6 +21,9 @@ app.config['ELASTIC_APM'] = {
     'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']  # your APM server url
 }
 
+admin = Admin(app, name='wattie-api', template_mode='bootstrap3')
+admin.add_view(tasktiger_admin.views.TaskTigerView(tasks.tiger))
+
 apm = ElasticAPM(app)
 
 handler = LoggingHandler(client=apm.client)
@@ -24,6 +31,7 @@ handler.setLevel(logging.WARN)
 app.logger.addHandler(handler)
 
 logger = log_manager.get_logger('api_manager')
+schedule_manager = ScheduleManager()
 
 
 @app.route("/ping")
@@ -44,6 +52,20 @@ def health_check():
         return 'healthy', 200
     else:
         return 'unhealthy', 500
+
+
+@app.route('/handle_schedules')
+def handle_schedules():
+    # if not check_auth():
+    #     return 'unauthorized', 400
+    # else:
+    #     pass
+
+    logger.info('Handling /handle_schedules request')
+
+    schedule_manager.handle_schedules()
+
+    return 'Process started'
 
 
 @app.route('/message')

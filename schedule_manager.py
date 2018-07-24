@@ -9,6 +9,7 @@ from alert_manager import AlertManager
 import requests
 import os
 import elasticapm
+import tasks
 
 
 class ScheduleManager:
@@ -106,86 +107,8 @@ class ScheduleManager:
         for user in delivery_queue:
             self.logger.info('Downloading / scheduling for %s' % user.uid)
 
-            # Clear user db entry and downloads
-            self.file_manager.remove_schedule(user.uid)
-
-            path = ''
-            if user.deliver_voicenote:
-                with elasticapm.capture_span('download_user_file'):
-                    path = self.file_manager.download_user_file(user)
-
-            # Update/create database entry for logging and management
-            self.logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
-
-            schedule_id = self.file_manager.create_db_schedule(user, path)
-            schedule = self.file_manager.downloads_collection.find_one({"_id": ObjectId(schedule_id)})
-
-            # If schedule delivered successfully, delete user file and mark delivered, else clear schedule
-            if self.deliver_schedule(schedule):
-                self.file_manager.mark_delivered(schedule)
-                self.file_manager.delete_user_file(user.uid)
-                user.***REMOVED***.delivered = True
-            else:
-                self.file_manager.remove_schedule(user.uid)
-                user.***REMOVED***.delivered = False
-                # self.alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
-                #                                % (user.uid, str(schedule)))
-
-    def deliver_schedule(self, schedule):
-        self.logger.info("Delivering message to %s " % schedule['uid'])
-        self.logger.debug("Schedule entry: %s" % schedule)
-
-        deliver_voicenote = schedule['deliver_voicenote']
-        deliver_weblink = schedule['deliver_weblink']
-
-        uid = schedule['uid']
-        number = schedule['number']
-        media = None
-        url = None
-
-        if deliver_voicenote and deliver_weblink:
-            message = "Hello %s! Here\'s your personalized ***REMOVED***:" % (schedule['name'])
-            media = schedule['path']
-            url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule['***REMOVED***_token']
-        elif deliver_voicenote and not deliver_weblink:
-            message = "Hello %s! Here\'s your personalized ***REMOVED***:" % (schedule['name'])
-            media = schedule['path']
-        elif not deliver_voicenote and deliver_weblink:
-            message = "Hello %s! Here\'s your personalized ***REMOVED***:" % (schedule['name'])
-            url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule['***REMOVED***_token']
-        else:
-            self.logger.error('***REMOVED*** failed to deliver to %s' % uid)
-            return False
-
-        params = {
-            'uid': uid,
-            'number': number,
-            'message': message,
-            'media': media,
-            'url': url
-        }
-
-        headers = {
-            'X-Auth-Token': os.environ['AUTH_TOKEN']
-        }
-
-        req = requests.get("http://0.0.0.0:8001/***REMOVED***", params=params, headers=headers)
-
-        if req.status_code == 200:
-            self.logger.info('***REMOVED*** delivered to %s' % uid)
-            self.logger.debug('%s %s' % (req.status_code, req.reason))
-            return True
-        else:
-            self.logger.error('***REMOVED*** failed to deliver to %s' % uid)
-            self.logger.debug('%s %s' % (req.status_code, req.reason))
-            return False
-
-        # if whatsapp_cli_interface.send_whatsapp(number=number, message=message, media=media, url=url):
-        #     self.logger.info('***REMOVED*** delivered to %s' % uid)
-        #     return True
-        # else:
-        #     self.logger.error('***REMOVED*** failed to deliver to %s' % uid)
-        #     return False
+            # Download and deliver
+            tasks.queue_download_and_deliver(user)
 
     def is_handler_running(self):
         return self.handler_running

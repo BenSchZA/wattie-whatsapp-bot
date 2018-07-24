@@ -1,17 +1,19 @@
 version: '2'
 services:
-    wattie:
+    wattie: &wattie
         build: .
         image: debian/latest:wattie
         environment:
-           - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
-           - CELL_NUMBER='***REMOVED***'
-           - MONITOR_FREQUENCY=10
-           - TIMEOUT=30
-           - AUTH_TOKEN=$AUTH_TOKEN
-#           - GRPC_SSL_CIPHER_SUITES='ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384'
-           - ELASTIC_APM_SERVICE_NAME=wattie-bot
-           - ELASTIC_APM_SERVER_URL=***REMOVED***:8200
+#            - wattie.env
+            - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
+            - CELL_NUMBER='***REMOVED***'
+            - MONITOR_FREQUENCY=10
+            - TIMEOUT=30
+            - AUTH_TOKEN=$AUTH_TOKEN
+            #           - GRPC_SSL_CIPHER_SUITES='ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384'
+            - ELASTIC_APM_SERVICE_NAME=wattie-bot
+            - ELASTIC_APM_SERVER_URL=***REMOVED***:8200
+            - NUM_WORKERS=10
         volumes:
             - pip_cache:/root/.cache/pip
             - ./downloads:/app/downloads
@@ -20,12 +22,21 @@ services:
             - ${FIREBASE_CERTIFICATE_PATH}:/secrets
         ports:
             - 8001:8001
+            - 5555:5555
         depends_on:
             - mongodb
             - hub
             - selenium-firefox
         networks:
             - net
+    redis:
+        image: redis:4.0.5-alpine
+        command: ["redis-server", "--appendonly", "yes"]
+        hostname: redis
+        networks:
+          - net
+        volumes:
+          - redis_data:/data
     mongodb:
         image: mongo:latest
         environment:
@@ -68,6 +79,7 @@ services:
 volumes:
     mongodb:
     pip_cache:
+    redis_data:
 
 networks:
     net:

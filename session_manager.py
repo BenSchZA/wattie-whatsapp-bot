@@ -258,13 +258,8 @@ class SessionManager:
             pass
 
     def monitor_connection(self):
-            self.logger.info('Checking connection')
-
-            self.logger.info('Uptime: ' + str(int(round(uptime_manager.get_uptime_percent(self)))) + '%')
-
             self.active_connection = self.connection_okay()
-            self.logger.debug("Active connection: %r" % self.active_connection)
-            self.logger.debug("Handler running: %r" % self.schedule_manager.handler_running)
+            self.logger.info('Connection: Uptime ~ %s; Active ~ %s' % (str(int(round(uptime_manager.get_uptime_percent(self)))) + '%', self.active_connection))
 
             if not self.active_connection:
                 self.refresh_connection_else_restart()
@@ -272,14 +267,23 @@ class SessionManager:
             else:
                 uptime_manager.process_up(self)
                 # Process scheduled deliveries
-                if not self.schedule_manager.handler_running:
-                    self.schedule_manager.handle_schedules()
+                # if not self.schedule_manager.handler_running:
+                #     self.schedule_manager.handle_schedules()
 
             threading.Timer(int(os.environ['MONITOR_FREQUENCY']), self.monitor_connection).start()
 
 
 if __name__ == "__main__":
+    # import pydevd
+    # pydevd.settrace('wattie', port='57588', stdoutToServer=True, stderrToServer=True)
+
     # If you call this script from the command line (the shell) it will
     # run the 'main' function
     print(utils.whos_calling("Starting Firefox session manager"))
     session = SessionManager()
+
+    print('Starting TaskTiger workers')
+    import tasks
+    from tasks import add
+    print(add.delay(4, 4))
+    tasks.tiger.run_worker()

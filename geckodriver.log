@@ -12467,3 +12467,78 @@ IPDL protocol error: Handler returned error code!
 1532075794464	Marionette	DEBUG	[2147483649] Canceled page load listener because no navigation has been detected
 [Parent 1212, Gecko_IOThread] WARNING: pipe error (81): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
 1532076877586	Marionette	INFO	Stopped listening on port 40763
+1532092402566	geckodriver	INFO	geckodriver 0.21.0
+1532092402575	geckodriver	INFO	Listening on 127.0.0.1:59901
+1532092403753	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.iSysLMhyHtOq"
+1532092405362	Marionette	INFO	Listening on port 45837
+1532092405469	Marionette	WARN	TLS certificate errors will be ignored for this session
+1532092405513	Marionette	DEBUG	[2147483649] Frame script loaded
+1532092405514	Marionette	DEBUG	[2147483649] Frame script registered
+1532092405528	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1532092406955	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1532092407156	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1532092409872	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 27571, Gecko_IOThread] WARNING: pipe error (56): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1532092943025	Marionette	INFO	Stopped listening on port 45837
+1532093564199	geckodriver	INFO	geckodriver 0.21.0
+1532093564221	geckodriver	INFO	Listening on 127.0.0.1:47495
+1532093565365	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.TVE0bDZO099K"
+1532093567166	Marionette	INFO	Listening on port 39059
+1532093567175	Marionette	WARN	TLS certificate errors will be ignored for this session
+1532093567219	Marionette	DEBUG	[2147483649] Frame script loaded
+1532093567222	Marionette	DEBUG	[2147483649] Frame script registered
+1532093567256	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1532093568711	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1532093568934	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://web.whatsapp.com/
+1532093576776	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://web.whatsapp.com/
+[Parent 23624, Gecko_IOThread] WARNING: pipe error (56): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1532093601674	Marionette	INFO	Stopped listening on port 39059
+1532095050146	geckodriver	INFO	geckodriver 0.21.0
+1532095050155	geckodriver	INFO	Listening on 127.0.0.1:34807
+1532095051201	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.udKCaegEAtVD"
+1532095052919	Marionette	INFO	Listening on port 39933
+1532095053009	Marionette	WARN	TLS certificate errors will be ignored for this session
+1532095053055	Marionette	DEBUG	[2147483649] Frame script loaded
+1532095053056	Marionette	DEBUG	[2147483649] Frame script registered
+[Parent 29358, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-developer-edition/src/mozilla-unified/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1532095058967	Marionette	INFO	Stopped listening on port 39933
+1532095087312	geckodriver	INFO	geckodriver 0.21.0
+1532095087316	geckodriver	INFO	Listening on 127.0.0.1:58483
+1532095088384	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.HMBSa1QsHYIx"
+1532095089732	Marionette	INFO	Listening on port 44423
+1532095089793	Marionette	WARN	TLS certificate errors will be ignored for this session
+1532095089838	Marionette	DEBUG	[2147483649] Frame script loaded
+1532095089842	Marionette	DEBUG	[2147483649] Frame script registered
+1532095094933	Marionette	INFO	Stopped listening on port 44423
+1532095214216	geckodriver	INFO	geckodriver 0.21.0
+1532095214220	geckodriver	INFO	Listening on 127.0.0.1:57881
+1532095215280	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.eSDjxckYkRGV"
+1532095217191	Marionette	INFO	Listening on port 32845
+1532095217298	Marionette	WARN	TLS certificate errors will be ignored for this session
+1532095217342	Marionette	DEBUG	[2147483649] Frame script loaded
+1532095217342	Marionette	DEBUG	[2147483649] Frame script registered
+1532095220818	Marionette	INFO	Stopped listening on port 32845
+1532095272578	geckodriver	INFO	geckodriver 0.21.0
+1532095272582	geckodriver	INFO	Listening on 127.0.0.1:41277
+1532095273620	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.XAtgP8tOxB1D"
+1532095275568	Marionette	INFO	Listening on port 42671
+1532095275643	Marionette	WARN	TLS certificate errors will be ignored for this session
+1532095275687	Marionette	DEBUG	[2147483649] Frame script loaded
+1532095275688	Marionette	DEBUG	[2147483649] Frame script registered
+1532095280681	Marionette	INFO	Stopped listening on port 42671
+1532095819884	geckodriver	INFO	geckodriver 0.21.0
+1532095819888	geckodriver	INFO	Listening on 127.0.0.1:60495
+1532095820962	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.qUYSIny2MVH5"
+1532095822348	Marionette	INFO	Listening on port 36755
+1532095822373	Marionette	WARN	TLS certificate errors will be ignored for this session
+1532095822429	Marionette	DEBUG	[2147483649] Frame script loaded
+1532095822437	Marionette	DEBUG	[2147483649] Frame script registered
+1532095825778	Marionette	INFO	Stopped listening on port 36755
+1532095854488	geckodriver	INFO	geckodriver 0.21.0
+1532095854491	geckodriver	INFO	Listening on 127.0.0.1:38235
+1532095855556	mozrunner::runner	INFO	Running command: "/usr/bin/firefox-developer-edition" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.H3OBItEg8qEQ"
+1532095856939	Marionette	INFO	Listening on port 43569
+1532095856970	Marionette	WARN	TLS certificate errors will be ignored for this session
+1532095857017	Marionette	DEBUG	[2147483649] Frame script loaded
+1532095857019	Marionette	DEBUG	[2147483649] Frame script registered
+1532095995738	Marionette	INFO	Stopped listening on port 43569
