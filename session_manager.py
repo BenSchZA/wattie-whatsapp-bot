@@ -223,7 +223,7 @@ class SessionManager:
     def wait_until_connection_okay():
         must_end = time.time() + int(os.environ['TIMEOUT'])
         driver = SessionManager.get_existing_driver_session()
-        wait = WebDriverWait(driver, os.environ['TIMEOUT'])
+        wait = WebDriverWait(driver, int(os.environ['TIMEOUT']))
         while time.time() < must_end:
             if 'whatsapp' in driver.current_url\
                     and wait.until(lambda _: driver.find_element_by_xpath("//div[@class='_3q4NP _1Iexl']")):
