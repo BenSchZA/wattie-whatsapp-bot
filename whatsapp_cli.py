@@ -32,6 +32,8 @@ class WhatsAppCli:
     def _handle_alert(self):
         print("Handling alert")
         try:
+            # Disable alert dialog before starting
+            self.driver.execute_script("window.onbeforeunload = function(e){};")
             alert = self.driver.switch_to.alert
             alert.accept()
         except NoAlertPresentException as e:
@@ -158,14 +160,14 @@ class WhatsAppCli:
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3hV1n yavlE']"))
                 )
                 send_file.click()
-                # print('Waiting for attachment to upload')
-                # WebDriverWait(self.driver, TIMEOUT).until(
-                #     exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
-                # )
-                # WebDriverWait(self.driver, TIMEOUT*10).until(
-                #     exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
-                # )
-                # print('Attachment sent to ' + self.number)
+                print('Waiting for attachment to upload')
+                WebDriverWait(self.driver, TIMEOUT).until(
+                    exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
+                )
+                WebDriverWait(self.driver, TIMEOUT*10).until(
+                    exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
+                )
+                print('Attachment sent to ' + self.number)
             except TimeoutException:
                 self.session.refresh_connection()
                 exit(1)
@@ -191,6 +193,9 @@ class WhatsAppCli:
         for _ in range(0, limit):
             while True:
                 try:
+                    # Disable alert dialog before starting
+                    self.driver.execute_script("window.onbeforeunload = function(e){};")
+
                     self._process_queue()
                 except UnexpectedAlertPresentException as e:
                     print("UnexpectedAlertPresentException: " + str(e))
