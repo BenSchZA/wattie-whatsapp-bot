@@ -59,11 +59,11 @@ class FirebaseManager:
 
     def _get_active_subs_next_hour(self):
         now = datetime.utcnow()
-        now_plus_one_hour = now + timedelta(hours=1)
+        now_plus_two_hours = now + timedelta(hours=2)
 
         return self._get_users_ref().where(u'activeSubscription', u'==', True) \
             .where(u'next***REMOVED***Date', u'>=', now) \
-            .where(u'next***REMOVED***Date', u'<=', now_plus_one_hour) \
+            .where(u'next***REMOVED***Date', u'<=', now_plus_two_hours) \
             .get()
 
     def _get_***REMOVED***(self, uid, ***REMOVED***_id):
@@ -78,7 +78,7 @@ class FirebaseManager:
     def get_scheduled_***REMOVED***s(self):
         scheduled = []
         now = datetime.utcnow()
-        now_plus_one_hour = now + timedelta(hours=1)
+        now_plus_two_hours = now + timedelta(hours=2)
 
         # Generators within generators are dark magic and do not work!
         len_subs_next_hour = utils.generator_len(self._get_active_subs_next_hour())
@@ -96,7 +96,7 @@ class FirebaseManager:
                 scheduled_***REMOVED***_gen = ***REMOVED***s \
                     .where(u'delivered', u'==', False) \
                     .where(u'scheduledDate', u'>=', now)\
-                    .where(u'scheduledDate', u'<=', now_plus_one_hour) \
+                    .where(u'scheduledDate', u'<=', now_plus_two_hours) \
                     .limit(1).get()
 
                 scheduled_***REMOVED*** = next(scheduled_***REMOVED***_gen)
