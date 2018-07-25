@@ -70,7 +70,6 @@ def deliver(self, user, schedule):
     user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
     user_json = jsonpickle.dumps(user)
     schedule = jsonpickle.loads(schedule, classes=[User, User.***REMOVED***, Schedule])
-    schedule_json = jsonpickle.dumps(schedule)
 
     try:
         if user.deliver_voicenote and not file_manager.does_path_exist(file_manager.get_user_download_path(user.uid)):
@@ -79,7 +78,7 @@ def deliver(self, user, schedule):
 
         # If schedule delivered successfully, delete user file and mark delivered, else clear schedule
         if _deliver_schedule(schedule):
-            file_manager.mark_delivered(schedule_json)
+            file_manager.mark_delivered(schedule)
             file_manager.delete_user_file(user.uid)
             user.***REMOVED***.delivered = True
             return True

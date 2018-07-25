@@ -201,8 +201,8 @@ class FileManager:
         return schedule
 
     def mark_delivered(self, schedule):
-        uid = schedule['uid']
-        ***REMOVED***_id = schedule['id']
+        uid = schedule.uid
+        ***REMOVED***_id = schedule.id
         self.firebase.mark_***REMOVED***_delivered_now(uid, ***REMOVED***_id)
         self.downloads_collection.update_one(
             {"uid": uid},
