@@ -56,10 +56,6 @@ def download_and_deliver(self, user):
         schedule = file_manager.downloads_collection.find_one({"_id": ObjectId(schedule_id)})
         schedule = Schedule(user, schedule['path'])
 
-        # TODO:
-        user.number = '27763381243'
-        schedule.number = '27763381243'
-
         user_json = jsonpickle.dumps(user)
         schedule_json = jsonpickle.dumps(schedule)
         deliver.apply_async(args=[user_json, schedule_json], queue='deliver')
