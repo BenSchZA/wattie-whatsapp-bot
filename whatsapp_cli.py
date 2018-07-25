@@ -9,6 +9,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as exp_c
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.keys import Keys
 
 from session_manager import SessionManager
 
@@ -23,6 +25,7 @@ class WhatsAppCli:
 
         self.session = SessionManager
         self.driver = self.session.get_existing_driver_session()
+        self.wait = WebDriverWait(self.driver, TIMEOUT)
 
         self.number = None
         self.message = None
@@ -40,6 +43,42 @@ class WhatsAppCli:
             print(str(e))
             pass
 
+    def try_search_for_contact(self, contact_number):
+        # Enter text
+        search_bar: WebElement = None
+        try:
+            search_bar = WebDriverWait(self.driver, TIMEOUT).until(
+                exp_c.visibility_of_element_located((By.XPATH, "//input[@class='jN-F5 copyable-text selectable-text']"))
+            )
+            search_bar.click()
+            search_bar.send_keys(contact_number)
+            print('Searching for contact ' + contact_number)
+        except TimeoutException:
+            return False
+        # Wait for finished loading
+        clear_search = self.wait.until(lambda _: self.driver.find_element_by_xpath("//button[@class='_3Burg']"))
+        # If no content found, return False
+        try:
+            self.driver.find_element_by_xpath("//div[@class='_3WZoe']")
+            return False
+        except NoSuchElementException:
+            pass
+        # Else Press enter
+        if search_bar:
+            search_bar.send_keys(Keys.RETURN)
+            clear_search.click()
+        # Check contact header for correct number
+        contact_header = None
+        try:
+            contact_header = self.driver.find_element_by_xpath("//header[@class='_3AwwN']")
+        except NoSuchElementException:
+            return False
+        contact_id = self.wait.until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
+            .get_attribute('title')
+
+        if contact_id and contact_number and contact_id.replace(" ", "") == contact_number.replace(" ", ""):
+            return True
+
     def _process_queue(self):
         print("Processing queue...")
 
@@ -52,28 +91,30 @@ class WhatsAppCli:
 
         print('Processing number ' + self.number)
 
-        contact_header = None
-        try:
-            contact_header = self.driver.find_element_by_xpath("//header[@class='_3AwwN']")
-        except NoSuchElementException:
-            pass
-
-        # If no contact open, load contact, else load next contact and wait for staleness of present contact
-        if not contact_header:
-            print('Contact header not present: fetching')
-            self.driver.get('https://web.whatsapp.com/send?phone=' + self.number)
-        else:
-            print('Contact header present: refreshing')
+        # Try search for number before using WhatsApp API - the latter is slower
+        if not self.try_search_for_contact(self.number):
+            contact_header = None
             try:
+                contact_header = self.driver.find_element_by_xpath("//header[@class='_3AwwN']")
+            except NoSuchElementException:
+                pass
+
+            # If no contact open, load contact, else load next contact and wait for staleness of present contact
+            if not contact_header:
+                print('Contact header not present: fetching')
                 self.driver.get('https://web.whatsapp.com/send?phone=' + self.number)
-                WebDriverWait(self.driver, TIMEOUT).until(
-                    exp_c.staleness_of(contact_header)
-                )
-            except TimeoutException:
-                self.session.refresh_connection()
-                exit(1)
-            finally:
-                print('Page refreshed')
+            else:
+                print('Contact header present: refreshing')
+                try:
+                    self.driver.get('https://web.whatsapp.com/send?phone=' + self.number)
+                    WebDriverWait(self.driver, TIMEOUT).until(
+                        exp_c.staleness_of(contact_header)
+                    )
+                except TimeoutException:
+                    self.session.refresh_connection()
+                    exit(1)
+                finally:
+                    print('Page refreshed')
 
         if self.message:
             try:
@@ -107,6 +148,7 @@ class WhatsAppCli:
                 content = WebDriverWait(self.driver, TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
                 )
+                content.click()
                 content.send_keys(self.url)
                 print('Sending url to ' + self.number)
             except TimeoutException:
