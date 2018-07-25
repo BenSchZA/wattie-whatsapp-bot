@@ -25,6 +25,7 @@ services:
             - mongodb
             - hub
             - selenium-firefox
+            - redis
         networks:
             - net
     redis:
