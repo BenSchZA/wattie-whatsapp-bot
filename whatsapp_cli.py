@@ -68,14 +68,13 @@ class WhatsAppCli:
             search_bar.send_keys(Keys.RETURN)
             clear_search.click()
         # Check contact header for correct number
-        contact_header = None
         try:
-            contact_header = self.driver.find_element_by_xpath("//header[@class='_3AwwN']")
-        except NoSuchElementException:
+            contact_header = self.wait.until(lambda _: self.driver.find_element_by_xpath("//header[@class='_3AwwN']"))
+            contact_id = self.wait.until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
+                .get_attribute('title')
+        except TimeoutException:
             return False
-        contact_id = self.wait.until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
-            .get_attribute('title')
-
+        
         if contact_id and contact_number and contact_id.replace(" ", "") == contact_number.replace(" ", ""):
             return True
 

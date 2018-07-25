@@ -295,5 +295,8 @@ if __name__ == "__main__":
     # Clear pending Celery tasks, for fresh start
     import tasks
     tasks.purge_tasks()
+    import file_manager
+    file_manager = file_manager.FileManager()
+    file_manager.delete_download_files()
 
     session = SessionManager()
