@@ -74,7 +74,7 @@ class WhatsAppCli:
                 .get_attribute('title')
         except TimeoutException:
             return False
-        
+
         if contact_id and contact_number and contact_id.replace(" ", "") == contact_number.replace(" ", ""):
             return True
 
