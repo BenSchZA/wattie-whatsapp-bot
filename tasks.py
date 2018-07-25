@@ -32,10 +32,9 @@ def queue_download_and_deliver(user: User):
     user_json = jsonpickle.dumps(user)
 
     download_and_deliver.apply_async(args=[user_json], queue='download')
-    # , link=deliver.s()
 
 
-@app.task(bind=True, soft_time_limit=120, default_retry_delay=5, max_retries=5)
+@app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
 def download_and_deliver(self, user):
     try:
         user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
@@ -70,8 +69,7 @@ def download_and_deliver(self, user):
         self.retry(exc=e)
 
 
-# TODO: time limits
-@app.task(bind=True, soft_time_limit=120, default_retry_delay=5, max_retries=5)
+@app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
 def deliver(self, user, schedule):
     user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
     user_json = jsonpickle.dumps(user)

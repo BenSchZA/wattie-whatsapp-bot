@@ -61,25 +61,12 @@ class FirebaseManager:
         now = datetime.utcnow()
         now_plus_one_hour = now + timedelta(hours=1)
 
+        # TODO
         return self._get_users_ref().where(u'activeSubscription', u'==', True) \
             .get()
             # .where(u'next***REMOVED***Date', u'>=', now) \
             # .where(u'next***REMOVED***Date', u'<=', now_plus_one_hour) \
             # .get()
-
-    def _get_todays_***REMOVED***(self, uid):
-        today = datetime.utcnow().date()
-        today_start = datetime(today.year, today.month, today.day, tzinfo=pytz.UTC)
-        today_end = today_start + timedelta(1)
-
-        try:
-            return next(self._get_user(uid).collection(u'***REMOVED***s')
-                        # .where(u'scheduledDate', u'>=', today_start)
-                        # .where(u'scheduledDate', u'<=', today_end)
-                        .limit(1).get())
-        except (NotFound, StopIteration):
-            self.logger.debug('Failed to get today\'s ***REMOVED*** for user %s' % uid)
-            return None
 
     def _get_***REMOVED***(self, uid, ***REMOVED***_id):
         try:
@@ -110,6 +97,7 @@ class FirebaseManager:
                 ***REMOVED***s = self._get_user(user_uid).collection(u'***REMOVED***s')
                 scheduled_***REMOVED***_gen = ***REMOVED***s \
                     .limit(1).get()
+                    # TODO
                     # .where(u'delivered', u'==', False) \
                     # .where(u'scheduledDate', u'>=', now)\
                     # .where(u'scheduledDate', u'<=', now_plus_one_hour) \

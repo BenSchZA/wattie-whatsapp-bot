@@ -20,7 +20,6 @@ from selenium.common.exceptions import NoSuchWindowException
 from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import UnexpectedAlertPresentException
-from selenium.webdriver.common.keys import Keys
 from urllib.error import URLError
 
 SESSION_DATA = 'data/session.data'
