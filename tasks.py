@@ -78,8 +78,8 @@ def deliver(self, user, schedule):
 
         # If schedule delivered successfully, delete user file and mark delivered, else clear schedule
         if _deliver_schedule(schedule):
-            file_manager.mark_delivered(schedule)
             file_manager.delete_user_file(user.uid)
+            file_manager.mark_delivered(schedule)
             user.***REMOVED***.delivered = True
             return True
         else:

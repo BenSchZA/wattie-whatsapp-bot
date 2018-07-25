@@ -94,11 +94,11 @@ class FirebaseManager:
 
                 ***REMOVED***s = self._get_user(user_uid).collection(u'***REMOVED***s')
                 scheduled_***REMOVED***_gen = ***REMOVED***s \
+                    .where(u'delivered', u'==', False) \
                     .where(u'scheduledDate', u'>=', now)\
                     .where(u'scheduledDate', u'<=', now_plus_one_hour) \
                     .limit(1).get()
-                # TODO
-                # .where(u'delivered', u'==', False) \
+
                 scheduled_***REMOVED*** = next(scheduled_***REMOVED***_gen)
 
                 if scheduled_***REMOVED***:
