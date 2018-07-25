@@ -82,8 +82,7 @@ def deliver(self, user, schedule):
 
         # If schedule delivered successfully, delete user file and mark delivered, else clear schedule
         if _deliver_schedule(schedule):
-            # TODO:
-            # file_manager.mark_delivered(schedule)
+            file_manager.mark_delivered(schedule)
             file_manager.delete_user_file(user.uid)
             user.***REMOVED***.delivered = True
             return True
@@ -118,19 +117,36 @@ def _deliver_schedule(schedule: Schedule):
     media = None
     url = None
 
-    if deliver_voicenote and deliver_weblink:
-        message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
-        media = schedule.path
-        url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
-    elif deliver_voicenote and not deliver_weblink:
-        message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
-        media = schedule.path
-    elif not deliver_voicenote and deliver_weblink:
-        message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
-        url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
-    else:
-        logger.error('***REMOVED*** failed to deliver to %s' % uid)
-        return False
+    message = '''Today's Burning Question: Are the security guards at Samsung called the Guardians of the Galaxy?
+
+    As you make your way to the end of Hump Day, you can start getting excited for your ***REMOVED*** tomorrow. What to expect?
+
+    Learn Something New: That time meat fell from the sky
+    Humour: Wackhead Simpson's Senseless Survey
+    Positive Injection: Barack Obama's speech last week
+    Quiz of the Day: Well we can't tell you now that would be cheating.
+    Business News: A company trialed a 4 day work week, and wants to keep it. Tell your boss.
+
+    And other stuff. Have a lovely evening my dudu bear.'''
+
+    # uid = schedule.uid
+    # number = schedule.number
+    # media = None
+    # url = None
+    #
+    # if deliver_voicenote and deliver_weblink:
+    #     message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
+    #     media = schedule.path
+    #     url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
+    # elif deliver_voicenote and not deliver_weblink:
+    #     message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
+    #     media = schedule.path
+    # elif not deliver_voicenote and deliver_weblink:
+    #     message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
+    #     url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
+    # else:
+    #     logger.error('***REMOVED*** failed to deliver to %s' % uid)
+    #     return False
 
     params = {
         'uid': uid,

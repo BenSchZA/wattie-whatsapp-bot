@@ -61,12 +61,10 @@ class FirebaseManager:
         now = datetime.utcnow()
         now_plus_one_hour = now + timedelta(hours=1)
 
-        # TODO
         return self._get_users_ref().where(u'activeSubscription', u'==', True) \
+            .where(u'next***REMOVED***Date', u'>=', now) \
+            .where(u'next***REMOVED***Date', u'<=', now_plus_one_hour) \
             .get()
-            # .where(u'next***REMOVED***Date', u'>=', now) \
-            # .where(u'next***REMOVED***Date', u'<=', now_plus_one_hour) \
-            # .get()
 
     def _get_***REMOVED***(self, uid, ***REMOVED***_id):
         try:
@@ -96,12 +94,11 @@ class FirebaseManager:
 
                 ***REMOVED***s = self._get_user(user_uid).collection(u'***REMOVED***s')
                 scheduled_***REMOVED***_gen = ***REMOVED***s \
+                    .where(u'scheduledDate', u'>=', now)\
+                    .where(u'scheduledDate', u'<=', now_plus_one_hour) \
                     .limit(1).get()
-                    # TODO
-                    # .where(u'delivered', u'==', False) \
-                    # .where(u'scheduledDate', u'>=', now)\
-                    # .where(u'scheduledDate', u'<=', now_plus_one_hour) \
-                    # .limit(1).get()
+                # TODO
+                # .where(u'delivered', u'==', False) \
                 scheduled_***REMOVED*** = next(scheduled_***REMOVED***_gen)
 
                 if scheduled_***REMOVED***:
