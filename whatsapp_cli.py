@@ -80,6 +80,7 @@ class WhatsAppCli:
                 content = WebDriverWait(self.driver, TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
                 )
+                content.click()
                 content.send_keys(self.message)
                 print('Sending message to ' + self.number)
             except TimeoutException:
