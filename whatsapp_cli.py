@@ -52,7 +52,7 @@ class WhatsAppCli:
             search_bar.click()
             search_bar.send_keys(contact_number)
             print('Searching for contact ' + contact_number)
-        except TimeoutException:
+        except (ElementClickInterceptedException, TimeoutException):
             return False
         # Wait for finished loading
         try:
@@ -68,10 +68,13 @@ class WhatsAppCli:
             print('Contact found')
             pass
         # Else Press enter
-        if search_bar:
-            print('Selecting contact conversation')
-            search_bar.send_keys(Keys.RETURN)
-            clear_search.click()
+        try:
+            if search_bar:
+                print('Selecting contact conversation')
+                search_bar.send_keys(Keys.RETURN)
+                clear_search.click()
+        except ElementClickInterceptedException:
+            return False
         # Check contact header for correct number
         try:
             print('Waiting for contact header')
@@ -136,7 +139,7 @@ class WhatsAppCli:
                 content.click()
                 content.send_keys(self.message)
                 print('Sending message to ' + self.number)
-            except TimeoutException:
+            except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
                 exit(1)
             finally:
@@ -148,7 +151,7 @@ class WhatsAppCli:
                 )
                 send_button.click()
                 print('Message sent to ' + self.number)
-            except TimeoutException:
+            except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
                 exit(1)
             finally:
@@ -163,7 +166,7 @@ class WhatsAppCli:
                 content.click()
                 content.send_keys(self.url)
                 print('Sending url to ' + self.number)
-            except TimeoutException:
+            except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
                 exit(1)
             finally:
@@ -175,7 +178,7 @@ class WhatsAppCli:
                 )
                 send_button.click()
                 print('Url sent to ' + self.number)
-            except TimeoutException:
+            except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
                 exit(1)
             finally:
@@ -189,7 +192,7 @@ class WhatsAppCli:
                 )
                 attach.click()
                 print('Attaching file for ' + self.number)
-            except TimeoutException:
+            except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
                 exit(1)
             finally:
@@ -203,7 +206,7 @@ class WhatsAppCli:
                 )
                 file.send_keys(self.media)
                 print('File attached for ' + self.number)
-            except TimeoutException:
+            except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
                 exit(1)
             finally:
@@ -223,7 +226,7 @@ class WhatsAppCli:
                     exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
                 )
                 print('Attachment sent to ' + self.number)
-            except TimeoutException:
+            except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
                 exit(1)
             finally:

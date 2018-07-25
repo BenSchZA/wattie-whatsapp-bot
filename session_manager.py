@@ -243,6 +243,8 @@ class SessionManager:
         try:
             driver = SessionManager.get_existing_driver_session()
             if driver:
+                # Disable alert dialog before starting
+                driver.execute_script("window.onbeforeunload = function(e){};")
                 try:
                     driver.refresh()
                 except UnexpectedAlertPresentException:
@@ -258,6 +260,8 @@ class SessionManager:
         try:
             driver = SessionManager.get_existing_driver_session()
             if driver:
+                # Disable alert dialog before starting
+                driver.execute_script("window.onbeforeunload = function(e){};")
                 try:
                     driver.refresh()
                 except UnexpectedAlertPresentException:

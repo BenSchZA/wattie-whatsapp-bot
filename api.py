@@ -7,7 +7,6 @@ from elasticapm.contrib.flask import ElasticAPM
 from elasticapm.handlers.logging import LoggingHandler
 import logging
 from schedule_manager import ScheduleManager
-from flask_admin import Admin
 
 app = Flask(__name__)
 
@@ -51,6 +50,7 @@ def health_check():
 
 @app.route('/handle_schedules')
 def handle_schedules():
+    # TODO:
     # if not check_auth():
     #     return 'unauthorized', 400
     # else:
