@@ -291,4 +291,9 @@ if __name__ == "__main__":
     # If you call this script from the command line (the shell) it will
     # run the 'main' function
     print(utils.whos_calling("Starting Firefox session manager"))
+
+    # Clear pending Celery tasks, for fresh start
+    import tasks
+    tasks.purge_tasks()
+
     session = SessionManager()

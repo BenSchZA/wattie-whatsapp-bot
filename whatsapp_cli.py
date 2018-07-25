@@ -30,7 +30,7 @@ class WhatsAppCli:
         self.url = None
 
     def _handle_alert(self):
-        print("Processing alert")
+        print("Handling alert")
         try:
             alert = self.driver.switch_to.alert
             alert.accept()
@@ -194,6 +194,15 @@ class WhatsAppCli:
                     self._process_queue()
                 except UnexpectedAlertPresentException as e:
                     print("UnexpectedAlertPresentException: " + str(e))
+                    # Attempt to clear content in case that was the cause of alert
+                    try:
+                        content = WebDriverWait(self.driver, 5).until(
+                            exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
+                        )
+                        content.clear()
+                        print("Content cleared")
+                    except TimeoutException:
+                        pass
                     self._handle_alert()
                     time.sleep(delay/1000)
                     continue

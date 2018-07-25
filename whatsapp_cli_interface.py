@@ -13,12 +13,15 @@ def send_whatsapp(number, message=None, media=None, url=None):
 
     process = "python whatsapp_cli.py --number %s" % number
 
+    if url and message:
+        # process += " --url \"%s\"" % url
+        message = "%s\n%s" % (message, url)
+    if url and not message:
+        process += " --url \"%s\"" % url
     if message:
         process += " --message \"%s\"" % message
     if media:
         process += " --media \"%s\"" % media
-    if url:
-        process += " --url \"%s\"" % url
 
     logger.info('Process %s about to start' % process)
 

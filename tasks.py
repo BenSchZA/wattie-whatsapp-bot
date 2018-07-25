@@ -1,4 +1,3 @@
-import elasticapm
 from pymongo.collection import ObjectId
 import os
 import requests
@@ -23,6 +22,10 @@ app.conf.task_queues = (
 
 file_manager = FileManager()
 logger = log_manager.get_logger('session_manager')
+
+
+def purge_tasks():
+    app.control.purge()
 
 
 def queue_download_and_deliver(user: User):
@@ -67,6 +70,7 @@ def download_and_deliver(self, user):
         self.retry(exc=e)
 
 
+# TODO: time limits
 @app.task(bind=True, soft_time_limit=120, default_retry_delay=5, max_retries=5)
 def deliver(self, user, schedule):
     user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
