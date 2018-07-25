@@ -117,17 +117,7 @@ def _deliver_schedule(schedule: Schedule):
     media = None
     url = None
 
-    message = '''Today's Burning Question: Are the security guards at Samsung called the Guardians of the Galaxy?
-
-    As you make your way to the end of Hump Day, you can start getting excited for your ***REMOVED*** tomorrow. What to expect?
-
-    Learn Something New: That time meat fell from the sky
-    Humour: Wackhead Simpson's Senseless Survey
-    Positive Injection: Barack Obama's speech last week
-    Quiz of the Day: Well we can't tell you now that would be cheating.
-    Business News: A company trialed a 4 day work week, and wants to keep it. Tell your boss.
-
-    And other stuff. Have a lovely evening my dudu bear.'''
+    message = '''Today's Burning Question: Are the security guards at Samsung called the Guardians of the Galaxy? As you make your way to the end of Hump Day, you can start getting excited for your ***REMOVED*** tomorrow. What to expect? That time meat fell from the sky, Wackhead Simpson's Senseless Survey, Barack Obama's speech last week, bizarre quiz questions and a company that trialed a 4 day work week. Have a lovely evening my dudu bear.'''
 
     # uid = schedule.uid
     # number = schedule.number
