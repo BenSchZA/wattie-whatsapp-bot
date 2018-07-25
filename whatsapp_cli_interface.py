@@ -26,8 +26,9 @@ def send_whatsapp(number, message=None, media=None, url=None):
     logger.info('Process %s about to start' % process)
 
     try:
-        subprocess.check_output([process], shell=True)
+        stdout = subprocess.check_output([process], shell=True).decode()
         logger.info('Message sent')
+        logger.debug(stdout)
         return True
     except subprocess.CalledProcessError as e:
         logger.error('Failed to send message: %s' % e.output)

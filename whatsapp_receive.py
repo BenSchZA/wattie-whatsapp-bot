@@ -401,8 +401,7 @@ class WhatsAppReceive:
             return None
 
     def try_search_for_contact(self, contact_number):
-        # Enter text
-        search_bar: WebElement = None
+        # Enter search text
         try:
             search_bar = WebDriverWait(self.driver, TIMEOUT).until(
                 exp_c.visibility_of_element_located((By.XPATH, "//input[@class='jN-F5 copyable-text selectable-text']"))
@@ -413,28 +412,41 @@ class WhatsAppReceive:
         except TimeoutException:
             return False
         # Wait for finished loading
-        clear_search = self.wait.until(lambda _: self.driver.find_element_by_xpath("//button[@class='_3Burg']"))
-        # If no content found, return False
+        try:
+            clear_search = self.wait.until(lambda _: self.driver.find_element_by_xpath("//button[@class='_3Burg']"))
+        except TimeoutException:
+            return False
+        # If no contacts found, return False
         try:
             self.driver.find_element_by_xpath("//div[@class='_3WZoe']")
+            print('No contacts found')
             return False
         except NoSuchElementException:
+            print('Contact found')
             pass
         # Else Press enter
         if search_bar:
+            print('Selecting contact conversation')
             search_bar.send_keys(Keys.RETURN)
             clear_search.click()
         # Check contact header for correct number
-        contact_header = None
         try:
-            contact_header = self.driver.find_element_by_xpath("//header[@class='_3AwwN']")
-        except NoSuchElementException:
+            print('Waiting for contact header')
+            contact_header = self.wait.until(lambda _: self.driver.find_element_by_xpath("//header[@class='_3AwwN']"))
+        except TimeoutException:
             return False
-        contact_id = self.wait.until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
-            .get_attribute('title')
+        try:
+            print('Fetching contact ID')
+            contact_id = self.wait.until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
+                .get_attribute('title')
+        except TimeoutException:
+            return False
 
-        if contact_id and contact_number and contact_id.replace(" ", "") == contact_number.replace(" ", ""):
+        print('Contact ID %s ~ Contact number %s' % (contact_id, contact_number))
+        if contact_id and contact_number and (contact_id.replace(" ", "") == "+%s" % contact_number.replace(" ", "")):
             return True
+        else:
+            return False
 
     def _extract_and_save_messages(self, messages_panel):
         messages: [Message] = []

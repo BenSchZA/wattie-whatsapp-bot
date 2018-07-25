@@ -95,15 +95,17 @@ def deliver(self, user, schedule):
             # self.alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
             #                                % (user.uid, str(schedule)))
 
-    # except SoftTimeLimitExceeded as e:
-    except Exception as e:
-        try:
-            self.retry(exc=e)
-        except MaxRetriesExceededError:
-            logger.error('Max retries exceeded')
-            file_manager.delete_user_file(user.uid)
-            file_manager.remove_schedule(user.uid)
-            download_and_deliver.apply_async(args=[user_json], queue='download')
+    except Exception as exc:
+        if isinstance(exc, SoftTimeLimitExceeded):
+            try:
+                self.retry(exc=exc)
+            except MaxRetriesExceededError:
+                logger.error('Max retries exceeded')
+                file_manager.delete_user_file(user.uid)
+                file_manager.remove_schedule(user.uid)
+                download_and_deliver.apply_async(args=[user_json], queue='download')
+        else:
+            raise exc
 
 
 def _deliver_schedule(schedule: Schedule):
