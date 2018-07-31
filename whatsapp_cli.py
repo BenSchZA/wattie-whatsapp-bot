@@ -147,7 +147,7 @@ class WhatsAppCli:
 
             try:
                 send_button = WebDriverWait(self.driver, TIMEOUT).until(
-                    exp_c.visibility_of_element_located((By.CLASS_NAME, "_2lkdt"))
+                    exp_c.visibility_of_element_located((By.CLASS_NAME, "_35EW6"))
                 )
                 send_button.click()
                 print('Message sent to ' + self.number)
@@ -174,7 +174,7 @@ class WhatsAppCli:
 
             try:
                 send_button = WebDriverWait(self.driver, TIMEOUT).until(
-                    exp_c.visibility_of_element_located((By.CLASS_NAME, "_2lkdt"))
+                    exp_c.visibility_of_element_located((By.CLASS_NAME, "_35EW6"))
                 )
                 send_button.click()
                 print('Url sent to ' + self.number)
