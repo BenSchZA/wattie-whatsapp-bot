@@ -72,6 +72,7 @@ services:
             - HUB_HOST=hub
             - HUB_PORT_4444_TCP_ADDR=hub
             - HUB_PORT_4444_TCP_PORT=4444
+            - VNC_NO_PASSWORD=true
             # - SELENIUM_VNC_PASSWORD=${SELENIUM_VNC_PASSWORD}
         networks:
             - net

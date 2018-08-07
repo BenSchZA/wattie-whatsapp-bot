@@ -1,6 +1,6 @@
 # See https://github.com/SeleniumHQ/docker-selenium/tree/master/NodeFirefoxDebug
 
 FROM selenium/node-firefox-debug:3.12.0-cobalt
-ENV SELENIUM_VNC_PASSWORD=$SELENIUM_VNC_PASSWORD
+# ENV SELENIUM_VNC_PASSWORD=$SELENIUM_VNC_PASSWORD
 # RUN x11vnc -storepasswd $SELENIUM_VNC_PASSWORD /home/seluser/.vnc/passwd
-RUN x11vnc -storepasswd '***REMOVED***' /home/seluser/.vnc/passwd
+RUN x11vnc -storepasswd '' /home/seluser/.vnc/passwd
