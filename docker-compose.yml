@@ -56,9 +56,10 @@ services:
         networks:
             - net
     selenium-firefox:
-        build:
-          context: ./
-          dockerfile: Dockerfile.FirefoxNode
+        # build:
+        #   context: ./
+        #   dockerfile: Dockerfile.FirefoxNode
+        image: selenium/node-firefox-debug:3.12.0-cobalt
         ports:
             - 5900:5900
         tty: true
@@ -71,7 +72,7 @@ services:
             - HUB_HOST=hub
             - HUB_PORT_4444_TCP_ADDR=hub
             - HUB_PORT_4444_TCP_PORT=4444
-            - SELENIUM_VNC_PASSWORD=${SELENIUM_VNC_PASSWORD}
+            # - SELENIUM_VNC_PASSWORD=${SELENIUM_VNC_PASSWORD}
         networks:
             - net
 
