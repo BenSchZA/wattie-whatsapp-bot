@@ -2,7 +2,78 @@
 
 ---
 
-# Wattie v2.0-Docker
+# Components
+
+---
+
+## SessionManager Class
+
+Class for managing active Selenium session via Selenium Hub & Selenium Node:
+
+* Restarting/refreshing driver session
+* Persisting last session for reloading
+* Monitoring uptime and restarting services when necessary
+
+### UptimeManager Class
+
+Class used for logging session uptime during operation.
+
+## ScheduleManager Class
+
+Class for handling scheduled ***REMOVED*** deliveries and pushing to Celery task queues.
+
+## API Module
+
+The API provides the following functionality:
+
+1. Checking service health
+2. Manually starting schedule handling
+3. Sending WhatsApp messages
+
+All transaction are routed through the API. The benefit of routing all transactions via the API is that we can use ElasticAPM to provide performance metrics e.g. the time it takes to deliver a ***REMOVED***.
+
+## FileManager Class
+
+The FileManager handles the following tasks:
+
+1. Downloading files to be delivered
+2. Purging downloaded files when appropriate
+3. Tracking all files downloaded by creating a MongoDB entry
+4. (Previously, scheduling deliveries)
+
+## FirebaseManager Class
+
+The FirebaseManager class manages the following:
+
+1. FireStore database connection
+2. Reading and updating user data
+3. Fetching the relevant ***REMOVED*** active subscriptions and schedules
+
+## LogManager/AlertManager/SMTPSHandler Class
+
+The LogManager handles all log files.
+
+The AlertManager is a work in progress that handles sending alerts via services like Slack.
+
+The SMTPSHandler handles sending alerts via e-mail with screenshots of the active session.
+
+## Supervisord & Celery Task Queue & Flower Task Manager
+
+Supervisord manages starting the session, spinning up Celery workers, and the Flower admin portal. It allows parallel processing of task queues.
+
+## WhatsApp CLI & WhatsApp CLI Interface
+
+The WhatsApp CLI is started as a Python subprocess via the WhatsApp CLI interface. This ensures that if there is a memory leak or if the process crashes it doesn't bring down the whole system.
+
+The WhatsApp CLI handles all Selenium tasks and interfaces with the SessionManager to connect to the active driver session.
+
+## WIP: WhatsAppReceive Class
+
+The WhatsAppReceive class is a work in progress. It will handle the reception of WhatsApp messages, the automated replies, and user management. It can be extended in future to handle any task that requires reading of incomming messages. At the moment it is a utility class that is indepedant of the rest of the docker system... it should perhaps be in its own branch.
+
+---
+
+# Wattie v2.0-Docker Deployment
 
 ---
 
@@ -62,7 +133,7 @@ See Wattie v1.0 for instructions.
 
 ---
 
-# Wattie v1.0
+# Wattie v1.0 Deployment
 
 ---
 
