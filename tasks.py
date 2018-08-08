@@ -64,7 +64,7 @@ def send_message(self, message: Message):
             path = file_manager.download_temp_file(message.media, message.filename)
             message.media = path
         elif message.media and not message.filename:
-            return '"media" must have corresponding "filename"'
+            raise ValueError('"media" must have corresponding "filename"')
 
         if send_whatsapp(message):
             if message.media:
@@ -72,12 +72,14 @@ def send_message(self, message: Message):
             logger.info('Message \"%s\" sent to %s' % (message.__dict__, message.number))
         else:
             logger.error('Failed to send message', 400)
+            raise ValueError('Failed to send message')
 
         client.end_transaction('send_message')
         return message
-    except SoftTimeLimitExceeded as e:
-        self.retry(exc=e)
+    except (ValueError, SoftTimeLimitExceeded) as e:
+        client.end_transaction('send_message')
         client.capture_exception()
+        self.retry(exc=e)
 
 # @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
 # def download_media(self, message: Message):
