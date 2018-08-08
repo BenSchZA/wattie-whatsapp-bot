@@ -1,27 +1,28 @@
 import subprocess
 import log_manager
+from message import Message
 
 logger = log_manager.get_logger('whatsapp_cli')
 
 
-def send_whatsapp(number, message=None, media=None, url=None):
+def send_whatsapp(message: Message):
     logger.info('Whatsapp CLI interface started')
 
-    if not number:
+    if not message.number:
         logger.error('Failed to send message: Invalid number')
         return False
 
-    process = "python whatsapp_cli.py --number %s" % number
+    process = "python whatsapp_cli.py --number %s" % message.number
 
-    if url and message:
+    if message.url and message.txt:
         # process += " --url \"%s\"" % url
-        message = "%s\n%s" % (message, url)
-    if url and not message:
-        process += " --url \"%s\"" % url
-    if message:
-        process += " --message \"%s\"" % message
-    if media:
-        process += " --media \"%s\"" % media
+        message.txt = "%s\n%s" % (message.txt, message.url)
+    if message.url and not message.txt:
+        process += " --url \"%s\"" % message.url
+    if message.txt:
+        process += " --txt \"%s\"" % message.txt
+    if message.media:
+        process += " --media \"%s\"" % message.media
 
     logger.info('Process %s about to start' % process)
 

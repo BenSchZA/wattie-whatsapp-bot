@@ -8,6 +8,9 @@ from elasticapm.handlers.logging import LoggingHandler
 import logging
 from schedule_manager import ScheduleManager
 
+import tasks
+from message import Message
+
 app = Flask(__name__)
 
 # configure to use ELASTIC_APM in your application's settings from elasticapm.contrib.flask import ElasticAPM
@@ -42,7 +45,7 @@ def health_check():
 
     logger.info('Handling /health request')
 
-    if send_whatsapp(number=os.environ['CELL_NUMBER'], message='Health check'):
+    if send_whatsapp(Message(number=os.environ['CELL_NUMBER'], txt='Health check')):
         return 'healthy', 200
     else:
         return 'unhealthy', 500
@@ -70,48 +73,44 @@ def send_message():
     else:
         pass
 
-    logger.info('Handling /message request: %s' % request.args)
+    logger.info('Handling /message request: %s' % request.values)
 
     number = request.args.get('number')
-    message = request.args.get('message')
+    txt = request.args.get('txt')
+    url = request.args.get('url')
     media = request.args.get('media')
     filename = request.args.get('filename')
-    url = request.args.get('url')
-
-    file_manager = FileManager()
-    path = ''
 
     if not number:
-        return
+        return 'Invalid "number"', 400
 
-    if media and filename:
-        logger.info('Fetching media')
-        file_manager = FileManager()
-        path = file_manager.download_temp_file(media, filename)
-    elif media and not filename:
-        return '"media" must have corresponding "filename"'
+    message = Message(number, txt, url, media, filename)
 
-    if message and not media:
-        logger.info('Sending message')
-        if send_whatsapp(number=number, message=message):
-            return 'Message \"%s\" sent to %s' % (message, number)
-        else:
-            return 'Failed to send message'
-    elif message and media:
-        logger.info('Sending media message')
-        if send_whatsapp(number=number, message=message, media=path):
-            file_manager.delete_temp_files()
-            return 'Message \"%s\" sent to %s with attachment %s' % (message, number, media)
-        else:
-            return 'Failed to send message'
-    elif not message and media:
-        logger.info('Sending media')
-        if send_whatsapp(number=number, media=path):
-            file_manager.delete_temp_files()
-            return 'Message sent to %s with attachment %s' % (number, media)
-        else:
-            return 'Failed to send message'
-    return 'Invalid request', 400
+    if tasks.queue_send_message(message):
+        return 'Message \"%s\" for %s added to queue' % (txt, number)
+    else:
+        return 'Invalid request', 400
+
+
+@app.route('/broadcast', methods=['POST'])
+def send_broadcast():
+    if not check_auth():
+        return 'unauthorized', 400
+    else:
+        pass
+
+    logger.info('Handling /broadcast request: %s' % request.get_json())
+
+    receivers = request.get_json().get('receivers')
+    txt = request.get_json().get('txt')
+
+    if not receivers:
+        return 'Invalid "receivers"', 400
+    if not txt:
+        return 'Invalid "txt"', 400
+
+    if tasks.queue_send_broadcast(receivers, Message(txt=txt)):
+        return 'Broadcast started'
 
 
 @app.route('/***REMOVED***')
@@ -128,11 +127,11 @@ def send_***REMOVED***():
     else:
         pass
 
-    logger.info('Handling /***REMOVED*** request: %s' % request.args)
+    logger.info('Handling /***REMOVED*** request: %s' % request.values)
 
     uid = request.args.get('uid')
     number = request.args.get('number')
-    message = request.args.get('message')
+    txt = request.args.get('txt')
     media = request.args.get('media')
     url = request.args.get('url')
 
@@ -144,7 +143,7 @@ def send_***REMOVED***():
                          })
         return 'Invalid "number"', 400
 
-    if send_whatsapp(number=number, message=message, media=media, url=url):
+    if send_whatsapp(Message(number=number, txt=txt, media=media, url=url)):
         return 'Message sent to %s' % number, 200
     else:
         app.logger.error('Failed to send ***REMOVED***',
@@ -152,7 +151,7 @@ def send_***REMOVED***():
                          extra={
                              'uid': uid,
                              'number': number,
-                             'text': message,
+                             'text': txt,
                              'media': media,
                              'url': url
                          })

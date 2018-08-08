@@ -28,7 +28,7 @@ class WhatsAppCli:
         self.wait = WebDriverWait(self.driver, TIMEOUT)
 
         self.number = None
-        self.message = None
+        self.txt = None
         self.media = None
         self.url = None
 
@@ -89,7 +89,8 @@ class WhatsAppCli:
             return False
 
         print('Contact ID %s ~ Contact number %s' % (contact_id, contact_number))
-        if contact_id and contact_number and (contact_id.replace(" ", "") == "+%s" % contact_number.replace(" ", "")):
+        if contact_id and contact_number and (contact_id.replace(" ", "").replace("+", "")
+                                              == contact_number.replace(" ", "").replace("+", "")):
             return True
         else:
             return False
@@ -131,13 +132,13 @@ class WhatsAppCli:
                 finally:
                     print('Page refreshed')
 
-        if self.message:
+        if self.txt:
             try:
                 content = WebDriverWait(self.driver, TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
                 )
                 content.click()
-                content.send_keys(self.message)
+                content.send_keys(self.txt)
                 print('Sending message to ' + self.number)
             except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
@@ -232,14 +233,14 @@ class WhatsAppCli:
             finally:
                 processed_media = True
                 pass
-        if (self.message and not processed_message) or (self.url and not processed_url) or (self.media and not processed_media):
+        if (self.txt and not processed_message) or (self.url and not processed_url) or (self.media and not processed_media):
             exit(1)
         else:
             exit(0)
 
-    def send_message(self, _number, _message=None, _media=None, _url=None):
+    def send_message(self, _number, _txt=None, _media=None, _url=None):
         self.number = _number
-        self.message = _message
+        self.txt = _txt
         self.media = _media
         self.url = _url
 
@@ -278,7 +279,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--number', help='to number', required=True)
-    parser.add_argument('--message', help='send message', type=str, required=False)
+    parser.add_argument('--txt', help='send message', type=str, required=False)
     parser.add_argument('--media', help='media attachment', type=str, required=False)
     parser.add_argument('--url', help='url link', type=str, required=False)
 
@@ -287,7 +288,7 @@ if __name__ == '__main__':
     cli = WhatsAppCli()
 
     cli.number = args.number
-    cli.message = args.message
+    cli.txt = args.txt
     cli.media = args.media
     cli.url = args.url
 

@@ -1,9 +1,13 @@
 class Message:
 
-    def __init__(self, uid, timestamp, sender_name='', sender_number='', content='') -> None:
+    def __init__(self, number=None, txt='', url=None, media=None, filename=None) -> None:
         super().__init__()
-        self.uid = uid
-        self.timestamp = timestamp
-        self.sender_name = sender_name
-        self.sender_number = sender_number
-        self.content = content
+        self.number = number
+        self.txt = txt
+        self.url = url
+        self.media = media
+        self.filename = filename
+
+    def set_number(self, number):
+        self.number = number
+        return self

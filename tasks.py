@@ -7,17 +7,26 @@ import log_manager
 from file_manager import FileManager
 from user import User
 from schedule import Schedule
+from message import Message
+from whatsapp_cli_interface import send_whatsapp
 
 from kombu import Queue
 from celery import Celery
+from celery import group
 from celery.exceptions import SoftTimeLimitExceeded
 from celery.exceptions import MaxRetriesExceededError
+
+from elasticapm import Client
+
+client = Client({'SERVICE_NAME': os.environ['ELASTIC_APM_SERVICE_NAME'],
+                 'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']})
 
 app = Celery('tasks', broker='redis://redis')
 
 app.conf.task_queues = (
     Queue('download'),
-    Queue('deliver')
+    Queue('deliver'),
+    Queue('send_message')
 )
 
 file_manager = FileManager()
@@ -30,8 +39,48 @@ def purge_tasks():
 
 def queue_download_and_deliver(user: User):
     user_json = jsonpickle.dumps(user)
-
     download_and_deliver.apply_async(args=[user_json], queue='download')
+
+
+def queue_send_message(message: Message):
+    message_json = jsonpickle.dumps(message)
+    send_message.apply_async(args=[message_json], queue='send_message')
+
+
+def queue_send_broadcast(receivers, message: Message):
+    group(send_message.s(jsonpickle.dumps(message.set_number(number))) for number in receivers) \
+        .apply_async(queue='send_message')
+    return True
+
+
+@app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
+def send_message(self, message: Message):
+    client.begin_transaction('send_message')
+    try:
+        message: Message = jsonpickle.loads(message, classes=[Message])
+
+        if message.media and message.filename:
+            logger.info('Fetching media')
+            path = file_manager.download_temp_file(message.media, message.filename)
+            message.media = path
+        elif message.media and not message.filename:
+            return '"media" must have corresponding "filename"'
+
+        if send_whatsapp(message):
+            if message.media:
+                file_manager.delete_temp_files()
+            logger.info('Message \"%s\" sent to %s' % (message.__dict__, message.number))
+        else:
+            logger.error('Failed to send message', 400)
+
+        client.end_transaction('send_message')
+        return message
+    except SoftTimeLimitExceeded as e:
+        self.retry(exc=e)
+        client.capture_exception()
+
+# @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
+# def download_media(self, message: Message):
 
 
 @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
