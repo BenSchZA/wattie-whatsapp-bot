@@ -13,6 +13,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 
 from session_manager import SessionManager
+from message import Message
 
 TIMEOUT = 30
 # TIMEOUT = os.environ['TIMEOUT']
@@ -238,11 +239,11 @@ class WhatsAppCli:
         else:
             exit(0)
 
-    def send_message(self, _number, _txt=None, _media=None, _url=None):
-        self.number = _number
-        self.txt = _txt
-        self.media = _media
-        self.url = _url
+    def send_message(self, message: Message):
+        self.number = message.number
+        self.txt = message.txt
+        self.media = message.media
+        self.url = message.url
 
         return self.process_and_handle_alerts()
 
