@@ -7,11 +7,13 @@ from elasticapm.contrib.flask import ElasticAPM
 from elasticapm.handlers.logging import LoggingHandler
 import logging
 from schedule_manager import ScheduleManager
+from flask_cors import CORS
 
 import tasks
 from message import Message
 
 app = Flask(__name__)
+CORS(app)
 
 # configure to use ELASTIC_APM in your application's settings from elasticapm.contrib.flask import ElasticAPM
 app.config['ELASTIC_APM'] = {
