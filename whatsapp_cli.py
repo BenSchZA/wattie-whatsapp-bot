@@ -139,7 +139,9 @@ class WhatsAppCli:
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
                 )
                 content.click()
-                content.send_keys(self.txt)
+                self.driver.execute_script("arguments[0].textContent=\"%s\";" % self.txt, content)
+                content.send_keys('0')
+                content.send_keys(Keys.BACKSPACE)
                 print('Sending message to ' + self.number)
             except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
@@ -166,7 +168,9 @@ class WhatsAppCli:
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
                 )
                 content.click()
-                content.send_keys(self.url)
+                self.driver.execute_script("arguments[0].textContent=\"%s\";" % self.url, content)
+                content.send_keys('0')
+                content.send_keys(Keys.BACKSPACE)
                 print('Sending url to ' + self.number)
             except (ElementClickInterceptedException, TimeoutException):
                 self.session.refresh_connection()
