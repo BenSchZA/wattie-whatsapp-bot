@@ -57,13 +57,14 @@ class FirebaseManager:
     def _get_user(self, uid):
         return self._get_users_ref().document(uid)
 
-    def _get_active_subs_next_hour(self):
+    def _get_active_subs_in_window(self):
         now = datetime.utcnow()
-        now_plus_two_hours = now + timedelta(hours=3)
+        window_start = now - timedelta(hours=3)
+        window_end = now + timedelta(hours=3)
 
         return self._get_users_ref().where(u'activeSubscription', u'==', True) \
-            .where(u'next***REMOVED***Date', u'>=', now) \
-            .where(u'next***REMOVED***Date', u'<=', now_plus_two_hours) \
+            .where(u'next***REMOVED***Date', u'>=', window_start) \
+            .where(u'next***REMOVED***Date', u'<=', window_end) \
             .get()
 
     def _get_***REMOVED***(self, uid, ***REMOVED***_id):
@@ -78,16 +79,17 @@ class FirebaseManager:
     def get_scheduled_***REMOVED***s(self):
         scheduled = []
         now = datetime.utcnow()
-        now_plus_two_hours = now + timedelta(hours=3)
+        window_start = now - timedelta(hours=3)
+        window_end = now + timedelta(hours=3)
 
         # Generators within generators are dark magic and do not work!
-        len_subs_next_hour = utils.generator_len(self._get_active_subs_next_hour())
-        subs_next_hour = list(self._get_active_subs_next_hour())
+        len_subs_in_window = utils.generator_len(self._get_active_subs_in_window())
+        subs_in_window = list(self._get_active_subs_in_window())
 
-        self.logger.debug('%d active subs scheduled for next hour' % len_subs_next_hour)
+        self.logger.debug('%d active subs scheduled for next hour' % len_subs_in_window)
 
         no_valid_***REMOVED***s = 0
-        for doc in subs_next_hour:
+        for doc in subs_in_window:
             try:
                 user_uid = doc.id
                 user_dict = doc.to_dict()
@@ -95,8 +97,8 @@ class FirebaseManager:
                 ***REMOVED***s = self._get_user(user_uid).collection(u'***REMOVED***s')
                 scheduled_***REMOVED***_gen = ***REMOVED***s \
                     .where(u'delivered', u'==', False) \
-                    .where(u'scheduledDate', u'>=', now)\
-                    .where(u'scheduledDate', u'<=', now_plus_two_hours) \
+                    .where(u'scheduledDate', u'>=', window_start)\
+                    .where(u'scheduledDate', u'<=', window_end) \
                     .limit(1).get()
 
                 scheduled_***REMOVED*** = next(scheduled_***REMOVED***_gen)
@@ -111,7 +113,7 @@ class FirebaseManager:
                 no_valid_***REMOVED***s += 1
                 continue
 
-        self.logger.debug('%d of %d active subs have no valid ***REMOVED***s' % (no_valid_***REMOVED***s, len_subs_next_hour))
+        self.logger.debug('%d of %d active subs have no valid ***REMOVED***s' % (no_valid_***REMOVED***s, len_subs_in_window))
         return scheduled
 
     def _get_user_ids(self):
