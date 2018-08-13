@@ -82,7 +82,7 @@ def send_message(self, message: Message):
         client.end_transaction('send_message')
         client.capture_exception()
         self.retry(exc=e)
-        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to send message to number %s with txt: \n\n%s'
+        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to send message to number %s with txt: %s'
                                   % (message.number, message.txt))
 
 # @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
@@ -140,7 +140,7 @@ def deliver(self, user, schedule):
         else:
             user.***REMOVED***.delivered = False
             self.retry(exc=Exception('Delivery failed'))
-            alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+            alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
                                       % (user.uid, str(schedule.__dict__)))
 
     except Exception as exc:
@@ -152,10 +152,10 @@ def deliver(self, user, schedule):
                 file_manager.delete_user_file(user.uid)
                 file_manager.remove_schedule(user.uid)
                 download_and_deliver.apply_async(args=[user_json], queue='download')
-                alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+                alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
                                           % (user.uid, str(schedule.__dict__)))
         else:
-            alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+            alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
                                       % (user.uid, str(schedule.__dict__)))
             raise exc
 
@@ -184,7 +184,7 @@ def _deliver_schedule(schedule: Schedule):
         url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
     else:
         logger.error('***REMOVED*** failed to deliver to %s' % uid)
-        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
                                   % (uid, str(schedule.__dict__)))
         return False
 
@@ -209,6 +209,6 @@ def _deliver_schedule(schedule: Schedule):
     else:
         logger.error('***REMOVED*** failed to deliver to %s' % uid)
         logger.debug('%s %s' % (req.status_code, req.reason))
-        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
                                   % (uid, str(schedule.__dict__)))
         return False
