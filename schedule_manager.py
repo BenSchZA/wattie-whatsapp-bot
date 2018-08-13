@@ -5,7 +5,6 @@ import log_manager
 import utils
 from pymongo.collection import ObjectId
 from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
-from alert_manager import AlertManager
 import requests
 import os
 import elasticapm
@@ -18,7 +17,6 @@ class ScheduleManager:
         super().__init__()
         self.firebase = FirebaseManager()
         self.file_manager = FileManager()
-        self.alert_manager = AlertManager()
         self.scheduled_deliveries_hour = None
         self.handler_running = False
         self.scheduler_running = False

@@ -9,6 +9,7 @@ from user import User
 from schedule import Schedule
 from message import Message
 from whatsapp_cli_interface import send_whatsapp
+from alert_manager import AlertManager
 
 from kombu import Queue
 from celery import Celery
@@ -30,6 +31,7 @@ app.conf.task_queues = (
 )
 
 file_manager = FileManager()
+alert_manager = AlertManager()
 logger = log_manager.get_logger('session_manager')
 
 
@@ -80,6 +82,8 @@ def send_message(self, message: Message):
         client.end_transaction('send_message')
         client.capture_exception()
         self.retry(exc=e)
+        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to send message to number %s with txt: \n\n%s'
+                                  % (message.number, message.txt))
 
 # @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
 # def download_media(self, message: Message):
@@ -136,8 +140,8 @@ def deliver(self, user, schedule):
         else:
             user.***REMOVED***.delivered = False
             self.retry(exc=Exception('Delivery failed'))
-            # self.alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
-            #                                % (user.uid, str(schedule)))
+            alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+                                      % (user.uid, str(schedule.__dict__)))
 
     except Exception as exc:
         if isinstance(exc, SoftTimeLimitExceeded):
@@ -148,7 +152,11 @@ def deliver(self, user, schedule):
                 file_manager.delete_user_file(user.uid)
                 file_manager.remove_schedule(user.uid)
                 download_and_deliver.apply_async(args=[user_json], queue='download')
+                alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+                                          % (user.uid, str(schedule.__dict__)))
         else:
+            alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+                                      % (user.uid, str(schedule.__dict__)))
             raise exc
 
 
@@ -158,13 +166,6 @@ def _deliver_schedule(schedule: Schedule):
 
     deliver_voicenote = schedule.deliver_voicenote
     deliver_weblink = schedule.deliver_weblink
-
-    # uid = schedule.uid
-    # number = schedule.number
-    # media = None
-    # url = None
-    #
-    # message = '''Today's Burning Question: Are the security guards at Samsung called the Guardians of the Galaxy? As you make your way to the end of Hump Day, you can start getting excited for your ***REMOVED*** tomorrow. What to expect? That time meat fell from the sky, Wackhead Simpson's Senseless Survey, Barack Obama's speech last week, bizarre quiz questions and a company that trialed a 4 day work week. Have a lovely evening my dudu bear.'''
 
     uid = schedule.uid
     number = schedule.number
@@ -183,6 +184,8 @@ def _deliver_schedule(schedule: Schedule):
         url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
     else:
         logger.error('***REMOVED*** failed to deliver to %s' % uid)
+        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+                                  % (uid, str(schedule.__dict__)))
         return False
 
     params = {
@@ -206,4 +209,6 @@ def _deliver_schedule(schedule: Schedule):
     else:
         logger.error('***REMOVED*** failed to deliver to %s' % uid)
         logger.debug('%s %s' % (req.status_code, req.reason))
+        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: \n\n%s'
+                                  % (uid, str(schedule.__dict__)))
         return False

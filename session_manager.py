@@ -11,6 +11,7 @@ from multiprocessing import Process
 from retrying import retry
 import os
 import utils
+import alert_manager
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -299,3 +300,5 @@ if __name__ == "__main__":
     tasks.purge_tasks()
 
     session = SessionManager()
+    alert_manager = alert_manager.AlertManager()
+    alert_manager.slack_alert('Wattie session started')
