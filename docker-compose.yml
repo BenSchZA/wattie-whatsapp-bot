@@ -1,8 +1,10 @@
 version: '2'
 services:
-    wattie: &wattie
-        build: .
-        image: debian/latest:wattie
+    wattie:
+        image: wattie:latest
+        build:
+           context: ./
+           dockerfile: Dockerfile
         environment:
             #- wattie.env
             - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
