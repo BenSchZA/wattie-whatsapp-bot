@@ -1,6 +1,5 @@
 from flask import Flask, request
 from whatsapp_cli_interface import send_whatsapp
-from file_manager import FileManager
 import log_manager
 import os
 from elasticapm.contrib.flask import ElasticAPM
@@ -55,11 +54,10 @@ def health_check():
 
 @app.route('/handle_schedules')
 def handle_schedules():
-    # TODO:
-    # if not check_auth():
-    #     return 'unauthorized', 400
-    # else:
-    #     pass
+    if not check_auth():
+        return 'unauthorized', 400
+    else:
+        pass
 
     logger.info('Handling /handle_schedules request')
 
@@ -102,6 +100,7 @@ def send_broadcast():
         pass
 
     logger.info('Handling /broadcast request: %s' % request.get_json())
+    logging.debug('Headers: %s' % request.headers.__dict__)
 
     receivers = request.get_json().get('receivers')
     txt = request.get_json().get('txt')
