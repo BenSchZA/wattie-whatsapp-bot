@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from singleton import Singleton
 import json
 import threading
 import log_manager
