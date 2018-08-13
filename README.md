@@ -95,7 +95,7 @@ Using your VNC viewer of choice connect to **localhost port 5900**, the followin
 
 ## Amazon EC2 Config
 
-Ports 8001 and 5900 need to be open to incoming connections in order to use API and VNC.
+Port 8001 needs to be open to incoming connections in order to use the API. VNC connections are done via SSH.
 
 ## Environment variables
 
@@ -129,7 +129,9 @@ See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]
 
 ## SSHing into EC2 host
 
-See Wattie v1.0 for instructions.
+Using the following SSH command is dual purpose, it both connects to the EC2 instance, and opens up the local port 5900 for VNC.
+
+> ssh -i .ssh/aws-ssh-wattie.pem -L 5901:localhost:5900 ec2-user@***REMOVED***
 
 ---
 
