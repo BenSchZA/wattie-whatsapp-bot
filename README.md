@@ -133,6 +133,16 @@ Using the following SSH command is dual purpose, it both connects to the EC2 ins
 
 > ssh -i .ssh/aws-ssh-wattie.pem -L 5901:localhost:5900 ec2-user@***REMOVED***
 
+## Flower: Celery interface
+
+> Go to port 5555, with username *****REMOVED***** and password *****REMOVED*****
+
+## Pruning Docker images
+
+When using docker-compose, occasionaly you'll need to clear out hanging Docker images. This can be done using:
+
+`docker system prune`
+
 ---
 
 # Wattie v1.0 Deployment
