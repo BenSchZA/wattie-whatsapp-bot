@@ -191,7 +191,7 @@ def _deliver_schedule(schedule: Schedule):
     params = {
         'uid': uid,
         'number': number,
-        'message': message,
+        'txt': message,
         'media': media,
         'url': url
     }
