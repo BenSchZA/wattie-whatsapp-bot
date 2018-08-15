@@ -14,10 +14,7 @@ def send_whatsapp(message: Message):
 
     process = "python whatsapp_cli.py --number %s" % message.number
 
-    if message.url and message.txt:
-        # process += " --url \"%s\"" % url
-        message.txt = "%s\n%s" % (message.txt, message.url)
-    if message.url and not message.txt:
+    if message.url:
         process += " --url \"%s\"" % message.url
     if message.txt:
         process += " --txt \"%s\"" % message.txt
