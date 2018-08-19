@@ -27,7 +27,8 @@ app = Celery('tasks', broker='redis://redis')
 app.conf.task_queues = (
     Queue('download'),
     Queue('deliver'),
-    Queue('send_message')
+    Queue('send_message'),
+    Queue('process_message')
 )
 
 file_manager = FileManager()
