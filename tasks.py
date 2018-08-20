@@ -10,6 +10,7 @@ from schedule import Schedule
 from message import Message
 from whatsapp_cli_interface import send_whatsapp
 from alert_manager import AlertManager
+from whatsapp_process import WhatsAppProcess
 
 from kombu import Queue
 from celery import Celery
@@ -31,6 +32,7 @@ app.conf.task_queues = (
     Queue('process_message')
 )
 
+whatsapp_process = WhatsAppProcess()
 file_manager = FileManager()
 alert_manager = AlertManager()
 logger = log_manager.get_logger('session_manager')
@@ -51,9 +53,17 @@ def queue_send_message(message: Message):
 
 
 def queue_send_broadcast(receivers, message: Message):
-    group(send_message.s(jsonpickle.dumps(message.set_number(number))) for number in receivers) \
+    return group(send_message.s(jsonpickle.dumps(message.set_number(number))) for number in receivers) \
         .apply_async(queue='send_message')
-    return True
+
+
+def queue_process_new_users():
+    return process_new_users.apply_async(queue='process_message', task_id='unique_process-new-users')
+
+
+@app.task(bind=True)
+def process_new_users(self):
+    whatsapp_process.process_new_users()
 
 
 @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)

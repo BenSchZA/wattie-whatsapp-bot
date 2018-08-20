@@ -66,6 +66,21 @@ def handle_schedules():
     return 'Process started'
 
 
+@app.route('/process_new_users')
+def process_new_users():
+    if not check_auth():
+        return 'unauthorized', 400
+    else:
+        pass
+
+    logger.info('Handling /process_new_users request')
+
+    if tasks.queue_process_new_users():
+        return 'Process started'
+    else:
+        return 'Process failed', 400
+
+
 @app.route('/message')
 def send_message():
     if not check_auth():
