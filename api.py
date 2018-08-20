@@ -102,15 +102,21 @@ def send_broadcast():
     logger.info('Handling /broadcast request: %s' % request.get_json())
     logging.debug('Headers: %s' % request.headers.__dict__)
 
+    request_body = request.get_json()
+
     receivers = request.get_json().get('receivers')
-    txt = request.get_json().get('txt')
+
+    txt = request_body.get('txt')
+    url = request_body.get('url')
+    media = request_body.get('media')
+    filename = request_body.get('filename')
 
     if not receivers:
         return 'Invalid "receivers"', 400
     if not txt:
         return 'Invalid "txt"', 400
 
-    if tasks.queue_send_broadcast(receivers, Message(txt=txt)):
+    if tasks.queue_send_broadcast(receivers, Message(txt=txt, url=url, media=media, filename=filename)):
         return 'Broadcast started'
 
 
