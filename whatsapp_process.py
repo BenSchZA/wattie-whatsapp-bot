@@ -71,7 +71,7 @@ class WhatsAppProcess:
 
         print('Checking for new users')
         if not new_user_contacts:
-            break
+            return
         for number in new_user_contacts:
             if self.try_search_for_contact(number):
                 # conversation = self._find_conversation_by_id(number)
