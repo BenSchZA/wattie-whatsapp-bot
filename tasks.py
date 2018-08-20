@@ -2,6 +2,7 @@ from pymongo.collection import ObjectId
 import os
 import requests
 import jsonpickle
+import datetime
 
 import log_manager
 from file_manager import FileManager
@@ -15,6 +16,7 @@ from whatsapp_process import WhatsAppProcess
 from kombu import Queue
 from celery import Celery
 from celery import group
+from celery.schedules import crontab
 from celery.exceptions import SoftTimeLimitExceeded
 from celery.exceptions import MaxRetriesExceededError
 
@@ -26,11 +28,22 @@ client = Client({'SERVICE_NAME': os.environ['ELASTIC_APM_SERVICE_NAME'],
 app = Celery('tasks', broker='redis://redis')
 
 app.conf.task_queues = (
-    Queue('download'),
-    Queue('deliver'),
-    Queue('send_message'),
-    Queue('process_message')
+    Queue('download', queue_arguments={'x-max-priority': 8}),
+    Queue('deliver', queue_arguments={'x-max-priority': 10}),
+    Queue('send_message', queue_arguments={'x-max-priority': 9}),
+    Queue('process_message', queue_arguments={'x-max-priority': 1})
 )
+app.conf.task_queue_max_priority = 10
+
+app.conf.beat_schedule = {
+    'process-new-users_every-60-min': {
+        'task': 'tasks.process_new_users',
+        'schedule': datetime.timedelta(minutes=60),
+        'relative': True,
+        'options': {'queue': 'process_message', 'task_id': 'unique_process-new-users'}
+    }
+}
+app.conf.timezone = 'UTC'
 
 whatsapp_process = WhatsAppProcess()
 file_manager = FileManager()
