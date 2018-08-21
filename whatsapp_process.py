@@ -81,7 +81,7 @@ class WhatsAppProcess:
                 username = self._process_new_user(number, messages_panel)
                 if username:
                     print('New user %s ~ %s' % (username, number))
-                    if os.environ.get('ENABLE_DEBUG', True):
+                    if os.environ.get('ENABLE_DEBUG', True) is True:
                         new_uid = "UID_DEBUG"
                     else:
                         new_uid = self._create_new_user(contact_number=number, username=username)
@@ -110,9 +110,8 @@ class WhatsAppProcess:
     def _get_new_user_contacts(self, all_contacts):
         all_contacts = list(map(lambda x: x.replace(" ", ""), all_contacts))
         new_and_existing = self._check_for_new_users(all_contacts)
-        print(new_and_existing)
+
         new_user_contacts = list(filter(lambda x: True if not new_and_existing.get(x, False) else False, all_contacts))
-        print(new_user_contacts)
 
         for number in new_user_contacts:
             print('New user: %s' % number)
@@ -465,7 +464,8 @@ class WhatsAppProcess:
         def append_message(msg): messages.append(msg)
         self._for_each_message(messages_panel, append_message)
         print(messages)
-        messages = list(filter(lambda x: x.sender_number.replace(" ", "") == contact_id.replace(" ", ""), messages))
+        messages = list(filter(lambda x: x.sender_number.replace(" ", "") == contact_id.replace(" ", "") and
+                               self._is_valid_numeric(x.sender_number), messages))
         print(messages)
         for message in messages:
             # Split message content into words
