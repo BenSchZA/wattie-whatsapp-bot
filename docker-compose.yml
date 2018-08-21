@@ -14,6 +14,7 @@ services:
             - AUTH_TOKEN=$AUTH_TOKEN
             - ELASTIC_APM_SERVICE_NAME=wattie-bot
             - ELASTIC_APM_SERVER_URL=***REMOVED***:8200
+            - IS_DOCKER_INSTANCE=true
         volumes:
             - pip_cache:/root/.cache/pip
             - ./downloads:/app/downloads
@@ -23,6 +24,7 @@ services:
         ports:
             - 8001:8001
             - 5555:5555
+            - 5050:5050
         depends_on:
             - mongodb
             - hub

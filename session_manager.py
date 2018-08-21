@@ -288,12 +288,20 @@ class SessionManager:
 
 
 if __name__ == "__main__":
-    # import pydevd
-    # pydevd.settrace('wattie', port='57588', stdoutToServer=True, stderrToServer=True)
-
-    # If you call this script from the command line (the shell) it will
-    # run the 'main' function
-    print(utils.whos_calling("Starting Firefox session manager"))
+    log_manager.setup_logging()
+    logger = log_manager.get_logger('session_manager')
+    logger.debug(utils.whos_calling("Starting session manager"))
+    
+    is_docker_instance = os.environ.get('IS_DOCKER_INSTANCE', False)
+    logger.debug("Docker instance? %s" % is_docker_instance)
+    if is_docker_instance:
+        import ptvsd
+        # Allow other computers to attach to ptvsd at this IP address and port, using the secret
+        ptvsd.enable_attach("secret", address=('0.0.0.0', 5050))
+        # Pause the program until a remote debugger is attached
+        logger.debug("Waiting for debugger to attach...")
+        ptvsd.wait_for_attach()
+        logger.debug("Debugger attached")
 
     # Clear pending Celery tasks, for fresh start
     import tasks
