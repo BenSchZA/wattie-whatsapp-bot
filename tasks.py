@@ -10,8 +10,8 @@ from schedule import Schedule
 from message import Message
 from whatsapp_cli_interface import send_whatsapp
 from alert_manager import AlertManager
-from whatsapp_process import WhatsAppProcess
 from session_manager import SessionManager
+from whatsapp_process import WhatsAppProcess
 
 from celery import group
 from celery.exceptions import SoftTimeLimitExceeded
@@ -24,27 +24,6 @@ from celery_config import *
 client = Client({'SERVICE_NAME': os.environ['ELASTIC_APM_SERVICE_NAME'],
                  'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']})
 
-# app = Celery('tasks', broker='redis://redis')
-#
-# app.conf.task_queues = (
-#     Queue('download', queue_arguments={'x-max-priority': 8}),
-#     Queue('deliver', queue_arguments={'x-max-priority': 10}),
-#     Queue('send_message', queue_arguments={'x-max-priority': 9}),
-#     Queue('process_message', queue_arguments={'x-max-priority': 1})
-# )
-# app.conf.task_queue_max_priority = 10
-#
-# app.conf.beat_schedule = {
-#     'process-new-users_every-60-min': {
-#         'task': 'tasks.process_new_users',
-#         'schedule': datetime.timedelta(seconds=60),
-#         'relative': True,
-#         'options': {'queue': 'process_message', 'task_id': 'unique_process-new-users'}
-#     }
-# }
-# app.conf.timezone = 'UTC'
-
-whatsapp_process = WhatsAppProcess()
 file_manager = FileManager()
 alert_manager = AlertManager()
 logger = log_manager.get_logger('session_manager')
@@ -78,6 +57,7 @@ def queue_process_new_users():
 
 @app.task(bind=True, soft_time_limit=30*60, default_retry_delay=10, max_retries=5)
 def process_new_users(self):
+    whatsapp_process = WhatsAppProcess()
     try:
         whatsapp_process.process_new_users()
     except Exception as e:
@@ -113,9 +93,6 @@ def send_message(self, message: Message):
         self.retry(exc=e)
         alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to send message to number %s with txt: %s'
                                   % (message.number, message.txt))
-
-# @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
-# def download_media(self, message: Message):
 
 
 @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)

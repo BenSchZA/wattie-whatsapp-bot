@@ -14,7 +14,7 @@ services:
             - AUTH_TOKEN=$AUTH_TOKEN
             - ELASTIC_APM_SERVICE_NAME=wattie-bot
             - ELASTIC_APM_SERVER_URL=***REMOVED***:8200
-            - IS_DOCKER_INSTANCE=true
+            - ENABLE_DEBUG=False
         volumes:
             - pip_cache:/root/.cache/pip
             - ./downloads:/app/downloads

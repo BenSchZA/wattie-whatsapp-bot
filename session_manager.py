@@ -4,7 +4,6 @@ import json
 import threading
 import log_manager
 import uptime_manager
-from schedule_manager import ScheduleManager
 import time
 import api
 from multiprocessing import Process
@@ -20,7 +19,12 @@ from selenium.common.exceptions import NoSuchWindowException
 from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import UnexpectedAlertPresentException
+from selenium.common.exceptions import NoSuchElementException
+from urllib3.exceptions import NewConnectionError, MaxRetryError
 from urllib.error import URLError
+
+from celery_config import app as celery_app
+from celery_config import Queues
 
 SESSION_DATA = 'data/session.data'
 COOKIE_DATA = 'data/cookie.data'
@@ -37,9 +41,6 @@ class SessionManager:
 
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
-
-        # Start API & service monitoring
-        self.start_api()
 
         self.logger.info(utils.whos_calling('Fetching Firefox session...'))
 
@@ -61,7 +62,7 @@ class SessionManager:
             self._create_new_driver_session()
         self.logger.debug('Using session with ID: %s' % self.driver.session_id)
 
-        self.schedule_manager = ScheduleManager()
+        # self.schedule_manager = ScheduleManager()
 
         self.logger.info('Starting WhatsApp web')
         try:
@@ -70,13 +71,17 @@ class SessionManager:
             self.monitor_connection()
             # self._load_cookies()
             # self.driver.get('https://web.whatsapp.com/')
-        except (WebDriverException, SessionNotCreatedException, ConnectionRefusedError, URLError):
+        except (WebDriverException, SessionNotCreatedException,
+                ConnectionRefusedError, URLError, NewConnectionError, MaxRetryError):
             # If previous session does not exist, create a new session
             self.logger.exception('Connection refused', exc_info=False)
             self._create_new_driver_session()
             self.monitor_connection()
         finally:
             uptime_manager.process_up(self)
+
+        # Start API & service monitoring
+        self.start_api()
 
     def start_api(self):
         self.logger.info('Starting API')
@@ -280,18 +285,40 @@ class SessionManager:
         except (SessionNotCreatedException, NoAlertPresentException):
             pass
 
+    def toggle_celery_consumer_state(self):
+        active_whatsapp_connection = self.whatsapp_web_connection_okay()
+        with celery_app.connection_or_acquire() as conn:
+            if not active_whatsapp_connection:
+                # For each queue, remove consumer
+                for queue in Queues:
+                    # If download queue, ignore
+                    if Queues(queue).name == Queues.download.name:
+                        continue
+                    reply = celery_app.control.cancel_consumer(Queues(queue).name, connection=conn, reply=True,
+                                                               destination=['celery@worker_q_selenium'])
+                    self.logger.debug(reply)
+            else:
+                # For each queue, add consumer
+                for queue in Queues:
+                    # If download queue, ignore
+                    if Queues(queue).name == Queues.download.name:
+                        continue
+                    reply = celery_app.control.add_consumer(Queues(queue).name, connection=conn, reply=True,
+                                                            destination=['celery@worker_q_selenium'])
+                    self.logger.debug(reply)
+
     def monitor_connection(self):
             self.active_connection = self.connection_okay()
-            self.logger.info('Connection: Uptime ~ %s; Active ~ %s' % (str(int(round(uptime_manager.get_uptime_percent(self)))) + '%', self.active_connection))
+            self.logger.info('Connection: Uptime ~ %s; Active ~ %s'
+                             % (str(int(round(uptime_manager.get_uptime_percent(self)))) + '%', self.active_connection))
 
             if not self.active_connection:
                 self.refresh_connection_else_restart()
                 uptime_manager.process_down(self)
             else:
                 uptime_manager.process_up(self)
-                # Process scheduled deliveries
-                # if not self.schedule_manager.handler_running:
-                #     self.schedule_manager.handle_schedules()
+
+            self.toggle_celery_consumer_state()
 
             threading.Timer(int(os.environ['MONITOR_FREQUENCY']), self.monitor_connection).start()
 
@@ -300,10 +327,9 @@ if __name__ == "__main__":
     log_manager.setup_logging()
     logger = log_manager.get_logger('session_manager')
     logger.debug(utils.whos_calling("Starting session manager"))
-    
-    is_docker_instance = os.environ.get('IS_DOCKER_INSTANCE', False)
-    logger.debug("Docker instance? %s" % is_docker_instance)
-    if is_docker_instance:
+
+    # If Docker environment variable set to True, then enable debugger
+    if os.environ.get('ENABLE_DEBUG', False) is True:
         import ptvsd
         # Allow other computers to attach to ptvsd at this IP address and port, using the secret
         ptvsd.enable_attach("secret", address=('0.0.0.0', 5050))

@@ -4,6 +4,8 @@ import time
 import datetime
 import dateutil.parser
 from difflib import SequenceMatcher
+import os
+import requests
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -22,9 +24,7 @@ from pymongo.errors import WriteError
 
 from session_manager import SessionManager
 from whatsapp_message import WhatsAppMessage
-import re
-import requests
-import os
+from alert_manager import AlertManager
 
 TIMEOUT = 60
 MESSAGE_LIMIT = 5
@@ -40,6 +40,8 @@ class WhatsAppProcess:
 
         self._initialize_database()
 
+        self.alert_manager = AlertManager()
+
         self.session = SessionManager
         self.driver = self.session.get_existing_driver_session()
 
@@ -54,7 +56,7 @@ class WhatsAppProcess:
         self.processed_contacts = []
 
     def _initialize_database(self):
-        self.client = MongoClient('localhost', 27017)
+        self.client = MongoClient('mongodb', 27017)
         self.db = self.client.whatsapp_cli
 
         # MongoDB scales horizontally, so: single messages collection containing all messages from all conversations
@@ -64,9 +66,8 @@ class WhatsAppProcess:
 
     def process_new_users(self):
         self._for_each_conversation(self._process_contact)
-        print(self.processed_contacts)
 
-        new_user_contacts = self._get_new_user_contacts()
+        new_user_contacts = self._get_new_user_contacts(self.processed_contacts)
         print(new_user_contacts)
 
         print('Checking for new users')
@@ -77,10 +78,13 @@ class WhatsAppProcess:
                 # conversation = self._find_conversation_by_id(number)
                 # self._process_conversation(conversation)
                 messages_panel = self.wait.until(lambda _: self.driver.find_element_by_xpath("//div[@class='_9tCEa']"))
-                username = self._process_new_user(messages_panel)
+                username = self._process_new_user(number, messages_panel)
                 if username:
                     print('New user %s ~ %s' % (username, number))
-                    new_uid = self._create_new_user(contact_number=number, username=username)
+                    if os.environ.get('ENABLE_DEBUG', True):
+                        new_uid = "UID_DEBUG"
+                    else:
+                        new_uid = self._create_new_user(contact_number=number, username=username)
                     if new_uid:
                         print('Successfully created user: %s' % new_uid)
                     else:
@@ -93,6 +97,9 @@ class WhatsAppProcess:
             else:
                 print('Couldnt find contact')
 
+        # Notify, via Slack, of any new users who couldn't be processed
+        self.alert_manager.slack_alert('Unable to add new users: %s' % new_user_contacts)
+
         # self.processed_contacts = list(map(lambda contact: self._clean_contact_number(contact), self.processed_contacts))
         # self.processed_contacts = list(filter(None.__ne__, self.processed_contacts))
         #
@@ -100,18 +107,15 @@ class WhatsAppProcess:
         #     print('Number: %s _ %s' % (number, self._get_uid_from_number(number)))
         # print(self.processed_contacts)
 
-    def _get_new_user_contacts(self):
-        new_user_contacts = []
-        for number in self.processed_contacts:
-            uid = self.get_uid_from_number_db(number)
-            if uid:
-                print('Existing user: %s' % uid)
-                continue
-            else:
-                uid = self._get_uid_from_number(number)
-            if not uid:
-                print('New user: %s' % number)
-                new_user_contacts.append(number)
+    def _get_new_user_contacts(self, all_contacts):
+        all_contacts = list(map(lambda x: x.replace(" ", ""), all_contacts))
+        new_and_existing = self._check_for_new_users(all_contacts)
+        print(new_and_existing)
+        new_user_contacts = list(filter(lambda x: True if not new_and_existing.get(x, False) else False, all_contacts))
+        print(new_user_contacts)
+
+        for number in new_user_contacts:
+            print('New user: %s' % number)
         return new_user_contacts
 
     def _clean_contact_number(self, contact_number):
@@ -129,18 +133,36 @@ class WhatsAppProcess:
                 return False
         return True
 
-    def _get_uid_from_number(self, contact_number):
-        data = {
-            'content-type': 'application/json',
-            'fullMobileNum': contact_number
-        }
+    def _check_for_new_users(self, contact_numbers):
+        data = list(map(lambda x: x.replace(" ", ""), contact_numbers))
 
         headers = {
+            'Content-Type': 'application/json',
             'Authorization': '56128eebf5a64cb6875b8d1c4789b216cf2331aa',
             'Origin': 'https://my***REMOVED***.com'
         }
 
-        req = requests.post("***REMOVED***:3000/user_uid_from_full_mobile_num", data=data, headers=headers)
+        req = requests.post("***REMOVED***:3000/user_recon", json=data, headers=headers)
+
+        if req.status_code == 200:
+            return req.json()
+        else:
+            print(req.status_code, req.reason)
+            return None
+
+    def _get_uid_from_number(self, contact_number):
+        data = {
+            'fullMobileNum': contact_number
+        }
+
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': '56128eebf5a64cb6875b8d1c4789b216cf2331aa',
+            'Origin': 'https://my***REMOVED***.com'
+        }
+
+        endpoint = "***REMOVED***:3000/user_uid_from_full_mobile_num"
+        req = requests.post(endpoint, data=data, headers=headers)
 
         if req.status_code == 200:
             return req.json()['userUID']
@@ -150,17 +172,18 @@ class WhatsAppProcess:
 
     def _create_new_user(self, contact_number, username=None):
         data = {
-            'Content-Type': 'application/json',
             'fullMobileNum': contact_number,
             'username': username
         }
 
         headers = {
+            'Content-Type': 'application/json',
             'Authorization': '***REMOVED***',
             'Origin': 'http://my***REMOVED***.com'
         }
 
-        req = requests.post("http://***REMOVED***-client-api.fzg22nmp77.us-east-2.elasticbeanstalk.com/users/create_user_full_num", data=data, headers=headers)
+        endpoint = "http://***REMOVED***-client-api.fzg22nmp77.us-east-2.elasticbeanstalk.com/users/create_user_full_num"
+        req = requests.post(endpoint, data=data, headers=headers)
 
         if req.status_code == 200:
             return req.json()['userUID']
@@ -178,9 +201,11 @@ class WhatsAppProcess:
         print('Fetching conversations panel')
         conversations_panel: WebElement = self._get_conversations_panel()
         print('Fetching conversations')
-        conversations: [WebElement] = lambda: conversations_panel.find_elements_by_class_name('_2wP_Y')
+
+        def conversations(): return conversations_panel.find_elements_by_class_name('_2wP_Y')
 
         print('Processing conversations')
+        self._side_pane_scroll_to(0)
         while True:
             def sorted_conversations(): return sorted(conversations(), key=lambda el: self._get_element_y_position(el))
             conversations_copy = sorted_conversations().copy()
@@ -258,7 +283,7 @@ class WhatsAppProcess:
             #     print('Message: %s' % message.__dict__)
             return True
         else:
-            username = self._process_new_user(messages_panel)
+            username = self._process_new_user(contact_id, messages_panel)
             if username:
                 print('New user %s ~ %s' % (username, contact_id))
                 new_uid = self._create_new_user(contact_number=contact_id, username=username)
@@ -364,9 +389,17 @@ class WhatsAppProcess:
     def _find_conversation_by_id(self, contact_id):
         conversations_panel: WebElement = self._get_conversations_panel()
         try:
-            return conversations_panel.find_element_by_xpath(".//span[@class='_1wjpf'][@title='%s']/ancestor::div[@class='_2wP_Y']" % contact_id)
+            selector = ".//span[@class='_1wjpf'][@title='%s']/ancestor::div[@class='_2wP_Y']" % contact_id
+            return conversations_panel.find_element_by_xpath(selector)
         except NoSuchElementException:
             return None
+
+    def _clear_search(self):
+        try:
+            clear_search = self.driver.find_element_by_xpath("//button[@class='_3Burg']")
+            clear_search.click()
+        except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException):
+            pass
 
     def try_search_for_contact(self, contact_number):
         # Enter search text
@@ -379,15 +412,11 @@ class WhatsAppProcess:
             print('Searching for contact ' + contact_number)
         except (ElementClickInterceptedException, TimeoutException):
             return False
-        # Wait for finished loading
-        try:
-            clear_search = self.wait.until(lambda _: self.driver.find_element_by_xpath("//button[@class='_3Burg']"))
-        except TimeoutException:
-            return False
         # If no contacts found, return False
         try:
             self.driver.find_element_by_xpath("//div[@class='_3WZoe']")
             print('No contacts found')
+            self._clear_search()
             return False
         except NoSuchElementException:
             print('Contact found')
@@ -397,8 +426,9 @@ class WhatsAppProcess:
             if search_bar:
                 print('Selecting contact conversation')
                 search_bar.send_keys(Keys.RETURN)
-                clear_search.click()
+                self._clear_search()
         except ElementClickInterceptedException:
+            self._clear_search()
             return False
         # Check contact header for correct number
         try:
@@ -428,13 +458,15 @@ class WhatsAppProcess:
 
         return messages
 
-    def _process_new_user(self, messages_panel):
+    def _process_new_user(self, contact_id, messages_panel):
         messages: [WhatsAppMessage] = []
         username = None
 
         def append_message(msg): messages.append(msg)
         self._for_each_message(messages_panel, append_message)
-
+        print(messages)
+        messages = list(filter(lambda x: x.sender_number.replace(" ", "") == contact_id.replace(" ", ""), messages))
+        print(messages)
         for message in messages:
             # Split message content into words
             word_list = message.content.split()
@@ -442,8 +474,8 @@ class WhatsAppProcess:
             word_list = [word.strip() for word in word_list]
 
             # Find launch words
-            launch_words = list(filter(lambda word: self.similar('launch', word.lower(), 0.7)
-                                or self.similar('start', word.lower(), 0.7), word_list))
+            launch_words = list(filter(lambda word: self.similar('launch', word.lower(), 0.75)
+                                or self.similar('start', word.lower(), 0.75), word_list))
 
             if not launch_words or not message.content.strip().startswith(launch_words[0]):
                 continue
