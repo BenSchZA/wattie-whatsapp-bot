@@ -78,7 +78,7 @@ def process_new_users():
     if tasks.queue_process_new_users():
         return 'Process started'
     else:
-        return 'Process failed', 400
+        return 'Process failed, WhatsApp web not connected', 400
 
 
 @app.route('/message')

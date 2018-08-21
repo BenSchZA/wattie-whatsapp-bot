@@ -230,6 +230,15 @@ class SessionManager:
             time.sleep(0.5)
         return False
 
+    @staticmethod
+    def whatsapp_web_connection_okay():
+        try:
+            driver = SessionManager.get_existing_driver_session()
+            driver.find_element_by_xpath("//div[@class='_3q4NP _1Iexl']")
+            return 'whatsapp' in driver.current_url
+        except NoSuchElementException:
+            return False
+
     def restart_connection(self):
         self.logger.info("Restarting connection")
         try:

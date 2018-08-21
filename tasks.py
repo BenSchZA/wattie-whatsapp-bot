@@ -2,7 +2,6 @@ from pymongo.collection import ObjectId
 import os
 import requests
 import jsonpickle
-import datetime
 
 import log_manager
 from file_manager import FileManager
@@ -12,38 +11,38 @@ from message import Message
 from whatsapp_cli_interface import send_whatsapp
 from alert_manager import AlertManager
 from whatsapp_process import WhatsAppProcess
+from session_manager import SessionManager
 
-from kombu import Queue
-from celery import Celery
 from celery import group
-from celery.schedules import crontab
 from celery.exceptions import SoftTimeLimitExceeded
 from celery.exceptions import MaxRetriesExceededError
 
 from elasticapm import Client
 
+from celery_config import *
+
 client = Client({'SERVICE_NAME': os.environ['ELASTIC_APM_SERVICE_NAME'],
                  'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']})
 
-app = Celery('tasks', broker='redis://redis')
-
-app.conf.task_queues = (
-    Queue('download', queue_arguments={'x-max-priority': 8}),
-    Queue('deliver', queue_arguments={'x-max-priority': 10}),
-    Queue('send_message', queue_arguments={'x-max-priority': 9}),
-    Queue('process_message', queue_arguments={'x-max-priority': 1})
-)
-app.conf.task_queue_max_priority = 10
-
-app.conf.beat_schedule = {
-    'process-new-users_every-60-min': {
-        'task': 'tasks.process_new_users',
-        'schedule': datetime.timedelta(minutes=60),
-        'relative': True,
-        'options': {'queue': 'process_message', 'task_id': 'unique_process-new-users'}
-    }
-}
-app.conf.timezone = 'UTC'
+# app = Celery('tasks', broker='redis://redis')
+#
+# app.conf.task_queues = (
+#     Queue('download', queue_arguments={'x-max-priority': 8}),
+#     Queue('deliver', queue_arguments={'x-max-priority': 10}),
+#     Queue('send_message', queue_arguments={'x-max-priority': 9}),
+#     Queue('process_message', queue_arguments={'x-max-priority': 1})
+# )
+# app.conf.task_queue_max_priority = 10
+#
+# app.conf.beat_schedule = {
+#     'process-new-users_every-60-min': {
+#         'task': 'tasks.process_new_users',
+#         'schedule': datetime.timedelta(seconds=60),
+#         'relative': True,
+#         'options': {'queue': 'process_message', 'task_id': 'unique_process-new-users'}
+#     }
+# }
+# app.conf.timezone = 'UTC'
 
 whatsapp_process = WhatsAppProcess()
 file_manager = FileManager()
@@ -57,12 +56,12 @@ def purge_tasks():
 
 def queue_download_and_deliver(user: User):
     user_json = jsonpickle.dumps(user)
-    download_and_deliver.apply_async(args=[user_json], queue='download')
+    return download_and_deliver.apply_async(args=[user_json], queue='download')
 
 
 def queue_send_message(message: Message):
     message_json = jsonpickle.dumps(message)
-    send_message.apply_async(args=[message_json], queue='send_message')
+    return send_message.apply_async(args=[message_json], queue='send_message')
 
 
 def queue_send_broadcast(receivers, message: Message):
@@ -71,12 +70,18 @@ def queue_send_broadcast(receivers, message: Message):
 
 
 def queue_process_new_users():
-    return process_new_users.apply_async(queue='process_message', task_id='unique_process-new-users')
+    if SessionManager.whatsapp_web_connection_okay():
+        return process_new_users.apply_async(queue='process_message', task_id='unique_process-new-users')
+    else:
+        return False
 
 
-@app.task(bind=True)
+@app.task(bind=True, soft_time_limit=30*60, default_retry_delay=10, max_retries=5)
 def process_new_users(self):
-    whatsapp_process.process_new_users()
+    try:
+        whatsapp_process.process_new_users()
+    except Exception as e:
+        self.retry(exc=e)
 
 
 @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)

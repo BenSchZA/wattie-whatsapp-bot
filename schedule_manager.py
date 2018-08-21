@@ -1,4 +1,3 @@
-import whatsapp_cli_interface
 from firebase_manager import FirebaseManager
 from file_manager import FileManager
 import log_manager
