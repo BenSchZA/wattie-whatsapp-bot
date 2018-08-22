@@ -5,7 +5,6 @@ import os
 from elasticapm.contrib.flask import ElasticAPM
 from elasticapm.handlers.logging import LoggingHandler
 import logging
-from schedule_manager import ScheduleManager
 from flask_cors import CORS
 
 import tasks
@@ -29,7 +28,6 @@ handler.setLevel(logging.WARN)
 app.logger.addHandler(handler)
 
 logger = log_manager.get_logger('api_manager')
-schedule_manager = ScheduleManager()
 
 
 @app.route("/ping")
@@ -61,7 +59,8 @@ def handle_schedules():
 
     logger.info('Handling /handle_schedules request')
 
-    schedule_manager.handle_schedules()
+    from schedule_manager import ScheduleManager
+    ScheduleManager().handle_schedules()
 
     return 'Process started'
 

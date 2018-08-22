@@ -10,7 +10,6 @@ from schedule import Schedule
 from message import Message
 from whatsapp_cli_interface import send_whatsapp
 from alert_manager import AlertManager
-from session_manager import SessionManager
 from whatsapp_process import WhatsAppProcess
 
 from celery import group
@@ -49,6 +48,7 @@ def queue_send_broadcast(receivers, message: Message):
 
 
 def queue_process_new_users():
+    from session_manager import SessionManager
     if SessionManager.whatsapp_web_connection_okay():
         return process_new_users.apply_async(queue='process_message', task_id='unique_process-new-users')
     else:
