@@ -27,7 +27,7 @@ from whatsapp_message import WhatsAppMessage
 from alert_manager import AlertManager
 
 TIMEOUT = 60
-MESSAGE_LIMIT = 5
+MESSAGE_LIMIT = 10
 
 binary = FirefoxBinary('/usr/bin/firefox-developer-edition')
 webdriver.DesiredCapabilities.FIREFOX["unexpectedAlertBehaviour"] = "accept"
@@ -65,22 +65,26 @@ class WhatsAppProcess:
                                                ("content", pymongo.DESCENDING)], unique=True)
 
     def process_new_users(self):
+        # Generate processed_contacts list
         self._for_each_conversation(self._process_contact)
-
+        # Send processed_contacts to API and get list of new users
         new_user_contacts = self._get_new_user_contacts(self.processed_contacts)
-        print(new_user_contacts)
 
         print('Checking for new users')
         if not new_user_contacts:
             return
         for number in new_user_contacts:
             if self.try_search_for_contact(number):
-                # conversation = self._find_conversation_by_id(number)
-                # self._process_conversation(conversation)
+                # Wait until messages panel is visible
                 messages_panel = self.wait.until(lambda _: self.driver.find_element_by_xpath("//div[@class='_9tCEa']"))
+                # Dynamically load the number of messages defined by MESSAGE_LIMIT
+                messages_panel = self._load_messages_panel(messages_panel)
+
+                # Extract username from message launch sequence
                 username = self._process_new_user(number, messages_panel)
                 if username:
                     print('New user %s ~ %s' % (username, number))
+                    # If in a test environment, don't create new user
                     if os.environ.get('ENABLE_DEBUG', True) is True:
                         new_uid = "UID_DEBUG"
                     else:
@@ -93,9 +97,10 @@ class WhatsAppProcess:
                 else:
                     print('No valid launch sequence for %s' % number)
                     continue
+                # Once contact has been successfully processed, remove from list
                 new_user_contacts.remove(number)
             else:
-                print('Couldnt find contact')
+                print('Couldn\'t find contact')
 
         # Notify, via Slack, of any new users who couldn't be processed
         self.alert_manager.slack_alert('Unable to add new users: %s' % new_user_contacts)
@@ -108,9 +113,7 @@ class WhatsAppProcess:
         # print(self.processed_contacts)
 
     def _get_new_user_contacts(self, all_contacts):
-        all_contacts = list(map(lambda x: x.replace(" ", ""), all_contacts))
         new_and_existing = self._check_for_new_users(all_contacts)
-
         new_user_contacts = list(filter(lambda x: True if not new_and_existing.get(x, False) else False, all_contacts))
 
         for number in new_user_contacts:
@@ -118,7 +121,9 @@ class WhatsAppProcess:
         return new_user_contacts
 
     def _clean_contact_number(self, contact_number):
-        contact_number = contact_number.replace(' ', '')
+        if not contact_number:
+            return None
+        contact_number = contact_number.replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
         if self._is_valid_numeric(contact_number):
             return contact_number
         else:
@@ -133,7 +138,7 @@ class WhatsAppProcess:
         return True
 
     def _check_for_new_users(self, contact_numbers):
-        data = list(map(lambda x: x.replace(" ", ""), contact_numbers))
+        data = list(filter(lambda x: x is not None, map(lambda y: self._clean_contact_number(y), contact_numbers)))
 
         headers = {
             'Content-Type': 'application/json',
@@ -161,7 +166,7 @@ class WhatsAppProcess:
         }
 
         endpoint = "***REMOVED***:3000/user_uid_from_full_mobile_num"
-        req = requests.post(endpoint, data=data, headers=headers)
+        req = requests.post(endpoint, json=data, headers=headers)
 
         if req.status_code == 200:
             return req.json()['userUID']
@@ -170,6 +175,8 @@ class WhatsAppProcess:
             return None
 
     def _create_new_user(self, contact_number, username=None):
+        contact_number = self._clean_contact_number(contact_number)
+
         data = {
             'fullMobileNum': contact_number,
             'username': username
@@ -182,7 +189,7 @@ class WhatsAppProcess:
         }
 
         endpoint = "http://***REMOVED***-client-api.fzg22nmp77.us-east-2.elasticbeanstalk.com/users/create_user_full_num"
-        req = requests.post(endpoint, data=data, headers=headers)
+        req = requests.post(endpoint, json=data, headers=headers)
 
         if req.status_code == 200:
             return req.json()['userUID']
@@ -225,12 +232,14 @@ class WhatsAppProcess:
             print('Progress: %s' % progress)
 
     def _process_contact(self, conversation: WebElement):
-        contact_name_number = self.wait.until(lambda _: conversation.find_element_by_xpath(".//span[@class='_1wjpf']")) \
-            .get_attribute('title')
+        # Fetch contact name/number element - if contact saved, would appear as name
+        contact_name_number = self.wait.until(lambda _: conversation.find_element_by_xpath(
+            ".//span[@class='_1wjpf']")).get_attribute('title')
 
         if contact_name_number not in self.processed_contacts:
-            self.processed_contacts.append(contact_name_number)
-
+            cleaned = self._clean_contact_number(contact_name_number)
+            if cleaned:
+                self.processed_contacts.append(cleaned)
         return contact_name_number
 
     def _process_conversation(self, conversation: WebElement):
@@ -323,7 +332,11 @@ class WhatsAppProcess:
         # self.wait.until(
         #     lambda _: 'loading' not in messages_panel.find_element_by_class_name('_3dGYA').get_attribute('title'))
 
-        # Scroll through all messages until 100 messages are scraped, or we reach the top
+        # Scroll through all messages until MESSAGE_LIMIT messages are scraped, or we reach the top
+        return self._load_messages_panel(messages_panel)
+
+    def _load_messages_panel(self, messages_panel):
+        # Scroll through all messages until MESSAGE_LIMIT messages are scraped, or we reach the top
         try:
             while len(messages_panel.find_elements_by_class_name('vW7d1')) < MESSAGE_LIMIT:
                 try:
@@ -432,7 +445,7 @@ class WhatsAppProcess:
         # Check contact header for correct number
         try:
             print('Waiting for contact header')
-            contact_header = self.wait.until(lambda _: self.driver.find_element_by_xpath("//header[@class='_3AwwN']"))
+            contact_header = WebDriverWait(self.driver, 5).until(lambda _: self.driver.find_element_by_xpath("//header[@class='_3AwwN']"))
         except TimeoutException:
             return False
         try:
@@ -442,10 +455,14 @@ class WhatsAppProcess:
         except TimeoutException:
             return False
 
+        contact_id = self._clean_contact_number(contact_id)
+        contact_number = self._clean_contact_number(contact_number)
+
         print('Contact ID %s ~ Contact number %s' % (contact_id, contact_number))
-        if contact_id and contact_number and (contact_id.replace(" ", "").replace("+", "")
-                                              == contact_number.replace(" ", "").replace("+", "")):
-            return True
+        if contact_id and contact_number:
+            contact_id.replace("+", "")
+            contact_number.replace("+", "")
+            return contact_id == contact_number
         else:
             return False
 
@@ -458,15 +475,19 @@ class WhatsAppProcess:
         return messages
 
     def _process_new_user(self, contact_id, messages_panel):
+        # Initialize variables
         messages: [WhatsAppMessage] = []
         username = None
 
+        # Iterate through user's messages and append to list
         def append_message(msg): messages.append(msg)
         self._for_each_message(messages_panel, append_message)
-        print(messages)
-        messages = list(filter(lambda x: x.sender_number.replace(" ", "") == contact_id.replace(" ", "") and
-                               self._is_valid_numeric(x.sender_number), messages))
-        print(messages)
+
+        # Remove any messages not from sender i.e. from Wattie itself
+        messages = list(filter(lambda x: self._clean_contact_number(x.sender_number)
+                        == self._clean_contact_number(contact_id), messages))
+
+        # For each message, try find launch phrase and process
         for message in messages:
             # Split message content into words
             word_list = message.content.split()
