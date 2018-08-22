@@ -5,7 +5,6 @@ import threading
 import log_manager
 import uptime_manager
 import time
-import api
 from multiprocessing import Process
 from retrying import retry
 import os
@@ -85,6 +84,7 @@ class SessionManager:
 
     def start_api(self):
         self.logger.info('Starting API')
+        import api
         # Start HTTP server in another process for service monitoring
         try:
             api_process = Process(target=api.start)
