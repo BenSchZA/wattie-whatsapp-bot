@@ -38,18 +38,18 @@ class SessionManager:
     def __init__(self) -> None:
         super().__init__()
 
+        # Configure logging
         log_manager.setup_logging()
         self.logger = log_manager.get_logger('session_manager')
 
+        # Initialize session variables
         self.logger.info(utils.whos_calling('Fetching Firefox session...'))
-
-        self.previous_session = {}
-        self._fetch_session()
-        self.active_connection = False
-
+        self.previous_session = self._fetch_previous_session()
+        self.active_browser_connection = False
         self.cookies = {}
-
         self.driver = None
+
+        # Try reuse previous persisted session
         if 'session' in self.previous_session:
             self.session = self.previous_session['session']
             self.session_id = self.session['session_id']
@@ -61,18 +61,19 @@ class SessionManager:
             self._create_new_driver_session()
         self.logger.debug('Using session with ID: %s' % self.driver.session_id)
 
-        # self.schedule_manager = ScheduleManager()
-
+        """
+        Try load webpage - if this fails, then session is invalid
+        * If previous session exists, reuse session
+        * If previous session does not exist, create a new session
+        """
         self.logger.info('Starting WhatsApp web')
         try:
-            # If previous session does exist, reuse session
             self.driver.get('https://web.whatsapp.com/')
             self.monitor_connection()
             # self._load_cookies()
             # self.driver.get('https://web.whatsapp.com/')
         except (WebDriverException, SessionNotCreatedException,
                 ConnectionRefusedError, URLError, NewConnectionError, MaxRetryError):
-            # If previous session does not exist, create a new session
             self.logger.exception('Connection refused', exc_info=False)
             self._create_new_driver_session()
             self.monitor_connection()
@@ -85,7 +86,7 @@ class SessionManager:
     def start_api(self):
         self.logger.info('Starting API')
         import api
-        # Start HTTP server in another process for service monitoring
+        # Start HTTP server in another process for API service monitoring
         try:
             api_process = Process(target=api.start)
             api_process.start()
@@ -96,6 +97,7 @@ class SessionManager:
 
     @staticmethod
     def get_screenshot():
+        # Get screenshot of current browser session
         SessionManager.wait_until_connection_okay()
         time.sleep(5)
         driver = SessionManager.get_existing_driver_session()
@@ -137,12 +139,12 @@ class SessionManager:
         with open(SESSION_DATA, 'w+') as outfile:
             json.dump(self.previous_session, outfile)
 
-    def _fetch_session(self):
+    def _fetch_previous_session(self):
         try:
             with open(SESSION_DATA) as json_file:
-                self.previous_session = json.load(json_file)
+                return json.load(json_file)
         except FileNotFoundError:
-            pass
+            return {}
 
     def save_cookies(self):
         cookies = self.driver.get_cookies()
@@ -214,10 +216,9 @@ class SessionManager:
 
         return new_driver
 
-    def connection_okay(self):
+    def browser_connection_okay(self):
         try:
-            return 'whatsapp' in self.driver.current_url #and whatsapp_cli_interface\
-                #.send_whatsapp(self, number=os.environ['CELL_NUMBER'], message='Health check')
+            return 'whatsapp' in self.driver.current_url
         except (WebDriverException, NoSuchWindowException):
             self.logger.exception("Connection okay exception")
             self.logger.critical("Connection down")
@@ -225,10 +226,12 @@ class SessionManager:
 
     @staticmethod
     def wait_until_connection_okay():
-        must_end = time.time() + int(os.environ['TIMEOUT'])
+        time_limit = time.time() + int(os.environ['TIMEOUT'])
+
         driver = SessionManager.get_existing_driver_session()
         wait = WebDriverWait(driver, int(os.environ['TIMEOUT']))
-        while time.time() < must_end:
+
+        while time.time() < time_limit:
             if 'whatsapp' in driver.current_url\
                     and wait.until(lambda _: driver.find_element_by_xpath("//div[@class='_3q4NP _1Iexl']")):
                 return True
@@ -286,6 +289,10 @@ class SessionManager:
             pass
 
     def toggle_celery_consumer_state(self):
+        """
+        Enable and disable Celery consumers for Selenium task queue
+        * If WhatsApp web is operating, enable queue
+        """
         active_whatsapp_connection = self.whatsapp_web_connection_okay()
         with celery_app.connection_or_acquire() as conn:
             if not active_whatsapp_connection:
@@ -308,11 +315,12 @@ class SessionManager:
                     self.logger.debug(reply)
 
     def monitor_connection(self):
-            self.active_connection = self.connection_okay()
+            self.active_browser_connection = self.browser_connection_okay()
             self.logger.info('Connection: Uptime ~ %s; Active ~ %s'
-                             % (str(int(round(uptime_manager.get_uptime_percent(self)))) + '%', self.active_connection))
+                             % (str(int(round(uptime_manager.get_uptime_percent(self))))
+                                + '%', self.active_browser_connection))
 
-            if not self.active_connection:
+            if not self.active_browser_connection:
                 self.refresh_connection_else_restart()
                 uptime_manager.process_down(self)
             else:

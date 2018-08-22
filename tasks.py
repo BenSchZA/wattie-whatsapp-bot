@@ -14,7 +14,6 @@ from whatsapp_process import WhatsAppProcess
 
 from celery.signals import task_postrun
 from celery import group
-from celery.exceptions import Reject
 from celery.exceptions import SoftTimeLimitExceeded
 from celery.exceptions import MaxRetriesExceededError
 
@@ -31,10 +30,16 @@ logger = log_manager.get_logger('session_manager')
 
 
 def purge_tasks():
+    """
+    Clear all tasks from queues
+    """
     app.control.purge()
 
 
 def task_in_queue(check_id, queue_id):
+    """
+    Inspect queue to check for ID: reserved, active, or scheduled
+    """
     inspect = app.control.inspect([queue_id])
 
     reserved = inspect.reserved()
