@@ -12,7 +12,9 @@ from whatsapp_cli_interface import send_whatsapp
 from alert_manager import AlertManager
 from whatsapp_process import WhatsAppProcess
 
+from celery.signals import task_postrun
 from celery import group
+from celery.exceptions import Reject
 from celery.exceptions import SoftTimeLimitExceeded
 from celery.exceptions import MaxRetriesExceededError
 
@@ -32,6 +34,28 @@ def purge_tasks():
     app.control.purge()
 
 
+def task_in_queue(check_id, queue_id):
+    inspect = app.control.inspect([queue_id])
+
+    reserved = inspect.reserved()
+    active = inspect.active()
+    scheduled = inspect.scheduled()
+
+    logger.info('Reserved %s' % reserved)
+    logger.info('Active %s' % active)
+    logger.info('Scheduled %s' % scheduled)
+
+    if reserved or active or scheduled:
+        tasks = list(map(lambda x: x.get('id'), reserved.get(queue_id))) \
+            + list(map(lambda x: x.get('id'), active.get(queue_id))) \
+            + list(map(lambda x: x.get('id'), scheduled.get(queue_id)))
+    else:
+        tasks = []
+    logger.info('Tasks %s' % tasks)
+
+    return any(task_id == check_id for task_id in tasks)
+
+
 def queue_download_and_deliver(user: User):
     user_json = jsonpickle.dumps(user)
     return download_and_deliver.apply_async(args=[user_json], queue='download')
@@ -48,11 +72,23 @@ def queue_send_broadcast(receivers, message: Message):
 
 
 def queue_process_new_users():
+    task_id = 'unique_process-new-users'
+    if task_in_queue(task_id, 'celery@worker_q_selenium'):
+        logger.info('Task %s already in queue' % task_id)
+        return False
+
     from session_manager import SessionManager
     if SessionManager.whatsapp_web_connection_okay():
-        return process_new_users.apply_async(queue='process_message', task_id='unique_process-new-users')
+        return process_new_users.apply_async(queue='process_message', task_id=task_id)
     else:
         return False
+
+
+@task_postrun.connect
+def postrun(sender=None, state=None, **kwargs):
+    logger.info('Task postrun: %s' % sender.name)
+    # if process_new_users.__name__ in sender.name:
+    #     app.control.revoke('unique_process-new-users', destination=['celery@worker_q_selenium'])
 
 
 @app.task(bind=True, soft_time_limit=30*60, default_retry_delay=10, max_retries=5)
