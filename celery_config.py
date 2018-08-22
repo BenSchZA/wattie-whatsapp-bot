@@ -22,12 +22,12 @@ app.conf.task_queues = (
 )
 app.conf.task_queue_max_priority = 10
 
+app.conf.timezone = 'UTC'
 app.conf.beat_schedule = {
-    'process-new-users_every-60-min': {
+    'process-new-users_every-3-hours': {
         'task': 'tasks.process_new_users',
-        'schedule': datetime.timedelta(seconds=60),
+        'schedule': datetime.timedelta(hours=3),
         'relative': True,
         'options': {'queue': 'process_message', 'task_id': 'unique_process-new-users'}
     }
 }
-app.conf.timezone = 'UTC'
