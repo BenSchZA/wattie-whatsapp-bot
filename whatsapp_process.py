@@ -69,6 +69,7 @@ class WhatsAppProcess:
         self._for_each_conversation(self._process_contact)
         # Send processed_contacts to API and get list of new users
         new_user_contacts = self._get_new_user_contacts(self.processed_contacts)
+        # self.processed_contacts = list(filter(None.__ne__, self.processed_contacts))
 
         print('Checking for new users')
         if not new_user_contacts:
@@ -104,13 +105,6 @@ class WhatsAppProcess:
 
         # Notify, via Slack, of any new users who couldn't be processed
         self.alert_manager.slack_alert('Unable to add new users: %s' % new_user_contacts)
-
-        # self.processed_contacts = list(map(lambda contact: self._clean_contact_number(contact), self.processed_contacts))
-        # self.processed_contacts = list(filter(None.__ne__, self.processed_contacts))
-        #
-        # for number in self.processed_contacts:
-        #     print('Number: %s _ %s' % (number, self._get_uid_from_number(number)))
-        # print(self.processed_contacts)
 
     def _get_new_user_contacts(self, all_contacts):
         new_and_existing = self._check_for_new_users(all_contacts)
