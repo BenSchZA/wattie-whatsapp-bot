@@ -1,4 +1,4 @@
-from user import User
+from domain.user import User
 import utils
 from datetime import datetime
 

@@ -1,25 +1,25 @@
 import subprocess
-import log_manager
-from message import Message
+from logging_config import log_manager
+from domain.delivery import Delivery
 
 logger = log_manager.get_logger('whatsapp_cli')
 
 
-def send_whatsapp(message: Message):
+def send_whatsapp(delivery: Delivery):
     logger.info('Whatsapp CLI interface started')
 
-    if not message.number:
+    if not delivery.number:
         logger.error('Failed to send message: Invalid number')
         return False
 
-    process = "python whatsapp_cli.py --number %s" % message.number
+    process = "python whatsapp_cli.py --number %s" % delivery.number
 
-    if message.url:
-        process += " --url \"%s\"" % message.url
-    if message.txt:
-        process += " --txt \"%s\"" % message.txt
-    if message.media:
-        process += " --media \"%s\"" % message.media
+    if delivery.url:
+        process += " --url \"%s\"" % delivery.url
+    if delivery.txt:
+        process += " --txt \"%s\"" % delivery.txt
+    if delivery.media:
+        process += " --media \"%s\"" % delivery.media
 
     logger.info('Process %s about to start' % process)
 

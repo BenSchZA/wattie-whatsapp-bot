@@ -3,10 +3,11 @@ services:
     wattie:
         image: wattie:latest
         build:
-           context: ./
-           dockerfile: Dockerfile
+            context: ./
+            dockerfile: Dockerfile
+            args:
+              ***REMOVED***_PASSWORD: $***REMOVED***_PASSWORD
         environment:
-            #- wattie.env
             - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
             - CELL_NUMBER='***REMOVED***'
             - MONITOR_FREQUENCY=10
@@ -15,6 +16,10 @@ services:
             - ELASTIC_APM_SERVICE_NAME=wattie-bot
             - ELASTIC_APM_SERVER_URL=***REMOVED***:8200
             - ENABLE_DEBUG=False
+            - SLACK_HOOK_URL=***REMOVED***
+            - PROCESS_NEW_USERS_PERIOD_HOURS=3 # new users will be processed every 3 hours
+            - DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER=3 # i.e. delivery window time = 2*DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER
+            - ***REMOVED***_PASSWORD=$***REMOVED***_PASSWORD
         volumes:
             - pip_cache:/root/.cache/pip
             - ./downloads:/app/downloads
@@ -22,8 +27,8 @@ services:
             - ./data:/app/data
             - ${FIREBASE_CERTIFICATE_PATH}:/secrets
         ports:
-            - 8001:8001
-            - 5555:5555
+            - 8001:8001 # API
+            - 5555:5555 # Flower: Celery admin
             - 5050:5050
         depends_on:
             - mongodb
@@ -72,12 +77,9 @@ services:
           options:
             max-size: 50m
     selenium-firefox:
-        # build:
-        #   context: ./
-        #   dockerfile: Dockerfile.FirefoxNode
         image: selenium/node-firefox-debug:3.12.0-cobalt
         ports:
-            - 5900:5900
+            - 5900:5900 # VNC
         tty: true
         depends_on:
             - hub
@@ -88,8 +90,7 @@ services:
             - HUB_HOST=hub
             - HUB_PORT_4444_TCP_ADDR=hub
             - HUB_PORT_4444_TCP_PORT=4444
-            - VNC_NO_PASSWORD=true
-            # - SELENIUM_VNC_PASSWORD=${SELENIUM_VNC_PASSWORD}
+            - VNC_NO_PASSWORD=true # Access through SSH rather than direct to VNC port
         networks:
             - net
         logging:

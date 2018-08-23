@@ -1,7 +1,6 @@
 # ***REMOVED***
 import requests
-
-SLACK_URL = '***REMOVED***'
+import os
 
 
 class AlertManager:
@@ -12,4 +11,4 @@ class AlertManager:
     @staticmethod
     def slack_alert(text):
         slack_data = {'text': text}
-        return requests.post(SLACK_URL, json=slack_data, headers={'Content-Type': 'application/json'})
+        return requests.post(os.environ['SLACK_HOOK_URL'], json=slack_data, headers={'Content-Type': 'application/json'})

@@ -1,19 +1,16 @@
 #!/usr/bin/env python3
 
 import argparse
-import os
-import sys
 import time
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as exp_c
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 
 from session_manager import SessionManager
-from message import Message
+from domain.delivery import Delivery
 
 TIMEOUT = 30
 # TIMEOUT = os.environ['TIMEOUT']
@@ -243,11 +240,11 @@ class WhatsAppCli:
         else:
             exit(0)
 
-    def send_message(self, message: Message):
-        self.number = message.number
-        self.txt = message.txt
-        self.media = message.media
-        self.url = message.url
+    def send_message(self, delivery: Delivery):
+        self.number = delivery.number
+        self.txt = delivery.txt
+        self.media = delivery.media
+        self.url = delivery.url
 
         return self.process_and_handle_alerts()
 

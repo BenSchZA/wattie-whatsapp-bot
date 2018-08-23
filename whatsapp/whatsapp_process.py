@@ -23,7 +23,7 @@ from pymongo.collection import Collection
 from pymongo.errors import WriteError
 
 from session_manager import SessionManager
-from whatsapp_message import WhatsAppMessage
+from domain.whatsapp_message import WhatsAppMessage
 from alert_manager import AlertManager
 
 TIMEOUT = 60

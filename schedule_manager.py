@@ -1,13 +1,10 @@
 from firebase_manager import FirebaseManager
 from file_manager import FileManager
-import log_manager
+from logging_config import log_manager
 import utils
-from pymongo.collection import ObjectId
 from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
-import requests
-import os
 import elasticapm
-import tasks
+from task_queue import tasks
 
 
 class ScheduleManager:
@@ -29,16 +26,7 @@ class ScheduleManager:
             self.handler_running = True
 
         self.logger.info("Handling schedules")
-
         self.schedule_and_deliver()
-
-        # self.file_manager.schedule()
-        # self.scheduled_deliveries_hour = self.file_manager.get_schedule()
-        #
-        # for schedule in self.scheduled_deliveries_hour:
-        #     self.logger.info("Delivering message to %s " % schedule['uid'])
-        #     self.logger.debug("Schedule entry: %s" % schedule)
-        #     self.deliver_schedule(schedule)
 
         self.handler_running = False
         self.logger.info("Finished handling schedules")
@@ -85,17 +73,11 @@ class ScheduleManager:
                                          }
                                      })),
                                      firebase_scheduled))
-
+        # Override
         delivery_queue = firebase_scheduled
 
         self.logger.info('Processing delivery queue of size %d' % len(delivery_queue))
         self._process_delivery_queue(delivery_queue)
-
-        # number_delivered = len(list(filter(lambda queue_entry: queue_entry.racast.delivered, delivery_queue)))
-
-        # if len(delivery_queue) > 0:
-        #     self.alert_manager.slack_alert('Delivered %d of %d ***REMOVED***s in queue.'
-        #                                    % (number_delivered, len(delivery_queue)))
 
         self.scheduler_running = False
         self.logger.info("Finished handling downloads")

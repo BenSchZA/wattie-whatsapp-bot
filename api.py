@@ -1,14 +1,14 @@
 from flask import Flask, request
-from whatsapp_cli_interface import send_whatsapp
-import log_manager
+from whatsapp.whatsapp_cli_interface import send_whatsapp
+from logging_config import log_manager
 import os
 from elasticapm.contrib.flask import ElasticAPM
 from elasticapm.handlers.logging import LoggingHandler
 import logging
 from flask_cors import CORS
 
-import tasks
-from message import Message
+from task_queue import tasks
+from domain.delivery import Delivery
 
 app = Flask(__name__)
 CORS(app)
@@ -44,7 +44,7 @@ def health_check():
 
     logger.info('Handling /health request')
 
-    if send_whatsapp(Message(number=os.environ['CELL_NUMBER'], txt='Health check')):
+    if send_whatsapp(Delivery(number=os.environ['CELL_NUMBER'], txt='Health check')):
         return 'healthy', 200
     else:
         return 'unhealthy', 500
@@ -98,7 +98,7 @@ def send_message():
     if not number:
         return 'Invalid "number"', 400
 
-    message = Message(number, txt, url, media, filename)
+    message = Delivery(number, txt, url, media, filename)
 
     if tasks.queue_send_message(message):
         return 'Message \"%s\" for %s added to queue' % (txt, number)
@@ -130,7 +130,7 @@ def send_broadcast():
     if not txt:
         return 'Invalid "txt"', 400
 
-    if tasks.queue_send_broadcast(receivers, Message(txt=txt, url=url, media=media, filename=filename)):
+    if tasks.queue_send_broadcast(receivers, Delivery(txt=txt, url=url, media=media, filename=filename)):
         return 'Broadcast started'
 
 
@@ -164,7 +164,7 @@ def send_***REMOVED***():
                          })
         return 'Invalid "number"', 400
 
-    if send_whatsapp(Message(number=number, txt=txt, media=media, url=url)):
+    if send_whatsapp(Delivery(number=number, txt=txt, media=media, url=url)):
         return 'Message sent to %s' % number, 200
     else:
         app.logger.error('Failed to send ***REMOVED***',

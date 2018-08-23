@@ -2,7 +2,7 @@
 
 import json
 import threading
-import log_manager
+from logging_config import log_manager
 import uptime_manager
 import time
 from multiprocessing import Process
@@ -22,12 +22,13 @@ from selenium.common.exceptions import NoSuchElementException
 from urllib3.exceptions import NewConnectionError, MaxRetryError
 from urllib.error import URLError
 
-from celery_config import app as celery_app
-from celery_config import Queues
+from task_queue.celery_config import app as celery_app
+from task_queue.celery_config import Queues
 
 SESSION_DATA = 'data/session.data'
 COOKIE_DATA = 'data/cookie.data'
 
+# An attempt at disabling image loading and Flash content
 firefox_profile = webdriver.FirefoxProfile()
 firefox_profile.set_preference('permissions.default.image', 2)
 firefox_profile.set_preference('dom.ipc.plugins.enabled.libflashplayer.so', 'false')
@@ -263,6 +264,7 @@ class SessionManager:
                 driver.execute_script("window.onbeforeunload = function(e){};")
                 try:
                     driver.refresh()
+                    driver.get('https://web.whatsapp.com/')
                 except UnexpectedAlertPresentException:
                     try:
                         driver.switch_to.alert.dismiss()
@@ -346,9 +348,8 @@ if __name__ == "__main__":
         ptvsd.wait_for_attach()
         logger.debug("Debugger attached")
 
-    # Clear pending Celery tasks, for fresh start
-    import tasks
-    tasks.purge_tasks()
+    import task_queue.tasks
+    task_queue.tasks.purge_tasks()
 
     session = SessionManager()
     alert_manager = alert_manager.AlertManager()

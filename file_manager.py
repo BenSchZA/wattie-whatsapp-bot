@@ -4,7 +4,6 @@ import errno
 import string
 import random
 
-from datetime import datetime
 import requests
 
 import pymongo
@@ -14,10 +13,10 @@ from pymongo.errors import WriteError
 
 from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
 
-import log_manager
+from logging_config import log_manager
 from firebase_manager import FirebaseManager
-from user import User
-from schedule import Schedule
+from domain.user import User
+from domain.schedule import Schedule
 
 import utils
 

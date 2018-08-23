@@ -3,6 +3,7 @@ from celery import Celery
 
 import datetime
 from enum import Enum
+import os
 
 
 class Queues(Enum):
@@ -24,9 +25,9 @@ app.conf.task_queue_max_priority = 10
 
 app.conf.timezone = 'UTC'
 app.conf.beat_schedule = {
-    'process-new-users_every-3-hours': {
+    'process-new-users_periodic': {
         'task': 'tasks.process_new_users',
-        'schedule': datetime.timedelta(hours=3),
+        'schedule': datetime.timedelta(hours=int(os.environ['PROCESS_NEW_USERS_PERIOD_HOURS'])),
         'relative': True,
         'options': {'queue': 'process_message', 'task_id': 'unique_process-new-users'}
     }

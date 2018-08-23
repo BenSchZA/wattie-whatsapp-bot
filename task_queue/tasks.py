@@ -1,16 +1,15 @@
 from pymongo.collection import ObjectId
-import os
 import requests
 import jsonpickle
 
-import log_manager
+from logging_config import log_manager
 from file_manager import FileManager
-from user import User
-from schedule import Schedule
-from message import Message
-from whatsapp_cli_interface import send_whatsapp
+from domain.user import User
+from domain.schedule import Schedule
+from domain.delivery import Delivery
+from whatsapp.whatsapp_cli_interface import send_whatsapp
 from alert_manager import AlertManager
-from whatsapp_process import WhatsAppProcess
+from whatsapp.whatsapp_process import WhatsAppProcess
 
 from celery.signals import task_postrun
 from celery import group
@@ -19,7 +18,7 @@ from celery.exceptions import MaxRetriesExceededError
 
 from elasticapm import Client
 
-from celery_config import *
+from task_queue.celery_config import *
 
 client = Client({'SERVICE_NAME': os.environ['ELASTIC_APM_SERVICE_NAME'],
                  'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']})
@@ -66,13 +65,13 @@ def queue_download_and_deliver(user: User):
     return download_and_deliver.apply_async(args=[user_json], queue='download')
 
 
-def queue_send_message(message: Message):
-    message_json = jsonpickle.dumps(message)
+def queue_send_message(delivery: Delivery):
+    message_json = jsonpickle.dumps(delivery)
     return send_message.apply_async(args=[message_json], queue='send_message')
 
 
-def queue_send_broadcast(receivers, message: Message):
-    return group(send_message.s(jsonpickle.dumps(message.set_number(number))) for number in receivers) \
+def queue_send_broadcast(receivers, delivery: Delivery):
+    return group(send_message.s(jsonpickle.dumps(delivery.set_number(number))) for number in receivers) \
         .apply_async(queue='send_message')
 
 
@@ -106,34 +105,34 @@ def process_new_users(self):
 
 
 @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
-def send_message(self, message: Message):
+def send_message(self, delivery: Delivery):
     client.begin_transaction('send_message')
     try:
-        message: Message = jsonpickle.loads(message, classes=[Message])
+        delivery: Delivery = jsonpickle.loads(delivery, classes=[Delivery])
 
-        if message.media and message.filename:
+        if delivery.media and delivery.filename:
             logger.info('Fetching media')
-            path = file_manager.download_temp_file(message.media, message.filename)
-            message.media = path
-        elif message.media and not message.filename:
+            path = file_manager.download_temp_file(delivery.media, delivery.filename)
+            delivery.media = path
+        elif delivery.media and not delivery.filename:
             raise ValueError('"media" must have corresponding "filename"')
 
-        if send_whatsapp(message):
-            if message.media:
+        if send_whatsapp(delivery):
+            if delivery.media:
                 file_manager.delete_temp_files()
-            logger.info('Message \"%s\" sent to %s' % (message.__dict__, message.number))
+            logger.info('Message \"%s\" sent to %s' % (delivery.__dict__, delivery.number))
         else:
             logger.error('Failed to send message', 400)
             raise ValueError('Failed to send message')
 
         client.end_transaction('send_message')
-        return message
+        return delivery
     except (ValueError, SoftTimeLimitExceeded) as e:
         client.end_transaction('send_message')
         client.capture_exception()
         self.retry(exc=e)
         alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to send message to number %s with txt: %s'
-                                  % (message.number, message.txt))
+                                  % (delivery.number, delivery.txt))
 
 
 @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)

@@ -7,9 +7,8 @@ import os
 import time
 from datetime import datetime
 from datetime import timedelta
-import pytz
-from user import User
-import log_manager
+from domain.user import User
+from logging_config import log_manager
 import utils
 
 # https://firebase.google.com/docs/firestore/query-data/get-data
@@ -36,7 +35,6 @@ class FirebaseManager:
         if not initialized:
             self.logger.info('Firebase not initialized')
             cred = credentials.Certificate(os.environ['FIREBASE_CERTIFICATE_LOCATION'])
-            # cred = credentials.Certificate('***REMOVED***/***REMOVED***')
             firebase_admin.initialize_app(cred)
         else:
             self.logger.info('Firebase initialized')
@@ -59,8 +57,8 @@ class FirebaseManager:
 
     def _get_active_subs_in_window(self):
         now = datetime.utcnow()
-        window_start = now - timedelta(hours=3)
-        window_end = now + timedelta(hours=3)
+        window_start = now - timedelta(hours=int(os.environ['DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER']))
+        window_end = now + timedelta(hours=int(os.environ['DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER']))
 
         return self._get_users_ref().where(u'activeSubscription', u'==', True) \
             .where(u'next***REMOVED***Date', u'>=', window_start) \
@@ -79,8 +77,8 @@ class FirebaseManager:
     def get_scheduled_***REMOVED***s(self):
         scheduled = []
         now = datetime.utcnow()
-        window_start = now - timedelta(hours=3)
-        window_end = now + timedelta(hours=3)
+        window_start = now - timedelta(hours=int(os.environ['DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER']))
+        window_end = now + timedelta(hours=int(os.environ['DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER']))
 
         # Generators within generators are dark magic and do not work!
         len_subs_in_window = utils.generator_len(self._get_active_subs_in_window())

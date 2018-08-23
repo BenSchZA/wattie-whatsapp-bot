@@ -1,4 +1,4 @@
-class Message:
+class Delivery:
 
     def __init__(self, number=None, txt='', url=None, media=None, filename=None) -> None:
         super().__init__()
