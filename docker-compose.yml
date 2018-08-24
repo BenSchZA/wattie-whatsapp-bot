@@ -29,7 +29,7 @@ services:
         ports:
             - 8001:8001 # API
             - 5555:5555 # Flower: Celery admin
-            - 5050:5050
+            - 5050:5050 # ptvsd debugging
         depends_on:
             - mongodb
             - hub

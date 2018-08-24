@@ -6,6 +6,20 @@
 
 ---
 
+## Directories
+
+```
+.vscode/            ptsvd debugging is configured in the `launch.json` file
+data/               cookie data, session data, and uptime logs are stored here
+diagrams/           a single system diagram
+domain/             a domain object is an entity in the domain layer of your application, something a business level exec should understand
+downloads/          all media downloads, both temporary and for users, are stored here
+logging_config/     self commenting really
+logs/               logs...
+task_queue/         configuration of Celery, queues, and tasks
+whatsapp/           all direct interaction with WhatsApp web with Selenium
+```
+
 ## SessionManager Class
 
 Class for managing active Selenium session via Selenium Hub & Selenium Node:
@@ -61,6 +75,12 @@ The SMTPSHandler handles sending alerts via e-mail with screenshots of the activ
 
 Supervisord manages starting the session, spinning up Celery workers, and the Flower admin portal. It allows parallel processing of task queues.
 
+Celery workers are configured via Supervisord. These workers are given the path to the Python `tasks` module. The Celery config is handled in the `celery_config` module. 
+
+The `celery_config` module handles setting up queues, their priority, and scheduling periodic tasks like user processing.
+
+The `tasks` module uses decorators to define tasks and their behaviour. Tasks are usually appended to a queue using a `queue_{}` method.
+
 ## WhatsApp CLI & WhatsApp CLI Interface
 
 The WhatsApp CLI is started as a Python subprocess via the WhatsApp CLI interface. This ensures that if there is a memory leak or if the process crashes it doesn't bring down the whole system.
@@ -70,6 +90,15 @@ The WhatsApp CLI handles all Selenium tasks and interfaces with the SessionManag
 ## WIP: WhatsAppReceive Class
 
 The WhatsAppReceive class is a work in progress. It will handle the reception of WhatsApp messages, the automated replies, and user management. It can be extended in future to handle any task that requires reading of incomming messages. At the moment it is a utility class that is indepedant of the rest of the docker system... it should perhaps be in its own branch.
+
+## Important Notes
+
+* When the Docker stack is restarted, the SessionManager purges all tasks.
+* The ***REMOVED*** delivery window is X hours before and after the current time: now-X >>> now >>> now+X
+* A Delivery is a collection of content sent to a user, whereas a WhatsAppMessage is a message processed from a WhatsApp conversation.
+* All transactions going through the API are monitored using ElasticAPM, certain tasks implement ElasticAPM transactions too.
+* MongoDB is a legacy part of the application, which is not used - task queues with Redis have made it redundent.
+* The WhatsAppProcess class has methods that are WIPs. One of which processes all messages (with limits) into MongoDB entries.
 
 ---
 
