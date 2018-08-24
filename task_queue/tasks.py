@@ -31,13 +31,15 @@ logger = log_manager.get_logger('session_manager')
 def purge_tasks():
     """
     Clear all tasks from queues
+    :returns number of tasks purged
     """
-    app.control.purge()
+    return app.control.purge()
 
 
 def task_in_queue(check_id, queue_id):
     """
     Inspect queue to check for ID: reserved, active, or scheduled
+    :returns true if task in queue
     """
     inspect = app.control.inspect([queue_id])
 

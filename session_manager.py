@@ -348,9 +348,6 @@ if __name__ == "__main__":
         ptvsd.wait_for_attach()
         logger.debug("Debugger attached")
 
-    import task_queue.tasks
-    task_queue.tasks.purge_tasks()
-
     session = SessionManager()
     alert_manager = alert_manager.AlertManager()
     alert_manager.slack_alert('Wattie session started')

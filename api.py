@@ -50,6 +50,20 @@ def health_check():
         return 'unhealthy', 500
 
 
+@app.route('/purge_tasks')
+def purge_tasks():
+    if not check_auth():
+        return 'unauthorized', 400
+    else:
+        pass
+
+    logger.info('Handling /handle_schedules request')
+
+    tasks_purged = tasks.purge_tasks()
+
+    return '%s tasks purged' % tasks_purged
+
+
 @app.route('/handle_schedules')
 def handle_schedules():
     if not check_auth():
