@@ -81,8 +81,8 @@ def try_search_for_contact(driver, contact_number):
 
     print('Contact ID %s ~ Contact number %s' % (contact_id, contact_number))
     if contact_id and contact_number:
-        contact_id.replace("+", "")
-        contact_number.replace("+", "")
+        contact_id = contact_id.replace("+", "")
+        contact_number = contact_number.replace("+", "")
         return contact_id == contact_number
     else:
         return False
