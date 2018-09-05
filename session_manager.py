@@ -19,6 +19,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from urllib3.exceptions import NewConnectionError, MaxRetryError
 from urllib.error import URLError
 
@@ -47,6 +48,7 @@ class SessionManager:
         self.logger.info(utils.whos_calling('Fetching Firefox session...'))
         self.previous_session = self._fetch_previous_session()
         self.active_browser_connection = False
+        self.active_phone_connection = False
         self.cookies = {}
         self.driver = None
 
@@ -225,6 +227,15 @@ class SessionManager:
             self.logger.critical("Connection down")
             return False
 
+    def phone_connection_okay(self):
+        try:
+            if self.driver.find_element_by_xpath("//div[@class='U0cj3']").text == 'Phone Not Connected':
+                return False
+            else:
+                return True
+        except NoSuchElementException:
+            return True
+
     @staticmethod
     def wait_until_connection_okay():
         time_limit = time.time() + int(os.environ['TIMEOUT'])
@@ -296,8 +307,9 @@ class SessionManager:
         * If WhatsApp web is operating, enable queue
         """
         active_whatsapp_connection = self.whatsapp_web_connection_okay()
+        active_phone_connection = self.phone_connection_okay()
         with celery_app.connection_or_acquire() as conn:
-            if not active_whatsapp_connection:
+            if not active_whatsapp_connection or not active_phone_connection:
                 # For each queue, remove consumer
                 for queue in Queues:
                     # If download queue, ignore
@@ -318,15 +330,19 @@ class SessionManager:
 
     def monitor_connection(self):
             self.active_browser_connection = self.browser_connection_okay()
+            self.active_phone_connection = self.phone_connection_okay()
             self.logger.info('Connection: Uptime ~ %s; Active ~ %s'
                              % (str(int(round(uptime_manager.get_uptime_percent(self))))
-                                + '%', self.active_browser_connection))
+                                + '%', self.active_browser_connection and self.active_phone_connection))
 
             if not self.active_browser_connection:
                 self.refresh_connection_else_restart()
                 uptime_manager.process_down(self)
             else:
                 uptime_manager.process_up(self)
+
+            if not self.active_phone_connection:
+                alert_manager.slack_alert('Phone connection down')
 
             self.toggle_celery_consumer_state()
 
