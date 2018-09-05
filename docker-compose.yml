@@ -18,7 +18,7 @@ services:
             - ENABLE_DEBUG=False
             - SLACK_HOOK_URL=***REMOVED***
             - PROCESS_NEW_USERS_PERIOD_HOURS=3 # new users will be processed every 3 hours
-            - DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER=3 # i.e. delivery window time = 2*DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER
+            - DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER=6 # i.e. delivery window time = 2*DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER
             - ***REMOVED***_PASSWORD=$***REMOVED***_PASSWORD
         volumes:
             - pip_cache:/root/.cache/pip
