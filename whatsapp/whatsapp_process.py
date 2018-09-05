@@ -15,7 +15,6 @@ from selenium.webdriver.support import expected_conditions as exp_c
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.common.keys import Keys
 
 import pymongo
 from pymongo import MongoClient
@@ -25,6 +24,7 @@ from pymongo.errors import WriteError
 from session_manager import SessionManager
 from domain.whatsapp_message import WhatsAppMessage
 from alert_manager import AlertManager
+import whatsapp.selenium_methods as selenium_methods
 
 TIMEOUT = 60
 MESSAGE_LIMIT = 10
@@ -75,7 +75,7 @@ class WhatsAppProcess:
         if not new_user_contacts:
             return
         for number in new_user_contacts:
-            if self.try_search_for_contact(number):
+            if selenium_methods.try_search_for_contact(self.driver, number):
                 # Wait until messages panel is visible
                 messages_panel = self.wait.until(lambda _: self.driver.find_element_by_xpath("//div[@class='_9tCEa']"))
                 # Dynamically load the number of messages defined by MESSAGE_LIMIT
@@ -114,25 +114,8 @@ class WhatsAppProcess:
             print('New user: %s' % number)
         return new_user_contacts
 
-    def _clean_contact_number(self, contact_number):
-        if not contact_number:
-            return None
-        contact_number = contact_number.replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
-        if self._is_valid_numeric(contact_number):
-            return contact_number
-        else:
-            return None
-
-    def _is_valid_numeric(self, string):
-        for char in string:
-            if char.isdigit() or char == '+':
-                continue
-            else:
-                return False
-        return True
-
     def _check_for_new_users(self, contact_numbers):
-        data = list(filter(lambda x: x is not None, map(lambda y: self._clean_contact_number(y), contact_numbers)))
+        data = list(filter(lambda x: x is not None, map(lambda y: selenium_methods.clean_contact_number(y), contact_numbers)))
 
         headers = {
             'Content-Type': 'application/json',
@@ -169,7 +152,7 @@ class WhatsAppProcess:
             return None
 
     def _create_new_user(self, contact_number, username=None):
-        contact_number = self._clean_contact_number(contact_number)
+        contact_number = selenium_methods.clean_contact_number(contact_number)
 
         data = {
             'fullMobileNum': contact_number,
@@ -231,7 +214,7 @@ class WhatsAppProcess:
             ".//span[@class='_1wjpf']")).get_attribute('title')
 
         if contact_name_number not in self.processed_contacts:
-            cleaned = self._clean_contact_number(contact_name_number)
+            cleaned = selenium_methods.clean_contact_number(contact_name_number)
             if cleaned:
                 self.processed_contacts.append(cleaned)
         return contact_name_number
@@ -244,7 +227,7 @@ class WhatsAppProcess:
             contact_id = self.wait.until(lambda _: conversation.find_element_by_xpath(".//span[@class='_1wjpf']")) \
                 .get_attribute('title')
 
-            contact_id = self._clean_contact_number(contact_id)
+            contact_id = selenium_methods.clean_contact_number(contact_id)
             if not contact_id:
                 print('Invalid contact ID')
                 return False
@@ -400,66 +383,6 @@ class WhatsAppProcess:
         except NoSuchElementException:
             return None
 
-    def _clear_search(self):
-        try:
-            clear_search = self.driver.find_element_by_xpath("//button[@class='_3Burg']")
-            clear_search.click()
-        except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException):
-            pass
-
-    def try_search_for_contact(self, contact_number):
-        # Enter search text
-        try:
-            search_bar = WebDriverWait(self.driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.XPATH, "//input[@class='jN-F5 copyable-text selectable-text']"))
-            )
-            search_bar.click()
-            search_bar.send_keys(contact_number)
-            print('Searching for contact ' + contact_number)
-        except (ElementClickInterceptedException, TimeoutException):
-            return False
-        # If no contacts found, return False
-        try:
-            self.driver.find_element_by_xpath("//div[@class='_3WZoe']")
-            print('No contacts found')
-            self._clear_search()
-            return False
-        except NoSuchElementException:
-            print('Contact found')
-            pass
-        # Else Press enter
-        try:
-            if search_bar:
-                print('Selecting contact conversation')
-                search_bar.send_keys(Keys.RETURN)
-                self._clear_search()
-        except ElementClickInterceptedException:
-            self._clear_search()
-            return False
-        # Check contact header for correct number
-        try:
-            print('Waiting for contact header')
-            contact_header = WebDriverWait(self.driver, 5).until(lambda _: self.driver.find_element_by_xpath("//header[@class='_3AwwN']"))
-        except TimeoutException:
-            return False
-        try:
-            print('Fetching contact ID')
-            contact_id = self.wait.until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
-                .get_attribute('title')
-        except TimeoutException:
-            return False
-
-        contact_id = self._clean_contact_number(contact_id)
-        contact_number = self._clean_contact_number(contact_number)
-
-        print('Contact ID %s ~ Contact number %s' % (contact_id, contact_number))
-        if contact_id and contact_number:
-            contact_id.replace("+", "")
-            contact_number.replace("+", "")
-            return contact_id == contact_number
-        else:
-            return False
-
     def _extract_and_save_messages(self, messages_panel):
         messages: [WhatsAppMessage] = []
 
@@ -478,8 +401,8 @@ class WhatsAppProcess:
         self._for_each_message(messages_panel, append_message)
 
         # Remove any messages not from sender i.e. from Wattie itself
-        messages = list(filter(lambda x: self._clean_contact_number(x.sender_number)
-                        == self._clean_contact_number(contact_id), messages))
+        messages = list(filter(lambda x: selenium_methods.clean_contact_number(x.sender_number)
+                        == selenium_methods.clean_contact_number(contact_id), messages))
 
         # For each message, try find launch phrase and process
         for message in messages:

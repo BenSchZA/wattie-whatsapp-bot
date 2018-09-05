@@ -11,6 +11,7 @@ from selenium.webdriver.common.keys import Keys
 
 from session_manager import SessionManager
 from domain.delivery import Delivery
+import whatsapp.selenium_methods as selenium_methods
 
 TIMEOUT = 30
 # TIMEOUT = os.environ['TIMEOUT']
@@ -41,58 +42,6 @@ class WhatsAppCli:
             print(str(e))
             pass
 
-    def try_search_for_contact(self, contact_number):
-        # Enter search text
-        try:
-            search_bar = WebDriverWait(self.driver, TIMEOUT).until(
-                exp_c.visibility_of_element_located((By.XPATH, "//input[@class='jN-F5 copyable-text selectable-text']"))
-            )
-            search_bar.click()
-            search_bar.send_keys(contact_number)
-            print('Searching for contact ' + contact_number)
-        except (ElementClickInterceptedException, TimeoutException):
-            return False
-        # Wait for finished loading
-        try:
-            clear_search = self.wait.until(lambda _: self.driver.find_element_by_xpath("//button[@class='_3Burg']"))
-        except TimeoutException:
-            return False
-        # If no contacts found, return False
-        try:
-            self.driver.find_element_by_xpath("//div[@class='_3WZoe']")
-            print('No contacts found')
-            return False
-        except NoSuchElementException:
-            print('Contact found')
-            pass
-        # Else Press enter
-        try:
-            if search_bar:
-                print('Selecting contact conversation')
-                search_bar.send_keys(Keys.RETURN)
-                clear_search.click()
-        except ElementClickInterceptedException:
-            return False
-        # Check contact header for correct number
-        try:
-            print('Waiting for contact header')
-            contact_header = self.wait.until(lambda _: self.driver.find_element_by_xpath("//header[@class='_3AwwN']"))
-        except TimeoutException:
-            return False
-        try:
-            print('Fetching contact ID')
-            contact_id = self.wait.until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
-                .get_attribute('title')
-        except TimeoutException:
-            return False
-
-        print('Contact ID %s ~ Contact number %s' % (contact_id, contact_number))
-        if contact_id and contact_number and (contact_id.replace(" ", "").replace("+", "")
-                                              == contact_number.replace(" ", "").replace("+", "")):
-            return True
-        else:
-            return False
-
     def _process_queue(self):
         print("Processing queue...")
 
@@ -106,7 +55,7 @@ class WhatsAppCli:
         print('Processing number ' + self.number)
 
         # Try search for number before using WhatsApp API - the latter is slower
-        if not self.try_search_for_contact(self.number):
+        if not selenium_methods.try_search_for_contact(self.driver, self.number):
             contact_header = None
             try:
                 contact_header = self.driver.find_element_by_xpath("//header[@class='_3AwwN']")
