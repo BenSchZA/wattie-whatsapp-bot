@@ -12,7 +12,7 @@ def send_whatsapp(delivery: Delivery):
         logger.error('Failed to send message: Invalid number')
         return False
 
-    process = "python whatsapp/whatsapp_cli.py --number %s" % delivery.number
+    process = "python whatsapp_cli.py --number %s" % delivery.number
 
     if delivery.url:
         process += " --url \"%s\"" % delivery.url

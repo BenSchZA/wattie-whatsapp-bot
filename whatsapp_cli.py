@@ -9,9 +9,6 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
 from selenium.webdriver.common.keys import Keys
 
-import sys
-sys.path.insert(0, '../')
-
 from session_manager import SessionManager
 from domain.delivery import Delivery
 import whatsapp.selenium_methods as selenium_methods
