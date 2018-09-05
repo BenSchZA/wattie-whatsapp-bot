@@ -218,18 +218,20 @@ def _deliver_schedule(schedule: Schedule):
     uid = schedule.uid
     number = schedule.number
     media = None
-    url = None
+    # url = None
 
     if deliver_voicenote and deliver_weblink:
         message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
         media = schedule.path
         url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
+        message = "%s %s" % (message, url)
     elif deliver_voicenote and not deliver_weblink:
         message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
         media = schedule.path
     elif not deliver_voicenote and deliver_weblink:
         message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
         url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
+        message = "%s %s" % (message, url)
     else:
         logger.error('***REMOVED*** failed to deliver to %s' % uid)
         alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
@@ -240,8 +242,7 @@ def _deliver_schedule(schedule: Schedule):
         'uid': uid,
         'number': number,
         'txt': message,
-        'media': media,
-        'url': url
+        'media': media
     }
 
     headers = {
