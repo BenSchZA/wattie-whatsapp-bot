@@ -185,10 +185,7 @@ def send_***REMOVED***():
                          exc_info=True,
                          extra={
                              'uid': uid,
-                             'number': number,
-                             'text': txt,
-                             'media': media,
-                             'url': url
+                             'number': number
                          })
         return 'Failed to send message', 400
 
