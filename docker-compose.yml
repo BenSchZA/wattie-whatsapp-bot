@@ -8,7 +8,6 @@ services:
             args:
               DEFAULT_PASSWORD: $DEFAULT_PASSWORD
         environment:
-            - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
             - CELL_NUMBER='REMOVED'
             - MONITOR_FREQUENCY=10
             - TIMEOUT=30
@@ -25,7 +24,6 @@ services:
             - ./downloads:/app/downloads
             - ./logs:/app/logs
             - ./data:/app/data
-            - ${FIREBASE_CERTIFICATE_PATH}:/secrets
         ports:
             - 8001:8001 # API
             - 5555:5555 # Flower: Celery admin
