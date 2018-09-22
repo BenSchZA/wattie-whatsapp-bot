@@ -1,4 +1,8 @@
-# Wattie WhatsApp bot - selenium-whatsapp
+# Wattie the WhatsApp bot
+
+**This repository is a work in progress open source project. It is in the process of being migrated from a closed source project.**
+
+Certain code has been cleaned using the [BFG Repo-Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) - here you will see **REMOVED**.
 
 ---
 
@@ -162,7 +166,7 @@ See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]
 
 Using the following SSH command is dual purpose, it both connects to the EC2 instance, and opens up the local port 5900 for VNC.
 
-> ssh -i .ssh/aws-ssh-wattie.pem -L 5901:localhost:5900 ec2-user@***REMOVED***
+> ssh -i .ssh/aws-ssh-wattie.pem -L 5901:localhost:5900 ec2-user@REMOVED
 
 ## Flower: Celery interface
 
@@ -208,7 +212,7 @@ There are two users set up:
 
 If you don't have an SSH key set up, you may need to do that first, otherwise do the following:
 
-> ssh -i <ssh-key-file> ubuntu@***REMOVED***
+> ssh -i <ssh-key-file> ubuntu@REMOVED
 
 ## Install Firefox geckodriver
 
@@ -244,7 +248,7 @@ Use the --smallfiles option when creating mongod service to stop the daemon from
 
 First SSH into the instance using the graphical user Wattie:
 
-> ssh -L 5901:127.0.0.1:5901 wattie@***REMOVED***
+> ssh -L 5901:127.0.0.1:5901 wattie@REMOVED
 
 password: REMOVED
 
