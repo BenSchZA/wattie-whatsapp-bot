@@ -6,7 +6,7 @@ services:
             context: ./
             dockerfile: Dockerfile
             args:
-              REMOVED_PASSWORD: $REMOVED_PASSWORD
+              DEFAULT_PASSWORD: $DEFAULT_PASSWORD
         environment:
             - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
             - CELL_NUMBER='REMOVED'
@@ -19,7 +19,7 @@ services:
             - SLACK_HOOK_URL=REMOVED
             - PROCESS_NEW_USERS_PERIOD_HOURS=3 # new users will be processed every 3 hours
             - DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER=6 # i.e. delivery window time = 2*DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER
-            - REMOVED_PASSWORD=$REMOVED_PASSWORD
+            - DEFAULT_PASSWORD=$DEFAULT_PASSWORD
         volumes:
             - pip_cache:/root/.cache/pip
             - ./downloads:/app/downloads
