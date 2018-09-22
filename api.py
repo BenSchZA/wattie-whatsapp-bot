@@ -13,19 +13,28 @@ from domain.delivery import Delivery
 app = Flask(__name__)
 CORS(app)
 
-# configure to use ELASTIC_APM in your application's settings from elasticapm.contrib.flask import ElasticAPM
-app.config['ELASTIC_APM'] = {
-    # allowed app_name chars: a-z, A-Z, 0-9, -, _, and space from elasticapm.contrib.flask
-    'APP_NAME': os.environ['ELASTIC_APM_SERVICE_NAME'],
-    # 'SECRET_TOKEN': 'yourToken', #if you set on the APM server configuration
-    'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']  # your APM server url
-}
+# Configure logging
+if os.environ['ELASTIC_APM_SERVICE_NAME'] and os.environ['ELASTIC_APM_SERVER_URL']:
+    # configure to use ELASTIC_APM in your application's settings from elasticapm.contrib.flask import ElasticAPM
+    app.config['ELASTIC_APM'] = {
+        # allowed app_name chars: a-z, A-Z, 0-9, -, _, and space from elasticapm.contrib.flask
+        'APP_NAME': os.environ['ELASTIC_APM_SERVICE_NAME'],
+        # 'SECRET_TOKEN': 'yourToken', #if you set on the APM server configuration
+        'SERVER_URL': os.environ['ELASTIC_APM_SERVER_URL']  # your APM server url
+    }
 
-apm = ElasticAPM(app)
+    apm = ElasticAPM(app)
 
-handler = LoggingHandler(client=apm.client)
-handler.setLevel(logging.WARN)
-app.logger.addHandler(handler)
+    handler = LoggingHandler(client=apm.client)
+    handler.setLevel(logging.WARN)
+    app.logger.addHandler(handler)
+
+# Example usage:
+# app.logger.error('Failed to send: Invalid number',
+#                  exc_info=True,
+#                  extra={
+#                      'uid': uid
+#                  })
 
 logger = log_manager.get_logger('api_manager')
 
@@ -131,12 +140,6 @@ def send_broadcast():
 
     if tasks.queue_send_broadcast(receivers, Delivery(txt=txt, url=url, media=media, filename=filename)):
         return 'Broadcast started'
-
-# app.logger.error('Failed to send REMOVED: Invalid number',
-#                  exc_info=True,
-#                  extra={
-#                      'uid': uid
-#                  })
 
 
 def check_auth():
