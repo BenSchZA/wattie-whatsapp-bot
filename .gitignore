@@ -4,3 +4,4 @@ downloads/
 data/
 secrets.txt
 .idea/
+geckodriver.log
