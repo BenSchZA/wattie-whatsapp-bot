@@ -1,4 +1,3 @@
-from firebase_manager import FirebaseManager
 from file_manager import FileManager
 from logging_config import log_manager
 import utils
@@ -11,7 +10,6 @@ class ScheduleManager:
 
     def __init__(self) -> None:
         super().__init__()
-        self.firebase = FirebaseManager()
         self.file_manager = FileManager()
         self.scheduled_deliveries_hour = None
         self.handler_running = False
@@ -42,7 +40,7 @@ class ScheduleManager:
 
         # Get list of scheduled deliveries from Firebase database
         try:
-            firebase_scheduled = self.firebase.get_scheduled_REMOVEDs()
+            firebase_scheduled = []
             self.logger.info('Processing Firebase scheduled REMOVEDs of size %d' % len(firebase_scheduled))
         except (DeadlineExceeded, ServiceUnavailable):
             self.logger.exception("Failed handling downloads")

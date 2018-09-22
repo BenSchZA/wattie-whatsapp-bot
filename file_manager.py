@@ -14,7 +14,6 @@ from pymongo.errors import WriteError
 from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
 
 from logging_config import log_manager
-from firebase_manager import FirebaseManager
 from domain.user import User
 from domain.schedule import Schedule
 
@@ -40,7 +39,6 @@ class FileManager:
     def _initialize_database(self):
         self.client = MongoClient('mongodb', 27017)
         self.db = self.client.file_manager
-        self.firebase = FirebaseManager()
 
         self.downloads_collection: Collection = self.db.downloads_collection
         self.downloads_collection.create_index([("uid", pymongo.DESCENDING), ("url", pymongo.DESCENDING)], unique=True)
@@ -98,7 +96,7 @@ class FileManager:
 
         # Get list of scheduled deliveries from Firebase database
         try:
-            firebase_scheduled = self.firebase.get_scheduled_REMOVEDs()
+            firebase_scheduled = []
         except (DeadlineExceeded, ServiceUnavailable):
             self.logger.exception("Failed handling downloads")
             return
@@ -202,7 +200,7 @@ class FileManager:
     def mark_delivered(self, schedule):
         uid = schedule.uid
         REMOVED_id = schedule.id
-        self.firebase.mark_REMOVED_delivered_now(uid, REMOVED_id)
+        # self.firebase.mark_REMOVED_delivered_now(uid, REMOVED_id)
         self.downloads_collection.update_one(
             {"uid": uid},
             {"$set": {
