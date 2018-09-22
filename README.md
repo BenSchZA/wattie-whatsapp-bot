@@ -61,14 +61,6 @@ The FileManager handles the following tasks:
 3. Tracking all files downloaded by creating a MongoDB entry
 4. (Previously, scheduling deliveries)
 
-## FirebaseManager Class
-
-The FirebaseManager class manages the following:
-
-1. FireStore database connection
-2. Reading and updating user data
-3. Fetching the relevant REMOVED active subscriptions and schedules
-
 ## LogManager/AlertManager/SMTPSHandler Class
 
 The LogManager handles all log files.
@@ -138,17 +130,11 @@ Port 8001 needs to be open to incoming connections in order to use the API. VNC 
 
 The following environment variables need to be exported on the Docker host for the build to succeed.
 
-**FIREBASE_CERTIFICATE_PATH**: The path to the directory holding the Firebase certificate e.g. /home/ec2-user/secrets
-
-**FIREBASE_CERTIFICATE_NAME**: The name of the Firebase certificate e.g. REMOVED
-
-**REMOVED_PASSWORD**: Password for general REMOVED authentication e.g. Flower
+**DEFAULT_PASSWORD**: Password for general service authentication e.g. Flower
 
 **AUTH_TOKEN**: Token to authorize API requests. 'X-Auth-Token' header entry in HTTP request.
 
 e.g. `curl -H "X-Auth-Token: "$AUTH_TOKEN"" REMOVED:8001/health`
-
-This means if the server is rebuilt, the actual Firebase certificate will need to be uploaded using `scp` and the relevant SSH key, for example:
 
 See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]
 
@@ -170,7 +156,7 @@ Using the following SSH command is dual purpose, it both connects to the EC2 ins
 
 ## Flower: Celery interface
 
-> Go to port 5555, with username **REMOVED** and password **REMOVED**
+> Go to port 5555, with username **user** and password **$DEFAULT_PASSWORD**
 
 ## Pruning Docker images
 
