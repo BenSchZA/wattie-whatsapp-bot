@@ -15,7 +15,7 @@ import utils
 # https://firebase.google.com/docs/firestore/query-data/queries
 # https://firebase.google.com/docs/firestore/query-data/order-limit-data
 
-FIREBASE_APP_NAME = '***REMOVED***'
+FIREBASE_APP_NAME = 'REMOVED'
 
 
 class FirebaseManager:
@@ -61,20 +61,20 @@ class FirebaseManager:
         window_end = now + timedelta(hours=int(os.environ['DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER']))
 
         return self._get_users_ref().where(u'activeSubscription', u'==', True) \
-            .where(u'next***REMOVED***Date', u'>=', window_start) \
-            .where(u'next***REMOVED***Date', u'<=', window_end) \
+            .where(u'nextREMOVEDDate', u'>=', window_start) \
+            .where(u'nextREMOVEDDate', u'<=', window_end) \
             .get()
 
-    def _get_***REMOVED***(self, uid, ***REMOVED***_id):
+    def _get_REMOVED(self, uid, REMOVED_id):
         try:
-            return next(self._get_user(uid).collection(u'***REMOVED***s')
-                        .where(u'***REMOVED***UID', u'==', ***REMOVED***_id)
+            return next(self._get_user(uid).collection(u'REMOVEDs')
+                        .where(u'REMOVEDUID', u'==', REMOVED_id)
                         .limit(1).get())
         except (NotFound, StopIteration):
-            self.logger.debug('Failed to get ***REMOVED*** with id %s for user %s' % (***REMOVED***_id, uid))
+            self.logger.debug('Failed to get REMOVED with id %s for user %s' % (REMOVED_id, uid))
             return None
 
-    def get_scheduled_***REMOVED***s(self):
+    def get_scheduled_REMOVEDs(self):
         scheduled = []
         now = datetime.utcnow()
         window_start = now - timedelta(hours=int(os.environ['DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER']))
@@ -86,32 +86,32 @@ class FirebaseManager:
 
         self.logger.debug('%d active subs scheduled for next hour' % len_subs_in_window)
 
-        no_valid_***REMOVED***s = 0
+        no_valid_REMOVEDs = 0
         for doc in subs_in_window:
             try:
                 user_uid = doc.id
                 user_dict = doc.to_dict()
 
-                ***REMOVED***s = self._get_user(user_uid).collection(u'***REMOVED***s')
-                scheduled_***REMOVED***_gen = ***REMOVED***s \
+                REMOVEDs = self._get_user(user_uid).collection(u'REMOVEDs')
+                scheduled_REMOVED_gen = REMOVEDs \
                     .where(u'delivered', u'==', False) \
                     .where(u'scheduledDate', u'>=', window_start)\
                     .where(u'scheduledDate', u'<=', window_end) \
                     .limit(1).get()
 
-                scheduled_***REMOVED*** = next(scheduled_***REMOVED***_gen)
+                scheduled_REMOVED = next(scheduled_REMOVED_gen)
 
-                if scheduled_***REMOVED***:
-                    ***REMOVED***_id = scheduled_***REMOVED***.id
-                    ***REMOVED***_dict = scheduled_***REMOVED***.to_dict()
-                    user = User(user_dict, ***REMOVED***_dict, ***REMOVED***_id)
+                if scheduled_REMOVED:
+                    REMOVED_id = scheduled_REMOVED.id
+                    REMOVED_dict = scheduled_REMOVED.to_dict()
+                    user = User(user_dict, REMOVED_dict, REMOVED_id)
                     scheduled.append(user)
 
             except (NotFound, StopIteration):
-                no_valid_***REMOVED***s += 1
+                no_valid_REMOVEDs += 1
                 continue
 
-        self.logger.debug('%d of %d active subs have no valid ***REMOVED***s' % (no_valid_***REMOVED***s, len_subs_in_window))
+        self.logger.debug('%d of %d active subs have no valid REMOVEDs' % (no_valid_REMOVEDs, len_subs_in_window))
         return scheduled
 
     def _get_user_ids(self):
@@ -121,14 +121,14 @@ class FirebaseManager:
             ids.append(doc.id)
         return ids
 
-    def mark_***REMOVED***_delivered_now(self, uid, ***REMOVED***_id):
-        doc: firestore.firestore.DocumentSnapshot = self._get_***REMOVED***(uid, ***REMOVED***_id)
+    def mark_REMOVED_delivered_now(self, uid, REMOVED_id):
+        doc: firestore.firestore.DocumentSnapshot = self._get_REMOVED(uid, REMOVED_id)
         doc_ref: firestore.firestore.DocumentReference = doc.reference
 
         if doc_ref:
             doc_ref.update({
                 u'delivered': True
             })
-            self.logger.debug('Marked ***REMOVED*** delivered for user %s and doc id %s' % (uid, doc_ref.id))
+            self.logger.debug('Marked REMOVED delivered for user %s and doc id %s' % (uid, doc_ref.id))
         else:
-            self.logger.debug('Failed to mark ***REMOVED*** delivered for user %s and doc id %s' % (uid, doc_ref.id))
+            self.logger.debug('Failed to mark REMOVED delivered for user %s and doc id %s' % (uid, doc_ref.id))

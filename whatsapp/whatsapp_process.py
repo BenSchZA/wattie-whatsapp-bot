@@ -119,11 +119,11 @@ class WhatsAppProcess:
 
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': '56128eebf5a64cb6875b8d1c4789b216cf2331aa',
-            'Origin': 'https://my***REMOVED***.com'
+            'Authorization': 'REMOVED',
+            'Origin': 'https://myREMOVED.com'
         }
 
-        req = requests.post("***REMOVED***:3000/user_recon", json=data, headers=headers)
+        req = requests.post("REMOVED:3000/user_recon", json=data, headers=headers)
 
         if req.status_code == 200:
             return req.json()
@@ -138,11 +138,11 @@ class WhatsAppProcess:
 
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': '56128eebf5a64cb6875b8d1c4789b216cf2331aa',
-            'Origin': 'https://my***REMOVED***.com'
+            'Authorization': 'REMOVED',
+            'Origin': 'https://myREMOVED.com'
         }
 
-        endpoint = "***REMOVED***:3000/user_uid_from_full_mobile_num"
+        endpoint = "REMOVED:3000/user_uid_from_full_mobile_num"
         req = requests.post(endpoint, json=data, headers=headers)
 
         if req.status_code == 200:
@@ -161,11 +161,11 @@ class WhatsAppProcess:
 
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': '***REMOVED***',
-            'Origin': 'http://my***REMOVED***.com'
+            'Authorization': 'REMOVED',
+            'Origin': 'REMOVED'
         }
 
-        endpoint = "http://***REMOVED***-client-api.fzg22nmp77.us-east-2.elasticbeanstalk.com/users/create_user_full_num"
+        endpoint = "REMOVED/users/create_user_full_num"
         req = requests.post(endpoint, json=data, headers=headers)
 
         if req.status_code == 200:

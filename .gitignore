@@ -2,3 +2,4 @@ venv/
 logs/
 downloads/
 data/
+secrets.txt

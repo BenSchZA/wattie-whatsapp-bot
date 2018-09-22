@@ -1,4 +1,4 @@
-# ***REMOVED***
+# REMOVED
 import requests
 import os
 

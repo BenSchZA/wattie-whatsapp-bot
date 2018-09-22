@@ -42,8 +42,8 @@ class ScheduleManager:
 
         # Get list of scheduled deliveries from Firebase database
         try:
-            firebase_scheduled = self.firebase.get_scheduled_***REMOVED***s()
-            self.logger.info('Processing Firebase scheduled ***REMOVED***s of size %d' % len(firebase_scheduled))
+            firebase_scheduled = self.firebase.get_scheduled_REMOVEDs()
+            self.logger.info('Processing Firebase scheduled REMOVEDs of size %d' % len(firebase_scheduled))
         except (DeadlineExceeded, ServiceUnavailable):
             self.logger.exception("Failed handling downloads")
             return

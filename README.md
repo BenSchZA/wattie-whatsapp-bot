@@ -36,7 +36,7 @@ Class used for logging session uptime during operation.
 
 ## ScheduleManager Class
 
-Class for handling scheduled ***REMOVED*** deliveries and pushing to Celery task queues.
+Class for handling scheduled REMOVED deliveries and pushing to Celery task queues.
 
 ## API Module
 
@@ -46,7 +46,7 @@ The API provides the following functionality:
 2. Manually starting schedule handling
 3. Sending WhatsApp messages
 
-All transaction are routed through the API. The benefit of routing all transactions via the API is that we can use ElasticAPM to provide performance metrics e.g. the time it takes to deliver a ***REMOVED***.
+All transaction are routed through the API. The benefit of routing all transactions via the API is that we can use ElasticAPM to provide performance metrics e.g. the time it takes to deliver a REMOVED.
 
 ## FileManager Class
 
@@ -63,7 +63,7 @@ The FirebaseManager class manages the following:
 
 1. FireStore database connection
 2. Reading and updating user data
-3. Fetching the relevant ***REMOVED*** active subscriptions and schedules
+3. Fetching the relevant REMOVED active subscriptions and schedules
 
 ## LogManager/AlertManager/SMTPSHandler Class
 
@@ -96,7 +96,7 @@ The WhatsAppReceive class is a work in progress. It will handle the reception of
 ## Important Notes
 
 * When the Docker stack is restarted, the SessionManager purges all tasks.
-* The ***REMOVED*** delivery window is X hours before and after the current time: now-X >>> now >>> now+X
+* The REMOVED delivery window is X hours before and after the current time: now-X >>> now >>> now+X
 * A Delivery is a collection of content sent to a user, whereas a WhatsAppMessage is a message processed from a WhatsApp conversation.
 * All transactions going through the API are monitored using ElasticAPM, certain tasks implement ElasticAPM transactions too.
 * MongoDB is a legacy part of the application, which is not used - task queues with Redis have made it redundent.
@@ -136,19 +136,19 @@ The following environment variables need to be exported on the Docker host for t
 
 **FIREBASE_CERTIFICATE_PATH**: The path to the directory holding the Firebase certificate e.g. /home/ec2-user/secrets
 
-**FIREBASE_CERTIFICATE_NAME**: The name of the Firebase certificate e.g. ***REMOVED***
+**FIREBASE_CERTIFICATE_NAME**: The name of the Firebase certificate e.g. REMOVED
 
-*****REMOVED***_PASSWORD**: Password for general ***REMOVED*** authentication e.g. Flower
+**REMOVED_PASSWORD**: Password for general REMOVED authentication e.g. Flower
 
 **AUTH_TOKEN**: Token to authorize API requests. 'X-Auth-Token' header entry in HTTP request.
 
-e.g. `curl -H "X-Auth-Token: "$AUTH_TOKEN"" ***REMOVED***:8001/health`
+e.g. `curl -H "X-Auth-Token: "$AUTH_TOKEN"" REMOVED:8001/health`
 
 This means if the server is rebuilt, the actual Firebase certificate will need to be uploaded using `scp` and the relevant SSH key, for example:
 
 See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]
 
-`scp -i .ssh/ssh-key /home/yoda/secrets/***REMOVED*** ubuntu@ec2-url.com:~/secrets`
+`scp -i .ssh/ssh-key /home/yoda/secrets/REMOVED ubuntu@ec2-url.com:~/secrets`
 
 ### Docker-compose
 
@@ -166,7 +166,7 @@ Using the following SSH command is dual purpose, it both connects to the EC2 ins
 
 ## Flower: Celery interface
 
-> Go to port 5555, with username *****REMOVED***** and password *****REMOVED*****
+> Go to port 5555, with username **REMOVED** and password **REMOVED**
 
 ## Pruning Docker images
 
@@ -246,7 +246,7 @@ First SSH into the instance using the graphical user Wattie:
 
 > ssh -L 5901:127.0.0.1:5901 wattie@***REMOVED***
 
-password: ***REMOVED***
+password: REMOVED
 
 Start the VNC server on extension 1, it may say that it is already running:
 

@@ -28,8 +28,8 @@ handlers:
         mailhost:
           - smtp.sendgrid.net
           - 465
-        fromaddr: ***REMOVED***
-        toaddrs: ***REMOVED***
+        fromaddr: REMOVED
+        toaddrs: REMOVED
         subject: Wattie Critical Error
         credentials:
           - apikey

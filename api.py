@@ -148,12 +148,12 @@ def send_broadcast():
         return 'Broadcast started'
 
 
-@app.route('/***REMOVED***')
-def send_***REMOVED***():
+@app.route('/REMOVED')
+def send_REMOVED():
     uid = request.args.get('uid')
 
     if not check_auth():
-        app.logger.error('Failed to send ***REMOVED***: Unauthorized',
+        app.logger.error('Failed to send REMOVED: Unauthorized',
                          exc_info=True,
                          extra={
                              'uid': uid
@@ -162,7 +162,7 @@ def send_***REMOVED***():
     else:
         pass
 
-    logger.info('Handling /***REMOVED*** request: %s' % request.values)
+    logger.info('Handling /REMOVED request: %s' % request.values)
 
     uid = request.args.get('uid')
     number = request.args.get('number')
@@ -171,7 +171,7 @@ def send_***REMOVED***():
     url = request.args.get('url')
 
     if not number:
-        app.logger.error('Failed to send ***REMOVED***: Invalid number',
+        app.logger.error('Failed to send REMOVED: Invalid number',
                          exc_info=True,
                          extra={
                              'uid': uid
@@ -181,7 +181,7 @@ def send_***REMOVED***():
     if send_whatsapp(Delivery(number=number, txt=txt, media=media, url=url)):
         return 'Message sent to %s' % number, 200
     else:
-        app.logger.error('Failed to send ***REMOVED***',
+        app.logger.error('Failed to send REMOVED',
                          exc_info=True,
                          extra={
                              'uid': uid,

@@ -6,20 +6,20 @@ services:
             context: ./
             dockerfile: Dockerfile
             args:
-              ***REMOVED***_PASSWORD: $***REMOVED***_PASSWORD
+              REMOVED_PASSWORD: $REMOVED_PASSWORD
         environment:
             - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
-            - CELL_NUMBER='***REMOVED***'
+            - CELL_NUMBER='REMOVED'
             - MONITOR_FREQUENCY=10
             - TIMEOUT=30
             - AUTH_TOKEN=$AUTH_TOKEN
             - ELASTIC_APM_SERVICE_NAME=wattie-bot
-            - ELASTIC_APM_SERVER_URL=***REMOVED***:8200
+            - ELASTIC_APM_SERVER_URL=REMOVED:8200
             - ENABLE_DEBUG=False
-            - SLACK_HOOK_URL=***REMOVED***
+            - SLACK_HOOK_URL=REMOVED
             - PROCESS_NEW_USERS_PERIOD_HOURS=3 # new users will be processed every 3 hours
             - DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER=6 # i.e. delivery window time = 2*DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER
-            - ***REMOVED***_PASSWORD=$***REMOVED***_PASSWORD
+            - REMOVED_PASSWORD=$REMOVED_PASSWORD
         volumes:
             - pip_cache:/root/.cache/pip
             - ./downloads:/app/downloads

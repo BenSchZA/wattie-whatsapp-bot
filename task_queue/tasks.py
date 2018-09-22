@@ -133,14 +133,14 @@ def send_message(self, delivery: Delivery):
         client.end_transaction('send_message')
         client.capture_exception()
         self.retry(exc=e)
-        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to send message to number %s with txt: %s'
+        alert_manager.slack_alert('REMOVED REMOVED Failed to send message to number %s with txt: %s'
                                   % (delivery.number, delivery.txt))
 
 
 @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
 def download_and_deliver(self, user):
     try:
-        user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
+        user: User = jsonpickle.loads(user, classes=[User, User.REMOVED, Schedule])
 
         # Clear user db entry and downloads
         file_manager.remove_schedule(user.uid)
@@ -152,7 +152,7 @@ def download_and_deliver(self, user):
             path = file_manager.download_user_file(user)
 
         # Update/create database entry for logging and management
-        logger.debug('Scheduled time: %s' % user.***REMOVED***.scheduled_date)
+        logger.debug('Scheduled time: %s' % user.REMOVED.scheduled_date)
 
         schedule_id = file_manager.create_db_schedule(user, path)
 
@@ -170,9 +170,9 @@ def download_and_deliver(self, user):
 
 @app.task(bind=True, soft_time_limit=30, default_retry_delay=5, max_retries=5)
 def deliver(self, user, schedule):
-    user: User = jsonpickle.loads(user, classes=[User, User.***REMOVED***, Schedule])
+    user: User = jsonpickle.loads(user, classes=[User, User.REMOVED, Schedule])
     user_json = jsonpickle.dumps(user)
-    schedule = jsonpickle.loads(schedule, classes=[User, User.***REMOVED***, Schedule])
+    schedule = jsonpickle.loads(schedule, classes=[User, User.REMOVED, Schedule])
 
     try:
         if user.deliver_voicenote and not file_manager.does_path_exist(file_manager.get_user_download_path(user.uid)):
@@ -183,12 +183,12 @@ def deliver(self, user, schedule):
         if _deliver_schedule(schedule):
             file_manager.delete_user_file(user.uid)
             file_manager.mark_delivered(schedule)
-            user.***REMOVED***.delivered = True
+            user.REMOVED.delivered = True
             return True
         else:
-            user.***REMOVED***.delivered = False
+            user.REMOVED.delivered = False
             self.retry(exc=Exception('Delivery failed'))
-            alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
+            alert_manager.slack_alert('REMOVED REMOVED Failed to deliver REMOVED to user %s with schedule: %s'
                                       % (user.uid, str(schedule.__dict__)))
 
     except Exception as exc:
@@ -200,10 +200,10 @@ def deliver(self, user, schedule):
                 file_manager.delete_user_file(user.uid)
                 file_manager.remove_schedule(user.uid)
                 download_and_deliver.apply_async(args=[user_json], queue='download')
-                alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
+                alert_manager.slack_alert('REMOVED REMOVED Failed to deliver REMOVED to user %s with schedule: %s'
                                           % (user.uid, str(schedule.__dict__)))
         else:
-            alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
+            alert_manager.slack_alert('REMOVED REMOVED Failed to deliver REMOVED to user %s with schedule: %s'
                                       % (user.uid, str(schedule.__dict__)))
             raise exc
 
@@ -221,20 +221,20 @@ def _deliver_schedule(schedule: Schedule):
     # url = None
 
     if deliver_voicenote and deliver_weblink:
-        message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
+        message = "Hello %s! Here\'s your personalized REMOVED:" % schedule.name
         media = schedule.path
-        url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
+        url = "https://myREMOVED.com/REMOVED/%s" % schedule.REMOVED_token
         message = "%s %s" % (message, url)
     elif deliver_voicenote and not deliver_weblink:
-        message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
+        message = "Hello %s! Here\'s your personalized REMOVED:" % schedule.name
         media = schedule.path
     elif not deliver_voicenote and deliver_weblink:
-        message = "Hello %s! Here\'s your personalized ***REMOVED***:" % schedule.name
-        url = "https://my***REMOVED***.com/***REMOVED***/%s" % schedule.***REMOVED***_token
+        message = "Hello %s! Here\'s your personalized REMOVED:" % schedule.name
+        url = "https://myREMOVED.com/REMOVED/%s" % schedule.REMOVED_token
         message = "%s %s" % (message, url)
     else:
-        logger.error('***REMOVED*** failed to deliver to %s' % uid)
-        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
+        logger.error('REMOVED failed to deliver to %s' % uid)
+        alert_manager.slack_alert('REMOVED REMOVED Failed to deliver REMOVED to user %s with schedule: %s'
                                   % (uid, str(schedule.__dict__)))
         return False
 
@@ -249,15 +249,15 @@ def _deliver_schedule(schedule: Schedule):
         'X-Auth-Token': os.environ['AUTH_TOKEN']
     }
 
-    req = requests.get("http://0.0.0.0:8001/***REMOVED***", params=params, headers=headers)
+    req = requests.get("http://0.0.0.0:8001/REMOVED", params=params, headers=headers)
 
     if req.status_code == 200:
-        logger.info('***REMOVED*** delivered to %s' % uid)
+        logger.info('REMOVED delivered to %s' % uid)
         logger.debug('%s %s' % (req.status_code, req.reason))
         return True
     else:
-        logger.error('***REMOVED*** failed to deliver to %s' % uid)
+        logger.error('REMOVED failed to deliver to %s' % uid)
         logger.debug('%s %s' % (req.status_code, req.reason))
-        alert_manager.slack_alert('***REMOVED*** ***REMOVED*** Failed to deliver ***REMOVED*** to user %s with schedule: %s'
+        alert_manager.slack_alert('REMOVED REMOVED Failed to deliver REMOVED to user %s with schedule: %s'
                                   % (uid, str(schedule.__dict__)))
         return False

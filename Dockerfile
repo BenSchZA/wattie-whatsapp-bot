@@ -13,6 +13,6 @@ COPY . /app
 EXPOSE 8001
 EXPOSE 5050
 
-ARG ***REMOVED***_PASSWORD
+ARG REMOVED_PASSWORD
 
 CMD ["/usr/bin/supervisord", "-c", "/app/supervisord.conf"]
