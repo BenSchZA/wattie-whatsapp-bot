@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as exp_c
 from selenium.webdriver.common.by import By
 
-TIMEOUT = 30
+SELENIUM_TIMEOUT = 30
 
 
 def _clear_search(driver):
@@ -37,7 +37,7 @@ def clean_contact_number(contact_number):
 def try_search_for_contact(driver, contact_number):
     # Enter search text
     try:
-        search_bar = WebDriverWait(driver, TIMEOUT).until(
+        search_bar = WebDriverWait(driver, SELENIUM_TIMEOUT).until(
             exp_c.visibility_of_element_located((By.XPATH, "//input[@class='jN-F5 copyable-text selectable-text']"))
         )
         search_bar.click()
@@ -71,7 +71,7 @@ def try_search_for_contact(driver, contact_number):
         return False
     try:
         print('Fetching contact ID')
-        contact_id = WebDriverWait(driver, TIMEOUT).until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
+        contact_id = WebDriverWait(driver, SELENIUM_TIMEOUT).until(lambda _: contact_header.find_element_by_xpath(".//span[@class='_1wjpf']")) \
             .get_attribute('title')
     except TimeoutException:
         return False

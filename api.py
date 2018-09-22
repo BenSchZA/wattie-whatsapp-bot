@@ -140,7 +140,7 @@ def send_broadcast():
 
 
 def check_auth():
-    return request.headers.get('X-Auth-Token') == os.environ['AUTH_TOKEN']
+    return request.headers.get('X-Auth-Token') == os.environ['API_AUTH_TOKEN']
 
 
 def start():

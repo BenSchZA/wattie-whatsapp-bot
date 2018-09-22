@@ -8,12 +8,12 @@ services:
             args:
               DEFAULT_PASSWORD: $DEFAULT_PASSWORD
         environment:
-            - CELL_NUMBER='REMOVED'
+            - CELL_NUMBER=$CELL_NUMBER
             - MONITOR_FREQUENCY=10
-            - TIMEOUT=30
-            - AUTH_TOKEN=$AUTH_TOKEN
-            - ELASTIC_APM_SERVICE_NAME=wattie-bot
-            - ELASTIC_APM_SERVER_URL=REMOVED:8200
+            - SELENIUM_TIMEOUT=30
+            - API_AUTH_TOKEN=$API_AUTH_TOKEN
+            - ELASTIC_APM_SERVICE_NAME=$ELASTIC_APM_SERVICE_NAME
+            - ELASTIC_APM_SERVER_URL=$ELASTIC_APM_SERVER_URL # usually URL:8200
             - ENABLE_DEBUG=False
             - SLACK_ALERT_HOOK_URL=$SLACK_ALERT_HOOK_URL
             - PROCESS_NEW_USERS_PERIOD_HOURS=3 # new users will be processed every 3 hours

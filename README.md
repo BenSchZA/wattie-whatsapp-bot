@@ -132,9 +132,9 @@ The following environment variables need to be exported on the Docker host for t
 
 **DEFAULT_PASSWORD**: Password for general service authentication e.g. Flower
 
-**AUTH_TOKEN**: Token to authorize API requests. 'X-Auth-Token' header entry in HTTP request.
+**API_AUTH_TOKEN**: Token to authorize API requests. 'X-Auth-Token' header entry in HTTP request.
 
-e.g. `curl -H "X-Auth-Token: "$AUTH_TOKEN"" REMOVED:8001/health`
+e.g. `curl -H "X-Auth-Token: "$API_AUTH_TOKEN"" REMOVED:8001/health`
 
 See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]
 
@@ -146,7 +146,7 @@ See (Example syntax for Secure Copy)[http://www.hypexr.org/linux_scp_help.php]
 
 **MONITOR_FREQUENCY**: How often in seconds to check Wattie's health.
 
-**TIMEOUT**: How long to wait in seconds before refreshing or restarting the connection.
+**SELENIUM_TIMEOUT**: How long to wait in seconds before refreshing or restarting the connection.
 
 ## SSHing into EC2 host
 

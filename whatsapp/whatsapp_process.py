@@ -26,7 +26,7 @@ from domain.whatsapp_message import WhatsAppMessage
 from alert_manager import AlertManager
 import whatsapp.selenium_methods as selenium_methods
 
-TIMEOUT = 60
+SELENIUM_TIMEOUT = 60
 MESSAGE_LIMIT = 10
 
 binary = FirefoxBinary('/usr/bin/firefox-developer-edition')
@@ -48,7 +48,7 @@ class WhatsAppProcess:
         # self.driver = webdriver.Firefox(firefox_binary=binary)
         # self.driver.get('https://web.whatsapp.com/')
 
-        self.wait = WebDriverWait(self.driver, TIMEOUT)
+        self.wait = WebDriverWait(self.driver, SELENIUM_TIMEOUT)
 
         self.processed_conversation_ids = []
         self.previous_conversation_content = None

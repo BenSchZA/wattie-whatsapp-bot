@@ -246,7 +246,7 @@ def _deliver_schedule(schedule: Schedule):
     }
 
     headers = {
-        'X-Auth-Token': os.environ['AUTH_TOKEN']
+        'X-Auth-Token': os.environ['API_AUTH_TOKEN']
     }
 
     req = requests.get("http://0.0.0.0:8001/REMOVED", params=params, headers=headers)
