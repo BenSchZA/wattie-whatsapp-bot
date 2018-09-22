@@ -79,21 +79,6 @@ def handle_schedules():
     return 'Process started'
 
 
-@app.route('/process_new_users')
-def process_new_users():
-    if not check_auth():
-        return 'unauthorized', 400
-    else:
-        pass
-
-    logger.info('Handling /process_new_users request')
-
-    if tasks.queue_process_new_users():
-        return 'Process started'
-    else:
-        return 'Process failed, WhatsApp web not connected', 400
-
-
 @app.route('/message')
 def send_message():
     if not check_auth():
@@ -112,7 +97,7 @@ def send_message():
     if not number:
         return 'Invalid "number"', 400
 
-    message = Delivery(number, txt, url, media, filename)
+    message = Delivery(number=number, txt=txt, url=url, media=media, filename=filename)
 
     if tasks.queue_send_message(message):
         return 'Message \"%s\" for %s added to queue' % (txt, number)
@@ -147,47 +132,11 @@ def send_broadcast():
     if tasks.queue_send_broadcast(receivers, Delivery(txt=txt, url=url, media=media, filename=filename)):
         return 'Broadcast started'
 
-
-@app.route('/REMOVED')
-def send_REMOVED():
-    uid = request.args.get('uid')
-
-    if not check_auth():
-        app.logger.error('Failed to send REMOVED: Unauthorized',
-                         exc_info=True,
-                         extra={
-                             'uid': uid
-                         })
-        return 'unauthorized', 400
-    else:
-        pass
-
-    logger.info('Handling /REMOVED request: %s' % request.values)
-
-    uid = request.args.get('uid')
-    number = request.args.get('number')
-    txt = request.args.get('txt')
-    media = request.args.get('media')
-    url = request.args.get('url')
-
-    if not number:
-        app.logger.error('Failed to send REMOVED: Invalid number',
-                         exc_info=True,
-                         extra={
-                             'uid': uid
-                         })
-        return 'Invalid "number"', 400
-
-    if send_whatsapp(Delivery(number=number, txt=txt, media=media, url=url)):
-        return 'Message sent to %s' % number, 200
-    else:
-        app.logger.error('Failed to send REMOVED',
-                         exc_info=True,
-                         extra={
-                             'uid': uid,
-                             'number': number
-                         })
-        return 'Failed to send message', 400
+# app.logger.error('Failed to send REMOVED: Invalid number',
+#                  exc_info=True,
+#                  extra={
+#                      'uid': uid
+#                  })
 
 
 def check_auth():
