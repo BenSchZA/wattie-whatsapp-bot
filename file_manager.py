@@ -11,8 +11,6 @@ from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.errors import WriteError
 
-from google.api_core.exceptions import DeadlineExceeded, ServiceUnavailable
-
 from logging_config import log_manager
 from domain.user import User
 from domain.schedule import Schedule
@@ -84,70 +82,6 @@ class FileManager:
     def delete_download_files(self):
         self.logger.info("Deleting download files")
         return self._delete_path(self._get_download_dir())
-
-    def schedule(self):
-        self.logger.info("Method: schedule()")
-        if self.scheduler_running:
-            self.logger.info("Already running")
-            return
-        else:
-            self.scheduler_running = True
-            self.logger.info("Handling downloads")
-
-        # Get list of scheduled deliveries from Firebase database
-        try:
-            firebase_scheduled = []
-        except (DeadlineExceeded, ServiceUnavailable):
-            self.logger.exception("Failed handling downloads")
-            return
-        finally:
-            self.scheduler_running = False
-
-        # Remove and process overdue deliveries
-        self.logger.info('Processing overdue schedules')
-        overdue_schedules = self.get_overdue_schedules()
-        for schedule in overdue_schedules:
-            self.logger.error('Delivery overdue for %s' % schedule['uid'])
-            self.logger.error('Removing schedule for %s' % schedule['uid'])
-            self.delete_user_file(schedule['uid'])
-            self.remove_schedule(schedule['uid'])
-
-        # Filter scheduled deliveries
-        # Remove:
-        #  * undelivered or
-        #  * delivered inside current window
-        self.logger.info('Creating download queue')
-        download_queue = list(filter(lambda firebase_user:
-                                     not (self.downloads_collection.find_one({
-                                        "uid": firebase_user.uid,
-                                        "delivered": False
-                                        }) or self.downloads_collection.find_one({
-                                         "uid": firebase_user.uid,
-                                         "delivered": True,
-                                         "scheduled_millis": {
-                                             "$lt": utils.time_in_millis_utc() + utils.MILLIS_1_HOUR,
-                                             "$gt": utils.time_in_millis_utc()
-                                         }})),
-                                     firebase_scheduled))
-
-        self.logger.info('Processing download queue')
-        for user in download_queue:
-            self.logger.info('Downloading / scheduling for %s' % user.uid)
-
-            # Clear user db entry and downloads
-            self.delete_user_file(user.uid)
-            self.remove_schedule(user.uid)
-
-            path = ''
-            if user.deliver_voicenote:
-                path = self.download_user_file(user)
-
-            # Update/create database entry for logging and management
-            self.create_db_schedule(user, path)
-            self.logger.debug('Scheduled time: %s' % user.REMOVED.scheduled_date)
-
-        self.scheduler_running = False
-        self.logger.info("Finished handling downloads")
 
     def download_user_file(self, user: User):
         # Configure path
