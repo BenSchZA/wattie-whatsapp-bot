@@ -17,6 +17,7 @@ services:
             - ENABLE_DEBUG=False
             - SLACK_ALERT_HOOK_URL=$SLACK_ALERT_HOOK_URL
             - DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER=6 # i.e. delivery window time = 2*DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER
+            - DEFAULT_USERNAME=$DEFAULT_USERNAME
             - DEFAULT_PASSWORD=$DEFAULT_PASSWORD
         volumes:
             - pip_cache:/root/.cache/pip
