@@ -24,11 +24,13 @@ app.conf.task_queues = (
 app.conf.task_queue_max_priority = 10
 
 app.conf.timezone = 'UTC'
-app.conf.beat_schedule = {
-    'process-new-users_periodic': {
-        'task': 'tasks.process_new_users',
-        'schedule': datetime.timedelta(hours=int(os.environ['PROCESS_NEW_USERS_PERIOD_HOURS'])),
-        'relative': True,
-        'options': {'queue': 'process_message', 'task_id': 'unique_process-new-users'}
-    }
-}
+
+# Example periodic task:
+# app.conf.beat_schedule = {
+#     'process-new-users_periodic': {
+#         'task': 'tasks.process_new_users',
+#         'schedule': datetime.timedelta(hours=int(os.environ['PROCESS_NEW_USERS_PERIOD_HOURS'])),
+#         'relative': True,
+#         'options': {'queue': 'process_message', 'task_id': 'unique_process-new-users'}
+#     }
+# }

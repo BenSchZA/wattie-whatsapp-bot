@@ -13,8 +13,8 @@ from session_manager import SessionManager
 from domain.delivery import Delivery
 import whatsapp.selenium_methods as selenium_methods
 
-TIMEOUT = 30
-# TIMEOUT = os.environ['TIMEOUT']
+SELENIUM_TIMEOUT = 30
+# SELENIUM_TIMEOUT = os.environ['SELENIUM_TIMEOUT']
 
 
 class WhatsAppCli:
@@ -24,7 +24,7 @@ class WhatsAppCli:
 
         self.session = SessionManager
         self.driver = self.session.get_existing_driver_session()
-        self.wait = WebDriverWait(self.driver, TIMEOUT)
+        self.wait = WebDriverWait(self.driver, SELENIUM_TIMEOUT)
 
         self.number = None
         self.txt = None
@@ -70,7 +70,7 @@ class WhatsAppCli:
                 print('Contact header present: refreshing')
                 try:
                     self.driver.get('https://web.whatsapp.com/send?phone=' + self.number)
-                    WebDriverWait(self.driver, TIMEOUT).until(
+                    WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                         exp_c.staleness_of(contact_header)
                     )
                 except TimeoutException:
@@ -81,7 +81,7 @@ class WhatsAppCli:
 
         if self.txt:
             try:
-                content = WebDriverWait(self.driver, TIMEOUT).until(
+                content = WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
                 )
                 content.click()
@@ -96,7 +96,7 @@ class WhatsAppCli:
                 pass
 
             try:
-                send_button = WebDriverWait(self.driver, TIMEOUT).until(
+                send_button = WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.CLASS_NAME, "_35EW6"))
                 )
                 send_button.click()
@@ -110,7 +110,7 @@ class WhatsAppCli:
 
         if self.url:
             try:
-                content = WebDriverWait(self.driver, TIMEOUT).until(
+                content = WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@contenteditable='true']"))
                 )
                 content.click()
@@ -125,7 +125,7 @@ class WhatsAppCli:
                 pass
 
             try:
-                send_button = WebDriverWait(self.driver, TIMEOUT).until(
+                send_button = WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.CLASS_NAME, "_35EW6"))
                 )
                 send_button.click()
@@ -139,7 +139,7 @@ class WhatsAppCli:
 
         if self.media:
             try:
-                attach = WebDriverWait(self.driver, TIMEOUT).until(
+                attach = WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@title='Attach']"))
                 )
                 attach.click()
@@ -153,7 +153,7 @@ class WhatsAppCli:
             try:
                 file = self.driver.find_element_by_xpath("//input[@accept='*']")
                 self.driver.execute_script("arguments[0].style.display='block';", file)
-                WebDriverWait(self.driver, TIMEOUT).until(
+                WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                     exp_c.visibility_of(file)
                 )
                 file.send_keys(self.media)
@@ -166,15 +166,15 @@ class WhatsAppCli:
 
             try:
                 print('Sending attachment to ' + self.number)
-                send_file = WebDriverWait(self.driver, TIMEOUT).until(
+                send_file = WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3hV1n yavlE']"))
                 )
                 send_file.click()
                 print('Waiting for attachment to upload')
-                WebDriverWait(self.driver, TIMEOUT).until(
+                WebDriverWait(self.driver, SELENIUM_TIMEOUT).until(
                     exp_c.visibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
                 )
-                WebDriverWait(self.driver, TIMEOUT*10).until(
+                WebDriverWait(self.driver, SELENIUM_TIMEOUT*10).until(
                     exp_c.invisibility_of_element_located((By.XPATH, "//div[@class='_3SUnz']"))
                 )
                 print('Attachment sent to ' + self.number)

@@ -1,6 +1,8 @@
 venv/
-.idea/
+__pycache__
 logs/
 downloads/
 data/
 secrets.txt
+.idea/
+geckodriver.log

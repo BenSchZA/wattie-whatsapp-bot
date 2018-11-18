@@ -238,10 +238,10 @@ class SessionManager:
 
     @staticmethod
     def wait_until_connection_okay():
-        time_limit = time.time() + int(os.environ['TIMEOUT'])
+        time_limit = time.time() + int(os.environ['SELENIUM_TIMEOUT'])
 
         driver = SessionManager.get_existing_driver_session()
-        wait = WebDriverWait(driver, int(os.environ['TIMEOUT']))
+        wait = WebDriverWait(driver, int(os.environ['SELENIUM_TIMEOUT']))
 
         while time.time() < time_limit:
             if 'whatsapp' in driver.current_url\

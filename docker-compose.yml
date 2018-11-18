@@ -6,26 +6,24 @@ services:
             context: ./
             dockerfile: Dockerfile
             args:
-              REMOVED_PASSWORD: $REMOVED_PASSWORD
+              DEFAULT_PASSWORD: $DEFAULT_PASSWORD
         environment:
-            - FIREBASE_CERTIFICATE_LOCATION=/secrets/${FIREBASE_CERTIFICATE_NAME}
-            - CELL_NUMBER='REMOVED'
+            - CELL_NUMBER=$CELL_NUMBER
             - MONITOR_FREQUENCY=10
-            - TIMEOUT=30
-            - AUTH_TOKEN=$AUTH_TOKEN
-            - ELASTIC_APM_SERVICE_NAME=wattie-bot
-            - ELASTIC_APM_SERVER_URL=REMOVED:8200
+            - SELENIUM_TIMEOUT=30
+            - API_AUTH_TOKEN=$API_AUTH_TOKEN
+            - ELASTIC_APM_SERVICE_NAME=$ELASTIC_APM_SERVICE_NAME
+            - ELASTIC_APM_SERVER_URL=$ELASTIC_APM_SERVER_URL # usually URL:8200
             - ENABLE_DEBUG=False
-            - SLACK_HOOK_URL=REMOVED
-            - PROCESS_NEW_USERS_PERIOD_HOURS=3 # new users will be processed every 3 hours
+            - SLACK_ALERT_HOOK_URL=$SLACK_ALERT_HOOK_URL
             - DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER=6 # i.e. delivery window time = 2*DELIVERY_WINDOW_HOURS_BEFORE_AND_AFTER
-            - REMOVED_PASSWORD=$REMOVED_PASSWORD
+            - DEFAULT_USERNAME=$DEFAULT_USERNAME
+            - DEFAULT_PASSWORD=$DEFAULT_PASSWORD
         volumes:
             - pip_cache:/root/.cache/pip
             - ./downloads:/app/downloads
             - ./logs:/app/logs
             - ./data:/app/data
-            - ${FIREBASE_CERTIFICATE_PATH}:/secrets
         ports:
             - 8001:8001 # API
             - 5555:5555 # Flower: Celery admin
