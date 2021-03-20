@@ -21,7 +21,7 @@ greenlet==0.4.14
 grpcio==1.13.0
 idna==2.7
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 jsonpickle==0.9.6
 kombu==4.2.1
 MarkupSafe==1.0
