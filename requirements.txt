@@ -1,6 +1,6 @@
 amqp==2.3.2
 aniso8601==3.0.2
-Babel==2.6.0
+Babel==2.9.1
 billiard==3.5.0.4
 blinker==1.4
 CacheControl==0.12.5
