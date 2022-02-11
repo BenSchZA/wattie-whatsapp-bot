@@ -27,7 +27,7 @@ kombu==4.2.1
 MarkupSafe==1.0
 msgpack==0.5.6
 msgpack-python==0.5.6
-protobuf==3.6.0
+protobuf==3.15.0
 ptvsd==3.0.0
 pyaml==17.12.1
 pyasn1==0.4.3
